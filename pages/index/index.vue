@@ -21,11 +21,15 @@
 				</view>
 			</view>
 		</view>
+		<view class="mychart">
+			<chartIndexVue></chartIndexVue>
+		</view>
+		
 	</view>
 </template>
 
 <script setup>
-
+import chartIndexVue from '../../components/chart-index.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -100,6 +104,14 @@
 				}
 
 			}
+		}
+		.mychart{
+			box-sizing: border-box;
+			width: 100%;
+			height: 30%;
+			padding:0 25rpx 0 25rpx;
+			position: relative;
+			top: -150rpx;
 		}
 	}
 </style>
