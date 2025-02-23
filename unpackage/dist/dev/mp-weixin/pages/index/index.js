@@ -1,17 +1,34 @@
 "use strict";
-const common_assets = require("../../common/assets.js");
 const common_vendor = require("../../common/vendor.js");
+const common_assets = require("../../common/assets.js");
 if (!Math) {
-  chartIndexVue();
+  (chartIndexVue + listIndexVue + BottomNavigationBarVue)();
 }
 const chartIndexVue = () => "../../components/chart-index.js";
+const listIndexVue = () => "../../components/list-index.js";
+const BottomNavigationBarVue = () => "../../components/BottomNavigationBar.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    common_vendor.onMounted(() => {
+      getInfo();
+    });
+    const indexH = common_vendor.ref();
+    const getInfo = () => {
+      const instance = common_vendor.getCurrentInstance();
+      const query = common_vendor.index.createSelectorQuery().in(instance);
+      query.select(".index").boundingClientRect((data) => {
+        indexH.value = data.height;
+      }).exec();
+    };
     return (_ctx, _cache) => {
       return {
         a: common_assets._imports_0,
-        b: common_assets._imports_1
+        b: common_assets._imports_1,
+        c: indexH.value * 0.12 + "px",
+        d: common_vendor.p({
+          indexH: indexH.value
+        })
       };
     };
   }

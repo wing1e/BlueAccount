@@ -21,21 +21,46 @@
 				</view>
 			</view>
 		</view>
-		<view class="mychart">
+		<view class="mychart" :style="{top:indexH*0.12+'px'}">
 			<chartIndexVue></chartIndexVue>
 		</view>
-		
+		<view class="list">
+			<list-index-vue :indexH="indexH"></list-index-vue>
+		</view>
+		<view class="bnb">
+			<BottomNavigationBarVue></BottomNavigationBarVue>
+		</view>
 	</view>
 </template>
 
 <script setup>
+import { getCurrentInstance, onMounted, ref } from 'vue';
 import chartIndexVue from '../../components/chart-index.vue';
+import listIndexVue from '../../components/list-index.vue';
+import BottomNavigationBarVue from '../../components/BottomNavigationBar.vue';
+onMounted(()=>{
+	getInfo()
+})
+
+
+const indexH = ref()
+const getInfo = ()=>{
+	const instance = getCurrentInstance()
+	const query = uni.createSelectorQuery().in(instance)
+	query.select('.index')
+	.boundingClientRect((data)=>{
+		indexH.value = data.height
+	})
+	.exec()
+}
+
 </script>
 
 <style lang="scss" scoped>
 	.index {
 		width: 750rpx;
 		height:100vh;
+		position: static;
 		display: flex;
 		flex-direction: column;
 		.head {
@@ -110,8 +135,21 @@ import chartIndexVue from '../../components/chart-index.vue';
 			width: 100%;
 			height: 30%;
 			padding:0 25rpx 0 25rpx;
-			position: relative;
-			top: -150rpx;
+			position: absolute;
 		}
+		.list{
+			width: 100%;
+			height:55%;
+			position: absolute;
+			bottom: 0;
+		}
+		.bnb{
+			width: 100%;
+			height: 12%;
+			border: 1rpx solid black;
+			position: absolute;
+			bottom: 0;
+		}
+		
 	}
 </style>

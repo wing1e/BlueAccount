@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "ML",
   "usingComponents": {
-    "chart-index-vue": "../../components/chart-index"
+    "chart-index-vue": "../../components/chart-index",
+    "list-index-vue": "../../components/list-index",
+    "bottom-navigation-bar-vue": "../../components/BottomNavigationBar"
   }
 }

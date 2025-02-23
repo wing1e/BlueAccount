@@ -9,6 +9,8 @@ import { getCurrentInstance, onMounted, ref } from 'vue';
 onMounted(()=>{
 	init()
 })
+
+// 绘制图表
 const init = ()=>{
 	const instance = getCurrentInstance()
 	const chartWhith = ref()
@@ -17,31 +19,28 @@ const init = ()=>{
 	const query = uni.createSelectorQuery().in(instance)
 	query.select('.barChart')
 	.boundingClientRect((data)=>{
-		// canvas的高 data.height 宽 data.width
 		if(data){
-			console.log(data.height,data.width);
-			const ctxW = data.width
-			const ctxH = data.height
+			const ctxW = data.width //canvas的宽
+			const ctxH = data.height //canvas的高
 			// 绘制图形
 			const ctx = uni.createCanvasContext('barChart',instance)
-			// 上虚线
+			// 上实线
+			ctx.beginPath()
+			ctx.strokeStyle = '#E3E3E5'
+			ctx.lineWidth = 1
+			ctx.moveTo(0,30)
+			ctx.lineTo(ctxW,30)
+			// 下实线
+			ctx.moveTo(0,ctxH-50)
+			ctx.lineTo(ctxW,ctxH-50)
+			ctx.stroke()
+			// 中虚线
 			ctx.beginPath()
 			ctx.setLineDash([2,4]) //虚线样式 2px 的实线 3px 的空白
 			ctx.strokeStyle = '#E3E3E5'
 			ctx.lineWidth = 1
-			ctx.moveTo(0,20)
-			ctx.lineTo(ctxW,20)
-			// 下虚线
-			ctx.moveTo(0,ctxH-50)
-			ctx.lineTo(ctxW,ctxH-50)
-			ctx.stroke()
-			// 中实线
-			ctx.beginPath()
-			ctx.setLineDash([1,0]) 
-			ctx.strokeStyle = '#E3E3E5'
-			ctx.lineWidth = 1
-			ctx.moveTo(0,(ctxH-50)/2+10)
-			ctx.lineTo(ctxW,(ctxH-50)/2+10)
+			ctx.moveTo(0,(ctxH-50)/2+15)
+			ctx.lineTo(ctxW,(ctxH-50)/2+15)
 			ctx.stroke()
 			// 底部标题
 			const space = ctxW/6 //标题间隔大小
@@ -56,6 +55,7 @@ const init = ()=>{
 				{date:'00-00',textAlign:'right',x:ctxW},
 			]
 			ctx.setFontSize(8)
+			// 循环生成一周的日期
 			for (let i = 0; i <7; i++) {
 				const {date,textAlign,x} = weekStrings[i]
 				ctx.setTextAlign(textAlign)
@@ -67,9 +67,9 @@ const init = ()=>{
 		}
 	})
 	.exec()
-	
-	
 }
+
+
 </script>
 
 <style lang="scss">

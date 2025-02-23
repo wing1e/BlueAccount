@@ -13,25 +13,23 @@ const _sfc_main = {
       const query = common_vendor.index.createSelectorQuery().in(instance);
       query.select(".barChart").boundingClientRect((data) => {
         if (data) {
-          common_vendor.index.__f__("log", "at components/chart-index.vue:22", data.height, data.width);
           const ctxW = data.width;
           const ctxH = data.height;
           const ctx = common_vendor.index.createCanvasContext("barChart", instance);
           ctx.beginPath();
-          ctx.setLineDash([2, 4]);
           ctx.strokeStyle = "#E3E3E5";
           ctx.lineWidth = 1;
-          ctx.moveTo(0, 20);
-          ctx.lineTo(ctxW, 20);
+          ctx.moveTo(0, 30);
+          ctx.lineTo(ctxW, 30);
           ctx.moveTo(0, ctxH - 50);
           ctx.lineTo(ctxW, ctxH - 50);
           ctx.stroke();
           ctx.beginPath();
-          ctx.setLineDash([1, 0]);
+          ctx.setLineDash([2, 4]);
           ctx.strokeStyle = "#E3E3E5";
           ctx.lineWidth = 1;
-          ctx.moveTo(0, (ctxH - 50) / 2 + 10);
-          ctx.lineTo(ctxW, (ctxH - 50) / 2 + 10);
+          ctx.moveTo(0, (ctxH - 50) / 2 + 15);
+          ctx.lineTo(ctxW, (ctxH - 50) / 2 + 15);
           ctx.stroke();
           const space = ctxW / 6;
           const weekStrings = [
