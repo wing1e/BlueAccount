@@ -19,14 +19,14 @@ const _sfc_main = {
       const query = common_vendor.index.createSelectorQuery().in(instance);
       query.select(".index").boundingClientRect((data) => {
         indexH.value = data.height;
+        common_vendor.index.__f__("log", "at pages/index/index.vue:53", indexH.value);
       }).exec();
     };
     return (_ctx, _cache) => {
       return {
         a: common_assets._imports_0,
         b: common_assets._imports_1,
-        c: indexH.value * 0.12 + "px",
-        d: common_vendor.p({
+        c: common_vendor.p({
           indexH: indexH.value
         })
       };

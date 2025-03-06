@@ -26,9 +26,10 @@
 .index.data-v-1cf27b2a {
   width: 750rpx;
   height: 100vh;
-  position: static;
   display: flex;
+  justify-content: end;
   flex-direction: column;
+  position: static;
 }
 .index .head.data-v-1cf27b2a {
   width: 100%;
@@ -99,17 +100,17 @@
   height: 30%;
   padding: 0 25rpx 0 25rpx;
   position: absolute;
+  top: 12%;
 }
 .index .list.data-v-1cf27b2a {
   width: 100%;
-  height: 55%;
+  height: 43%;
   position: absolute;
-  bottom: 0;
+  top: 45%;
 }
 .index .bnb.data-v-1cf27b2a {
   width: 100%;
   height: 12%;
-  border: 1rpx solid black;
   position: absolute;
   bottom: 0;
 }

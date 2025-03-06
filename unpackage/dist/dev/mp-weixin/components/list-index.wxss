@@ -28,11 +28,65 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-.list .title {
-  width: 100%;
+  box-sizing: border-box;
+  background-color: #F2F6F9;
+  padding: 30rpx 10rpx 5rpx;
 }
 .list .detail {
   width: 100%;
+  height: 100%;
+}
+.list .detail .list-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.list .detail .list-scroll .list-item .list {
+  padding: 10rpx;
+  display: flex;
+  flex-direction: row;
+}
+.list .detail .list-scroll .list-item .list .item-data {
+  width: 10%;
+}
+.list .detail .list-scroll .list-item .list .items {
+  background-color: #fff;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20rpx;
+}
+.list .detail .list-scroll .list-item .list .items .item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120rpx;
+  position: relative;
+}
+.list .detail .list-scroll .list-item .list .items .item .divider {
+  width: 90%;
+  height: 3rpx;
+  position: absolute;
   background-color: #F2F6F9;
+  top: 0;
+}
+.list .detail .list-scroll .list-item .list .items .item .icon {
+  width: 15%;
+  height: 100%;
+}
+.list .detail .list-scroll .list-item .list .items .item .icon image {
+  width: 70rpx;
+  height: 70rpx;
+}
+.list .detail .list-scroll .list-item .list .items .item .detail {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+.list .detail .list-scroll .list-item .list .items .item .expense {
+  width: 25%;
+  height: 100%;
 }

@@ -21,10 +21,10 @@
 				</view>
 			</view>
 		</view>
-		<view class="mychart" :style="{top:indexH*0.12+'px'}">
+		<view class="mychart" >
 			<chartIndexVue></chartIndexVue>
 		</view>
-		<view class="list">
+		<view class="list" >
 			<list-index-vue :indexH="indexH"></list-index-vue>
 		</view>
 		<view class="bnb">
@@ -50,6 +50,7 @@ const getInfo = ()=>{
 	query.select('.index')
 	.boundingClientRect((data)=>{
 		indexH.value = data.height
+		console.log(indexH.value);
 	})
 	.exec()
 }
@@ -60,9 +61,10 @@ const getInfo = ()=>{
 	.index {
 		width: 750rpx;
 		height:100vh;
-		position: static;
 		display: flex;
+		justify-content: end;
 		flex-direction: column;
+		position: static;
 		.head {
 			width: 100%;
 			height: 22%;
@@ -136,17 +138,17 @@ const getInfo = ()=>{
 			height: 30%;
 			padding:0 25rpx 0 25rpx;
 			position: absolute;
+			top: 12%;
 		}
 		.list{
 			width: 100%;
-			height:55%;
+			height:43%;
 			position: absolute;
-			bottom: 0;
+			top: 45%;
 		}
 		.bnb{
 			width: 100%;
 			height: 12%;
-			border: 1rpx solid black;
 			position: absolute;
 			bottom: 0;
 		}
