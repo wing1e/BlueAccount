@@ -1,8 +1,9 @@
 {
   "navigationBarTitleText": "ML",
   "usingComponents": {
-    "chart-index-vue": "../../components/chart-index",
-    "list-index-vue": "../../components/list-index",
+    "u-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
+    "chart-index-vue": "./components/chart-index",
+    "list-index-vue": "./components/list-index",
     "bottom-navigation-bar-vue": "../../components/BottomNavigationBar"
   }
 }

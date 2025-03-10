@@ -4,11 +4,11 @@
 			<view class="total">
 				<view class="total-left">
 					<view class="total-pic">
-						<image src="/static/index-Icon/wallet.png" mode="aspectFill"></image>
+						<u-icon name="rmb-circle" color="#fff"  size="30"></u-icon>
 					</view>
 					<view class="total-num">
 						<text class="num-title">
-							支出
+							今日支出
 						</text>
 						<view class="num">
 							<image src="/static/index-Icon/money.png" mode="aspectFill"></image>
@@ -17,7 +17,7 @@
 					</view>
 				</view>
 				<view class="detail-btn">
-					明细
+					账单记录
 				</view>
 			</view>
 		</view>
@@ -35,9 +35,10 @@
 
 <script setup>
 import { getCurrentInstance, onMounted, ref } from 'vue';
-import chartIndexVue from '../../components/chart-index.vue';
-import listIndexVue from '../../components/list-index.vue';
+import chartIndexVue from './components/chart-index.vue';
+import listIndexVue from './components/list-index.vue';
 import BottomNavigationBarVue from '../../components/BottomNavigationBar.vue';
+import { getNodeInfo } from '../../utils/getnodeinfo';
 onMounted(()=>{
 	getInfo()
 })
@@ -46,13 +47,10 @@ onMounted(()=>{
 const indexH = ref()
 const getInfo = ()=>{
 	const instance = getCurrentInstance()
-	const query = uni.createSelectorQuery().in(instance)
-	query.select('.index')
-	.boundingClientRect((data)=>{
-		indexH.value = data.height
+	getNodeInfo(instance,'.index').then((res)=>{
+		indexH.value = res[0].height
 		console.log(indexH.value);
 	})
-	.exec()
 }
 
 </script>
@@ -90,10 +88,7 @@ const getInfo = ()=>{
 						display: flex;
 						justify-content: center;
 						align-items: center;
-						image {
-							width: 50%;
-							height: 50%;
-						}
+						
 					}
 					.total-num {
 						display: flex;

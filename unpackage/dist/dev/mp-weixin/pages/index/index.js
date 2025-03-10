@@ -1,11 +1,17 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-if (!Math) {
-  (chartIndexVue + listIndexVue + BottomNavigationBarVue)();
+const utils_getnodeinfo = require("../../utils/getnodeinfo.js");
+if (!Array) {
+  const _easycom_u_icon2 = common_vendor.resolveComponent("u-icon");
+  _easycom_u_icon2();
 }
-const chartIndexVue = () => "../../components/chart-index.js";
-const listIndexVue = () => "../../components/list-index.js";
+const _easycom_u_icon = () => "../../uni_modules/uview-plus/components/u-icon/u-icon.js";
+if (!Math) {
+  (_easycom_u_icon + chartIndexVue + listIndexVue + BottomNavigationBarVue)();
+}
+const chartIndexVue = () => "./components/chart-index.js";
+const listIndexVue = () => "./components/list-index.js";
 const BottomNavigationBarVue = () => "../../components/BottomNavigationBar.js";
 const _sfc_main = {
   __name: "index",
@@ -16,16 +22,19 @@ const _sfc_main = {
     const indexH = common_vendor.ref();
     const getInfo = () => {
       const instance = common_vendor.getCurrentInstance();
-      const query = common_vendor.index.createSelectorQuery().in(instance);
-      query.select(".index").boundingClientRect((data) => {
-        indexH.value = data.height;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:53", indexH.value);
-      }).exec();
+      utils_getnodeinfo.getNodeInfo(instance, ".index").then((res) => {
+        indexH.value = res[0].height;
+        common_vendor.index.__f__("log", "at pages/index/index.vue:52", indexH.value);
+      });
     };
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_0,
-        b: common_assets._imports_1,
+        a: common_vendor.p({
+          name: "rmb-circle",
+          color: "#fff",
+          size: "30"
+        }),
+        b: common_assets._imports_0,
         c: common_vendor.p({
           indexH: indexH.value
         })

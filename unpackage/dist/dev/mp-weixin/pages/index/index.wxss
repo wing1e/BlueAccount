@@ -59,10 +59,6 @@
   justify-content: center;
   align-items: center;
 }
-.index .head .total .total-left .total-pic image.data-v-1cf27b2a {
-  width: 50%;
-  height: 50%;
-}
 .index .head .total .total-left .total-num.data-v-1cf27b2a {
   display: flex;
   flex-direction: column;

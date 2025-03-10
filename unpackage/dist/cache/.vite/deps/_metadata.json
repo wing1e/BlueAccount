@@ -1,8 +1,15 @@
 {
-  "hash": "e0c8cb18",
-  "configHash": "ab0cca7b",
-  "lockfileHash": "e700a436",
-  "browserHash": "b40c2e2c",
-  "optimized": {},
+  "hash": "7aa38f7d",
+  "configHash": "dc02530a",
+  "lockfileHash": "a4b99777",
+  "browserHash": "abf9ce56",
+  "optimized": {
+    "dayjs/esm/index": {
+      "src": "../../../../../node_modules/dayjs/esm/index.js",
+      "file": "dayjs_esm_index.js",
+      "fileHash": "47b1ae81",
+      "needsInterop": false
+    }
+  },
   "chunks": {}
 }

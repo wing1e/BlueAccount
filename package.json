@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "pinia": "^3.0.1"
+    "pinia": "^3.0.1",
+    "uview-plus": "^3.3.74"
   }
 }
