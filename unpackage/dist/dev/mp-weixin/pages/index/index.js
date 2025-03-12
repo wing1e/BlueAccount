@@ -8,11 +8,11 @@ if (!Array) {
 }
 const _easycom_u_icon = () => "../../uni_modules/uview-plus/components/u-icon/u-icon.js";
 if (!Math) {
-  (_easycom_u_icon + chartIndexVue + listIndexVue + BottomNavigationBarVue)();
+  (_easycom_u_icon + chartIndexVue + listIndexVue + tabbarVue)();
 }
 const chartIndexVue = () => "./components/chart-index.js";
 const listIndexVue = () => "./components/list-index.js";
-const BottomNavigationBarVue = () => "../../components/BottomNavigationBar.js";
+const tabbarVue = () => "../../components/tabbar.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
@@ -30,9 +30,9 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
-          name: "rmb-circle",
+          name: "rmb",
           color: "#fff",
-          size: "30"
+          size: "26"
         }),
         b: common_assets._imports_0,
         c: common_vendor.p({

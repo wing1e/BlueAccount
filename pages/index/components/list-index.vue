@@ -147,7 +147,7 @@ import { getNodeAllInfo, getNodeInfo } from '../../../utils/getnodeinfo';
 		flex-direction: column;
 		box-sizing: border-box;
 		background-color: #F2F6F9;
-		padding: 30rpx 10rpx 5rpx;
+		padding: 0rpx 15rpx 5rpx;
 		.detail{
 			width: 100%;
 			height: 100%;
@@ -157,7 +157,7 @@ import { getNodeAllInfo, getNodeInfo } from '../../../utils/getnodeinfo';
 				overflow: auto;
 				.list-item{
 					.list{
-						margin-top: 10rpx;
+						margin-top: 20rpx;
 						display: flex;
 						flex-direction: row;
 						justify-content:flex-end;
@@ -171,6 +171,7 @@ import { getNodeAllInfo, getNodeInfo } from '../../../utils/getnodeinfo';
 							left: 0;
 							height: calc(100% + 10rpx);
 							.data-word{
+								
 								display: flex;
 								flex-direction: column;
 								align-items: center;
@@ -205,6 +206,7 @@ import { getNodeAllInfo, getNodeInfo } from '../../../utils/getnodeinfo';
 						}
 						.items{
 							background-color: #fff;
+							box-shadow: 0rpx 6rpx 15rpx 2rpx rgba(0, 0, 0, 0.1);
 							width: 85%;
 							display: flex;
 							flex-direction: column;

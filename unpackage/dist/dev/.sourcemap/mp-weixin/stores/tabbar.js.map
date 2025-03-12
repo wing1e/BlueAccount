@@ -1,0 +1,1 @@
+{"version":3,"file":"tabbar.js","sources":["stores/tabbar.js"],"sourcesContent":["import { defineStore } from \"pinia\";\r\nexport const tabBarStore = defineStore('tabbar',{\r\n\tstate:()=>{\r\n\t\treturn {status:0}\r\n\t}\r\n})"],"names":["defineStore"],"mappings":";;AACY,MAAC,cAAcA,cAAW,YAAC,UAAS;AAAA,EAC/C,OAAM,MAAI;AACT,WAAO,EAAC,QAAO,EAAC;AAAA,EAChB;AACF,CAAC;;"}

@@ -4,7 +4,7 @@
 			<view class="total">
 				<view class="total-left">
 					<view class="total-pic">
-						<u-icon name="rmb-circle" color="#fff"  size="30"></u-icon>
+						<u-icon name="rmb" color="#fff"  size="26"></u-icon>
 					</view>
 					<view class="total-num">
 						<text class="num-title">
@@ -27,8 +27,8 @@
 		<view class="list" >
 			<list-index-vue :indexH="indexH"></list-index-vue>
 		</view>
-		<view class="bnb">
-			<BottomNavigationBarVue></BottomNavigationBarVue>
+		<view class="tabbar">
+			<tabbarVue></tabbarVue>
 		</view>
 	</view>
 </template>
@@ -37,7 +37,7 @@
 import { getCurrentInstance, onMounted, ref } from 'vue';
 import chartIndexVue from './components/chart-index.vue';
 import listIndexVue from './components/list-index.vue';
-import BottomNavigationBarVue from '../../components/BottomNavigationBar.vue';
+import tabbarVue from '../../components/tabbar.vue';
 import { getNodeInfo } from '../../utils/getnodeinfo';
 onMounted(()=>{
 	getInfo()
@@ -57,12 +57,12 @@ const getInfo = ()=>{
 
 <style lang="scss" scoped>
 	.index {
-		width: 750rpx;
+		width: 100%;
 		height:100vh;
 		display: flex;
 		justify-content: end;
 		flex-direction: column;
-		position: static;
+		position: relative;
 		.head {
 			width: 100%;
 			height: 22%;
@@ -133,19 +133,16 @@ const getInfo = ()=>{
 			height: 30%;
 			padding:0 25rpx 0 25rpx;
 			position: absolute;
-			top: 12%;
+			bottom: 55%;
 		}
 		.list{
 			width: 100%;
 			height:43%;
-			position: absolute;
-			top: 45%;
+			margin-top: auto;
 		}
-		.bnb{
+		.tabbar{
 			width: 100%;
 			height: 12%;
-			position: absolute;
-			bottom: 0;
 		}
 		
 	}

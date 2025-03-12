@@ -30,7 +30,7 @@
   flex-direction: column;
   box-sizing: border-box;
   background-color: #F2F6F9;
-  padding: 30rpx 10rpx 5rpx;
+  padding: 0rpx 15rpx 5rpx;
 }
 .list-index .detail {
   width: 100%;
@@ -42,7 +42,7 @@
   overflow: auto;
 }
 .list-index .detail .list-scroll .list-item .list {
-  margin-top: 10rpx;
+  margin-top: 20rpx;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -90,6 +90,7 @@
 }
 .list-index .detail .list-scroll .list-item .list .items {
   background-color: #fff;
+  box-shadow: 0rpx 6rpx 15rpx 2rpx rgba(0, 0, 0, 0.1);
   width: 85%;
   display: flex;
   flex-direction: column;

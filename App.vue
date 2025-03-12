@@ -4,6 +4,7 @@
 			console.log('App Launch')
 		},
 		onShow: function() {
+			uni.hideTabBar()
 			console.log('App Show')
 		},
 		onHide: function() {

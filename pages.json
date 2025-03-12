@@ -6,8 +6,27 @@
 				"navigationBarTitleText": "ML"
 				
 			}
+		},
+		{
+			"path" : "pages/contents/contents",
+			"style" : 
+			{
+				"navigationBarTitleText" : "账单"
+			}
 		}
 	],
+	"tabBar": {
+	    "list": [
+	      {
+	        "pagePath": "pages/index/index",
+	        "text": "首页"
+	      },
+	      {
+	        "pagePath": "pages/contents/contents",
+	        "text": "账单"
+	      }
+		]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",

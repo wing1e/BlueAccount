@@ -1,12 +1,25 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/contents/contents"
   ],
   "window": {
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#003498",
     "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/contents/contents",
+        "text": "账单"
+      }
+    ]
   },
   "usingComponents": {}
 }
