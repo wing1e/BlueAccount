@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const common_assets = require("../../common/assets.js");
-const utils_getnodeinfo = require("../../utils/getnodeinfo.js");
+const stores_userinfo = require("../../stores/userinfo.js");
 if (!Array) {
   const _easycom_u_icon2 = common_vendor.resolveComponent("u-icon");
   _easycom_u_icon2();
@@ -16,16 +15,34 @@ const tabbarVue = () => "../../components/tabbar.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    common_vendor.onMounted(() => {
-      getInfo();
+    const { getLastData, getTotalDay } = stores_userinfo.userInfoStore();
+    const total = common_vendor.computed(() => {
+      const lastDate = getLastData.date;
+      const { expense } = getTotalDay(lastDate);
+      return expense;
     });
-    const indexH = common_vendor.ref();
-    const getInfo = () => {
-      const instance = common_vendor.getCurrentInstance();
-      utils_getnodeinfo.getNodeInfo(instance, ".index").then((res) => {
-        indexH.value = res[0].height;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:52", indexH.value);
-      });
+    const istoday = () => {
+      const today = (/* @__PURE__ */ new Date()).toLocaleDateString();
+      const lastDate = getLastData.date;
+      try {
+        const d1 = parseDateString(today);
+        const d2 = parseDateString(lastDate);
+        const result = d1.year === d2.year && d1.month === d2.month && d1.day === d2.day;
+        return result;
+      } catch (e) {
+        return false;
+      }
+    };
+    const parseDateString = (dateStr) => {
+      const parts = dateStr.split(/[-/]/);
+      if (parts.length !== 3) {
+        throw new Error("无效的日期格式");
+      }
+      return {
+        year: parseInt(parts[0], 10),
+        month: parseInt(parts[1], 10),
+        day: parseInt(parts[2], 10)
+      };
     };
     return (_ctx, _cache) => {
       return {
@@ -34,10 +51,8 @@ const _sfc_main = {
           color: "#fff",
           size: "26"
         }),
-        b: common_assets._imports_0,
-        c: common_vendor.p({
-          indexH: indexH.value
-        })
+        b: common_vendor.t(istoday() ? "今日支出" : "最近一天的支出"),
+        c: common_vendor.t(total.value)
       };
     };
   }

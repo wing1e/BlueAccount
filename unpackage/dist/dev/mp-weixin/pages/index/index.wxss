@@ -75,10 +75,6 @@
   font-size: 60rpx;
   color: white;
 }
-.index .head .total .total-left .total-num .num image.data-v-1cf27b2a {
-  width: 15rpx;
-  height: 25rpx;
-}
 .index .head .total .detail-btn.data-v-1cf27b2a {
   width: 26%;
   background-color: #3361B6;

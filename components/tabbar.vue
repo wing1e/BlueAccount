@@ -58,7 +58,7 @@
 		position: relative;
 		.addbtn{
 			background-color: #00B6E6;
-			width: 15%;
+			width: 13%;
 			aspect-ratio: 1/1;
 			position: absolute;
 			display: flex;

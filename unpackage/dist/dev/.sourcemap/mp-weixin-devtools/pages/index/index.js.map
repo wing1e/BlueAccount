@@ -1,0 +1,1 @@
+{"version":3,"names":["wx","createPage","MiniProgramPage"],"sources":["cGFnZXMvaW5kZXgvaW5kZXgudnVl"],"sourcesContent":["import MiniProgramPage from 'D:/Work/WorkSpace/MyProject/MoneyLover/pages/index/index.vue'\nwx.createPage(MiniProgramPage)"],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AACAA,EAAA,CAAGC,UAAA,CAAWC,eAAe","ignoreList":[]}

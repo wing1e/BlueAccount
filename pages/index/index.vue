@@ -8,11 +8,10 @@
 					</view>
 					<view class="total-num">
 						<text class="num-title">
-							今日支出
+							{{istoday()?"今日支出":"最近一天的支出"}}
 						</text>
 						<view class="num">
-							<image src="/static/index-Icon/money.png" mode="aspectFill"></image>
-							<text>12,345</text>
+							<text>{{total}}</text>
 						</view>
 					</view>
 				</view>
@@ -25,7 +24,7 @@
 			<chartIndexVue></chartIndexVue>
 		</view>
 		<view class="list" >
-			<list-index-vue :indexH="indexH"></list-index-vue>
+			<list-index-vue></list-index-vue>
 		</view>
 		<view class="tabbar">
 			<tabbarVue></tabbarVue>
@@ -34,24 +33,50 @@
 </template>
 
 <script setup>
-import { getCurrentInstance, onMounted, ref } from 'vue';
+import { computed, getCurrentInstance, onMounted, ref } from 'vue';
 import chartIndexVue from './components/chart-index.vue';
 import listIndexVue from './components/list-index.vue';
 import tabbarVue from '../../components/tabbar.vue';
 import { getNodeInfo } from '../../utils/getnodeinfo';
-onMounted(()=>{
-	getInfo()
+import { userInfoStore } from '../../stores/userinfo';
+
+const {getLastData,getTotalDay} = userInfoStore()
+
+const total = computed(()=>{
+	const lastDate = getLastData.date
+	const {expense} = getTotalDay(lastDate)
+	return expense
 })
-
-
-const indexH = ref()
-const getInfo = ()=>{
-	const instance = getCurrentInstance()
-	getNodeInfo(instance,'.index').then((res)=>{
-		indexH.value = res[0].height
-		console.log(indexH.value);
-	})
+// 判断是不是今天
+const istoday = () =>{
+	const today = new Date().toLocaleDateString()
+	const lastDate = getLastData.date
+	try{
+		const d1 = parseDateString(today)
+		const d2 = parseDateString(lastDate)
+		const result = d1.year === d2.year && d1.month === d2.month && d1.day === d2.day
+		return result
+	}catch(e){
+		
+		return false
+	}
+	
 }
+
+// 解析日期
+const parseDateString = (dateStr) =>{
+	const parts = dateStr.split(/[-/]/)
+	if(parts.length !==3){
+		throw new Error('无效的日期格式')
+	}
+	return {
+		year:parseInt(parts[0],10),
+		month:parseInt(parts[1],10),
+		day:parseInt(parts[2],10)
+	}
+
+}
+
 
 </script>
 
@@ -103,10 +128,6 @@ const getInfo = ()=>{
 							text {
 								font-size: 60rpx;
 								color: white;
-							}
-							image {
-								width: 15rpx;
-								height: 25rpx;
 							}
 
 						}

@@ -6189,9 +6189,9 @@ function populateParameters(fromRes, toRes) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "4.55",
-    uniCompilerVersion: "4.55",
-    uniRuntimeVersion: "4.55",
+    uniCompileVersion: "4.56",
+    uniCompilerVersion: "4.56",
+    uniRuntimeVersion: "4.56",
     uniPlatform: "mp-weixin",
     deviceBrand,
     deviceModel: model,
@@ -6340,9 +6340,9 @@ const getAppBaseInfo = {
       appLanguage: getAppLanguage(hostLanguage),
       isUniAppX: false,
       uniPlatform: "mp-weixin",
-      uniCompileVersion: "4.55",
-      uniCompilerVersion: "4.55",
-      uniRuntimeVersion: "4.55"
+      uniCompileVersion: "4.56",
+      uniCompilerVersion: "4.56",
+      uniRuntimeVersion: "4.56"
     };
     extend(toRes, parameters);
   }
@@ -7049,9 +7049,9 @@ function initOnError() {
   };
 }
 function initRuntimeSocketService() {
-  const hosts = "192.168.1.10,127.0.0.1";
+  const hosts = "192.168.227.89,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_nTQ15y";
+  const id = "mp-weixin_8Jq_83";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -8760,6 +8760,7 @@ const Pinia = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 }, Symbol.toStringTag, { value: "Module" }));
 exports.Pinia = Pinia;
 exports._export_sfc = _export_sfc;
+exports.computed = computed;
 exports.createPinia = createPinia;
 exports.createSSRApp = createSSRApp;
 exports.defineStore = defineStore;
@@ -8771,9 +8772,8 @@ exports.n = n;
 exports.o = o;
 exports.onMounted = onMounted;
 exports.p = p;
-exports.reactive = reactive;
-exports.ref = ref;
 exports.resolveComponent = resolveComponent;
 exports.s = s;
 exports.t = t;
+exports.unref = unref;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map
