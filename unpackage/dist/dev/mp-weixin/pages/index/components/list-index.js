@@ -12,17 +12,18 @@ if (!Math) {
 const _sfc_main = {
   __name: "list-index",
   setup(__props) {
-    const {
-      datalist
-    } = stores_userinfo.userInfoStore();
+    const { datalist, getLastsevenData } = stores_userinfo.userInfoStore();
+    const data = common_vendor.computed(() => {
+      return datalist.slice(-7).reverse();
+    });
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.f(common_vendor.unref(datalist), (value, key, i0) => {
+        a: common_vendor.f(data.value, (value, key, i0) => {
           return common_vendor.e({
             a: common_vendor.t(value.date.split("-")[1] + "-" + value.date.split("-")[2]),
             b: common_vendor.t(value.date.split("-")[0] + "年"),
-            c: key !== common_vendor.unref(datalist).length - 1
-          }, key !== common_vendor.unref(datalist).length - 1 ? {} : {}, {
+            c: key !== data.value.length - 1
+          }, key !== data.value.length - 1 ? {} : {}, {
             d: common_vendor.f(value.records, (item, i, i1) => {
               return common_vendor.e({
                 a: i !== 0

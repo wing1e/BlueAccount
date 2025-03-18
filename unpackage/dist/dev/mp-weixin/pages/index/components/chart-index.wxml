@@ -1,1 +1,1 @@
-<view class="chart"><canvas canvas-id="barChart" class="barChart"></canvas></view>
+<view class="chart"><view class="title"><text style="font-size:20rpx">{{a}}</text><text style="font-size:18rpx">{{b}}</text></view><canvas canvas-id="barChart" class="barChart"></canvas></view>

@@ -24,16 +24,26 @@
 /* 透明度 */
 /* 文章场景相关 */
 .chart {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   background-color: #fff;
   box-shadow: 0rpx 6rpx 28rpx 0rpx rgba(0, 0, 0, 0.1);
   border-radius: 30rpx;
+  padding: 0 15rpx 15rpx;
+  position: relative;
+}
+.chart .title {
+  position: absolute;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
+  color: #282C35;
+  top: 20px;
+  left: 10px;
 }
 .chart .barChart {
-  width: 95%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
 }

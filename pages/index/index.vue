@@ -19,10 +19,11 @@
 					账单记录
 				</view>
 			</view>
+			<view class="mychart" >
+				<chartIndexVue></chartIndexVue>
+			</view>
 		</view>
-		<view class="mychart" >
-			<chartIndexVue></chartIndexVue>
-		</view>
+		
 		<view class="list" >
 			<list-index-vue></list-index-vue>
 		</view>
@@ -80,18 +81,22 @@ const parseDateString = (dateStr) =>{
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.index {
 		width: 100%;
 		height:100vh;
 		display: flex;
-		justify-content: end;
 		flex-direction: column;
 		position: relative;
 		.head {
+			box-sizing: border-box;
 			width: 100%;
-			height: 22%;
+			height: 30%;
 			background-color: #003498;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			padding:0 25rpx 15rpx 25rpx;
 			.total {
 				width: 100%;
 				display: flex;
@@ -145,25 +150,22 @@ const parseDateString = (dateStr) =>{
 					line-height: 60rpx;
 					text-align: center;
 				}
+			}
+			.mychart{
+				width: 100%;
+				height: 100%;
 
 			}
+		
 		}
-		.mychart{
-			box-sizing: border-box;
-			width: 100%;
-			height: 30%;
-			padding:0 25rpx 0 25rpx;
-			position: absolute;
-			bottom: 55%;
-		}
+		
 		.list{
 			width: 100%;
-			height:43%;
-			margin-top: auto;
+			height:63%;
 		}
 		.tabbar{
 			width: 100%;
-			height: 12%;
+			height: 7%;
 		}
 		
 	}

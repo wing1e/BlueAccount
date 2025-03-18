@@ -1,7 +1,7 @@
 <template>
 	<view class="list-index">
 		<view class="list-item">
-			<view class="list" v-for="(value,key) in datalist" :key="key">
+			<view class="list" v-for="(value,key) in data" :key="key">
 				<!-- 时间轴 -->
 				<view class="item-data">
 					<view class="data-word">
@@ -10,7 +10,7 @@
 					</view>
 					<view class="data-line">
 						<view class="dot"></view>
-						<view class="line" v-if="key!==datalist.length-1">
+						<view class="line" v-if="key!==data.length-1">
 						</view>
 					</view>
 				</view>
@@ -42,24 +42,25 @@
 </template>
 
 <script setup>
-	import {
-		reactive,
-		ref,
-		getCurrentInstance
-	} from 'vue';
-	import {
-		getNodeAllInfo,
-		getNodeInfo
-	} from '../../../utils/getnodeinfo';
-	import {
-		userInfoStore
-	} from '../../../stores/userinfo';
-	const {
-		datalist
-	} = userInfoStore()
+	import {reactive,ref,getCurrentInstance, computed} from 'vue';
+	import {getNodeAllInfo,getNodeInfo} from '../../../utils/getnodeinfo';
+	import {userInfoStore} from '../../../stores/userinfo';
+	const {datalist,getLastsevenData} = userInfoStore()
+	const data = computed(()=> {
+		return datalist.slice(-7).reverse()
+	})
+
+	
+	
 </script>
 
 <style lang="scss">
+	@mixin flex-center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
 	.list-index {
 		width: 100%;
 		height: 100%;
@@ -67,13 +68,14 @@
 		flex-direction: column;
 		box-sizing: border-box;
 		background-color: #F2F6F9;
-		padding: 0rpx 15rpx 5rpx;
+		padding: 0rpx 15rpx 0;
 
 		.list-item {
 				width: 100%;
 				height: 100%;
 				overflow: auto;
-
+				display: flex;
+				flex-direction: column;
 				.list {
 					margin-top: 20rpx;
 					display: flex;
@@ -88,10 +90,9 @@
 						align-items: center;
 						position: absolute;
 						left: 0;
-						height: calc(100% + 10rpx);
+						height: calc(100% + 20rpx);
 
 						.data-word {
-
 							display: flex;
 							flex-direction: column;
 							align-items: center;
@@ -137,14 +138,10 @@
 						display: flex;
 						flex-direction: column;
 						border-radius: 20rpx;
-
 						.item {
-							display: flex;
-							align-items: center;
-							justify-content: center;
+							@include flex-center;
 							height: 120rpx;
 							position: relative;
-
 							.divider {
 								width: 90%;
 								height: 3rpx;
@@ -156,9 +153,7 @@
 							.icon {
 								width: 15%;
 								height: 100%;
-								display: flex;
-								justify-content: center;
-								align-items: center;
+								@include flex-center;
 							}
 
 							.detail {

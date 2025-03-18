@@ -20,7 +20,7 @@
 		flex-direction: column;
 		.tabbar{
 			width: 100%;
-			height: 12%;
+			height: 7%;
 			margin-top: auto;
 		}
 	}
