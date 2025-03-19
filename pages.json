@@ -8,10 +8,10 @@
 			}
 		},
 		{
-			"path" : "pages/contents/contents",
+			"path" : "pages/chart/index",
 			"style" : 
 			{
-				"navigationBarTitleText" : "账单"
+				"navigationBarTitleText" : "图表"
 			}
 		}
 	],
@@ -22,7 +22,7 @@
 	        "text": "首页"
 	      },
 	      {
-	        "pagePath": "pages/contents/contents",
+	        "pagePath": "pages/chart/index",
 	        "text": "账单"
 	      }
 		]

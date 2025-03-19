@@ -15,20 +15,20 @@ const _sfc_main = {
   __name: "tabbar",
   setup(__props) {
     const btnInfo = [
-      { title: "首页", uncheck: "home", check: "home-filled", status: 0 },
-      { title: "图表", uncheck: "bars", check: "bars", status: 1 },
+      { title: "首页", uncheck: "home", check: "home-fill", status: 0 },
+      { title: "图表", uncheck: "order", check: "order", status: 1 },
       { title: "资产", uncheck: "rmb-circle", check: "rmb-circle-fill", status: 2 },
       { title: "我的", uncheck: "account", check: "account-fill", status: 3 }
     ];
-    const judgeStatus = (status) => {
-      if (status === stores_tabbar.tabBarStore().status) {
-        return "#0039A4";
+    const changeIcon = (item) => {
+      if (item.status === stores_tabbar.tabBarStore().status) {
+        return { color: "#0039A4", icon: item.check };
       }
-      return "#8B97A9";
+      return { color: "#8B97A9", icon: item.uncheck };
     };
     const navigationMap = /* @__PURE__ */ new Map([
       [0, "/pages/index/index"],
-      [1, "/pages/contents/contents"]
+      [1, "/pages/chart/index"]
     ]);
     const navigation = (status) => {
       if (status === stores_tabbar.tabBarStore().status)
@@ -46,19 +46,20 @@ const _sfc_main = {
           return {
             a: "373c25d2-0-" + i0,
             b: common_vendor.p({
-              name: item.uncheck,
+              name: changeIcon(item).icon,
               size: "28",
-              color: judgeStatus(item.status)
+              color: changeIcon(item).color
             }),
             c: common_vendor.t(item.title),
-            d: judgeStatus(item.status),
+            d: changeIcon(item).color,
             e: index,
             f: common_vendor.o(($event) => navigation(item.status), index)
           };
         }),
         b: common_vendor.p({
           type: "plusempty",
-          size: "30"
+          size: "30",
+          color: "#fff"
         })
       };
     };

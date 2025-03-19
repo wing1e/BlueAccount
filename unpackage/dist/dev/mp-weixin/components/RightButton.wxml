@@ -1,0 +1,1 @@
+<view class="circle"><uni-icons wx:if="{{a}}" u-i="a96f4136-0" bind:__l="__l" u-p="{{a}}"></uni-icons></view>

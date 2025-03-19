@@ -1,0 +1,1 @@
+<view class="chart"><view class="contents"><view class="pie-chart"> 1 </view><view class="line-chart"> 2 </view><view class="bar-chart"> 3 </view></view><view class="tabbar"><tabbar-vue u-i="4c14fc94-0" bind:__l="__l"></tabbar-vue></view></view>

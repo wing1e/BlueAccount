@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/contents/contents"
+    "pages/chart/index"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -16,7 +16,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/contents/contents",
+        "pagePath": "pages/chart/index",
         "text": "账单"
       }
     ]

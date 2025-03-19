@@ -23,25 +23,29 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.index {
+.chart {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
-.index .head {
+.chart .contents {
+  border: 1rpx solid black;
   width: 100%;
-  height: 30%;
+  height: 93%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
   padding: 20rpx;
-  background: linear-gradient(to bottom, #0039A4 50%, #fff 50%);
 }
-.index .list {
+.chart .contents view {
   width: 100%;
-  height: 63%;
+  margin-top: 20rpx;
+  background-color: rosybrown;
 }
-.index .tabbar {
+.chart .tabbar {
   width: 100%;
   height: 7%;
 }

@@ -1,5 +1,9 @@
 <template>
 	<view class="list-index">
+		<view class="list-head">
+			<text style="font-weight: 600;font-size: 26rpx;letter-spacing: 4rpx;margin-left: 25rpx;">七日交易</text>
+			<uni-icons type="right" size="20" color="#00B6E6" style="margin-right: 25rpx;"></uni-icons>
+		</view>
 		<view class="list-item">
 			<view class="list" v-for="(value,key) in data" :key="key">
 				<!-- 时间轴 -->
@@ -19,9 +23,6 @@
 					<view class="item" v-for="(item,i) in  value.records" :key="i">
 						<view class="divider" v-if="i!==0">
 						</view>
-						<view class="icon">
-							<u-icon name="star" size="30"></u-icon>
-						</view>
 						<view class="detail">
 							<view class="category">
 								{{item.category}}
@@ -30,6 +31,7 @@
 								{{item.note}}
 							</view>
 						</view>
+						
 						<view class="amount">
 							{{item.type==='income'?item.amount:'-'+item.amount}}
 						</view>
@@ -66,13 +68,20 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		box-sizing: border-box;
 		background-color: #F2F6F9;
-		padding: 0rpx 15rpx 0;
-
+		.list-head{
+			height: 5%;
+			background-color: #fff;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 5rpx solid #e5e9ea;
+		}
 		.list-item {
 				width: 100%;
-				height: 100%;
+				height: 95%;
+				padding: 0rpx 20rpx 0;
+				box-sizing: border-box;
 				overflow: auto;
 				display: flex;
 				flex-direction: column;
@@ -142,6 +151,8 @@
 							@include flex-center;
 							height: 120rpx;
 							position: relative;
+							padding:20rpx;
+							box-sizing: border-box;
 							.divider {
 								width: 90%;
 								height: 3rpx;
@@ -149,31 +160,29 @@
 								background-color: #F2F6F9;
 								top: 0;
 							}
-
-							.icon {
-								width: 15%;
-								height: 100%;
-								@include flex-center;
-							}
-
 							.detail {
-								width: 60%;
 								height: 100%;
 								display: flex;
 								flex-direction: column;
-								align-items: start;
-								justify-content: center;
+								align-items: left;
+								justify-content: space-around;
 
-								.category {}
+								.category {
+									font-size: 27rpx;
+									letter-spacing: 2rpx;
+								}
 
-								.note {}
+								.note {
+									font-size: 18rpx;
+									color:#8B97A9 ;
+								}
 							}
 
 							.amount {
-								width: 25%;
+								display: flex;
+								align-items: start;
+								margin-left: auto;
 								height: 100%;
-								line-height: 120rpx;
-								text-align: center;
 							}
 						}
 					}

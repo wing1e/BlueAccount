@@ -1,14 +1,16 @@
 <template>
 	<view class="tabbar">
 		<view class="bottomBtn" v-for="(item,index) in btnInfo" :key="index" @click="navigation(item.status)">
-			<u-icon :name="item.uncheck" size="28" :color="judgeStatus(item.status)"></u-icon>
-			<text :style="{color:judgeStatus(item.status)}">{{item.title}}</text>
+			<u-icon :name="changeIcon(item).icon" size="28" :color="changeIcon(item).color"></u-icon>
+			<text :style="{color:changeIcon(item).color}">{{item.title}}</text>
 		</view>
+		<!-- 添加按钮的半圆形边框 -->
 		<view class="addbtn">
 			<view class="cir" ></view>
 		</view>
+		<!-- 添加按钮 -->
 		<view class="icon_add">
-			<uni-icons type="plusempty" size="30"></uni-icons>
+			<uni-icons type="plusempty" size="30" color="#fff"></uni-icons>
 		</view>
 	</view>
 </template>
@@ -16,24 +18,25 @@
 <script setup>
 	import { tabBarStore } from '../stores/tabbar';
 	const btnInfo = [
-		{title:'首页',uncheck:'home',check:'home-filled',status:0},
-		{title:'图表',uncheck:'bars',check:'bars',status:1},
+		{title:'首页',uncheck:'home',check:'home-fill',status:0},
+		{title:'图表',uncheck:'order',check:'order',status:1},
 		{title:'资产',uncheck:'rmb-circle',check:'rmb-circle-fill',status:2},
 		{title:'我的',uncheck:'account',check:'account-fill',status:3}
 	]
 	
-	// 判断当前页面
-	const judgeStatus = (status) =>{
-		if(status===tabBarStore().status){
-			return '#0039A4'
+	
+	// 改变颜色
+	const changeIcon = (item) =>{
+		if(item.status===tabBarStore().status){
+			return {color:'#0039A4',icon:item.check}
 		}
-		return '#8B97A9'
+		return {color:'#8B97A9',icon:item.uncheck} 
 	}
 	
 	// [status,'页面路径']
 	const navigationMap = new Map([
 		[0,'/pages/index/index'],
-		[1,'/pages/contents/contents']
+		[1,'/pages/chart/index']
 	])
 	
 	// 路由

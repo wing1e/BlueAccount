@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "图表",
+  "usingComponents": {
+    "tabbar-vue": "../../components/tabbar"
+  }
+}

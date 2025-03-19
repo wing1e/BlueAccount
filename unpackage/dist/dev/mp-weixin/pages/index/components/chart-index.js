@@ -2,12 +2,16 @@
 const common_vendor = require("../../../common/vendor.js");
 const utils_chartIndex = require("../../../utils/chartIndex.js");
 const stores_userinfo = require("../../../stores/userinfo.js");
+if (!Math) {
+  RightButton();
+}
+const RightButton = () => "../../../components/RightButton.js";
 const _sfc_main = {
   __name: "chart-index",
   setup(__props) {
     common_vendor.onMounted(() => {
       const instance = common_vendor.getCurrentInstance();
-      utils_chartIndex.init(instance, chartData.value);
+      utils_chartIndex.init(instance, chartData.value, ".barChart", "barChart");
     });
     const store = stores_userinfo.userInfoStore();
     const chartData = common_vendor.computed(() => {
@@ -19,8 +23,9 @@ const _sfc_main = {
     const total = common_vendor.computed(() => chartData.value.reduce((acc, { expense }) => acc + expense, 0));
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.t("总支出：" + total.value),
-        b: common_vendor.t("平均值：" + (total.value / 7).toFixed(2))
+        a: common_vendor.t("3月支出"),
+        b: common_vendor.t("-" + total.value),
+        c: common_vendor.t("平均值：" + (total.value / 7).toFixed(2))
       };
     };
   }

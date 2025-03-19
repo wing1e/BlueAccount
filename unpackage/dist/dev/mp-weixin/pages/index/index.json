@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "ML",
   "usingComponents": {
-    "u-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
     "chart-index-vue": "./components/chart-index",
     "list-index-vue": "./components/list-index",
     "tabbar-vue": "../../components/tabbar"

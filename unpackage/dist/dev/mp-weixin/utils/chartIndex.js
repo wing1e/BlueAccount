@@ -1,24 +1,19 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 const utils_getnodeinfo = require("./getnodeinfo.js");
-const init = (instance, chartData) => {
-  utils_getnodeinfo.getNodeInfo(instance, ".barChart").then((res) => {
-    const { width: ctxW, height: ctxH } = res[0];
-    const ctx = common_vendor.index.createCanvasContext("barChart", instance);
-    common_vendor.index.__f__("log", "at utils/chartIndex.js:12", ctxH);
-    const yMin = 50;
+const init = async (instance, chartData, className, canvasId) => {
+  try {
+    const canvasNode = await utils_getnodeinfo.getNodeInfo(instance, className);
+    const { width: ctxW, height: ctxH } = canvasNode[0];
+    const ctx = common_vendor.index.createCanvasContext(canvasId, instance);
+    const yMin = 100;
     const yMax = ctxH - 15;
-    ctx.beginPath();
-    ctx.strokeStyle = "#E3E3E5";
-    ctx.lineWidth = 1;
-    ctx.moveTo(0, yMin);
-    ctx.lineTo(ctxW, yMin);
     ctx.moveTo(0, yMax);
     ctx.lineTo(ctxW, yMax);
+    ctx.strokeStyle = "#E3E3E5";
     ctx.stroke();
     ctx.beginPath();
     ctx.setLineDash([2, 4]);
-    ctx.strokeStyle = "#E3E3E5";
     ctx.lineWidth = 1;
     ctx.moveTo(0, (yMax + yMin) / 2);
     ctx.lineTo(ctxW, (yMax + yMin) / 2);
@@ -50,19 +45,21 @@ const init = (instance, chartData) => {
     ctx.lineWidth = 0.5;
     ctx.moveTo(points[0].x, points[0].y);
     points.forEach((point) => ctx.lineTo(point.x, point.y));
-    ctx.strokeStyle = "#000000";
+    ctx.strokeStyle = "#909090";
     ctx.setLineDash([1, 0]);
     ctx.stroke();
     points.forEach((point) => {
       ctx.beginPath();
       ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
-      ctx.fillStyle = "#0039A4";
+      ctx.fillStyle = "#00B6E6";
       ctx.fill();
       ctx.lineWidth = 0.5;
       ctx.stroke();
     });
     ctx.draw();
-  });
+  } catch (error) {
+    common_vendor.index.__f__("log", "at utils/chartIndex.js:87", error);
+  }
 };
 exports.init = init;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/utils/chartIndex.js.map

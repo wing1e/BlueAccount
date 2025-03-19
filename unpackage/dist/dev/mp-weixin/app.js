@@ -4,7 +4,7 @@ const common_vendor = require("./common/vendor.js");
 const uni_modules_uviewPlus_index = require("./uni_modules/uview-plus/index.js");
 if (!Math) {
   "./pages/index/index.js";
-  "./pages/contents/contents.js";
+  "./pages/chart/index.js";
 }
 const _sfc_main = {
   onLaunch: function() {
