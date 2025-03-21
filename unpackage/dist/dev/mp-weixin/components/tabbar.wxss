@@ -23,7 +23,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.tabbar {
+.tabbar.data-v-c6a4bdcf {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -32,10 +32,10 @@
   justify-content: space-between;
   box-sizing: border-box;
   padding: 10rpx 0 0 10rpx;
-  border-top: 5rpx solid #b1b4b6;
+  border-top: 3rpx solid #e5e9ea;
   position: relative;
 }
-.tabbar .addbtn {
+.tabbar .addbtn.data-v-c6a4bdcf {
   width: 100rpx;
   height: 50rpx;
   box-sizing: border-box;
@@ -45,15 +45,15 @@
   left: 50%;
   top: 0;
 }
-.tabbar .addbtn .cir {
+.tabbar .addbtn .cir.data-v-c6a4bdcf {
   background-color: #fff;
   width: 100rpx;
   aspect-ratio: 1/1;
   border-radius: 50%;
   box-sizing: border-box;
-  border: #b1b4b6 5rpx solid;
+  border: #e5e9ea 3rpx solid;
 }
-.tabbar .icon_add {
+.tabbar .icon_add.data-v-c6a4bdcf {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,14 +67,22 @@
   left: 50%;
   top: 0;
 }
-.tabbar .bottomBtn {
-  width: 22%;
+.tabbar .btns.data-v-c6a4bdcf {
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   font-size: 20rpx;
 }
-.tabbar .bottomBtn:nth-child(3) {
+.tabbar .btns .bottomBtn.data-v-c6a4bdcf {
+  width: 22%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+.tabbar .bottomBtn.data-v-c6a4bdcf:nth-child(3) {
   margin-left: auto;
 }

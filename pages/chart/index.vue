@@ -1,17 +1,14 @@
 <template>
-	<view class="chart">
+	<view class="container">
 		<view class="contents">
-			<!-- 饼状图 -->
-			<view class="pie-chart">
-				1
-			</view>
-			<!-- 折线图 -->
-			<view class="line-chart">
-				2
-			</view>
-			<!-- 柱状图 -->
-			<view class="bar-chart">
-				3
+			<view v-for="(item,index) in chartList" :key="index" :style="{height:item.height}">
+				<panelVue :title="item.title" :interval="item.interval">
+					<template slot="chart">
+						<pieChartVue v-if="index===0"></pieChartVue>
+						<lineChartVue v-if="index===1"></lineChartVue>
+						<barChartVue v-if="index===2"></barChartVue>
+					</template>
+				</panelVue>
 			</view>
 		</view>
 		<view class="tabbar">
@@ -23,9 +20,38 @@
 
 <script setup>
 	import tabbarVue from '../../components/tabbar.vue';
+	import panelVue from './components/panel.vue';
+	import pieChartVue from './components/pieChart.vue';
+	import lineChartVue from './components/lineChart.vue';
+	import barChartVue from './components/barChart.vue'
+	import {chartInterval} from '../../stores/chartinterval'
+
+	const {status} = chartInterval()
+	const chartList = [
+		{
+			title:'分类统计',
+			component:pieChartVue,
+			interval:status.pieChart,
+			height:'30%'
+		},
+		{
+			title:'日趋势',
+			component:lineChartVue,
+			interval:status.lineChart,
+			height:'25%'
+			
+		},
+		{
+			title:'月度收支',
+			component:barChartVue,
+			interval:status.pieChart,
+			height:'25%'
+		}
+	]
+
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@mixin black-border {
 		border: 1rpx solid black;
 	}
@@ -34,13 +60,13 @@
 		align-items: center;
 		justify-content: center;
 	}
-	.chart{
+	.container{
 		width: 100%;
 		height:100vh;
 		display: flex;
 		flex-direction: column;
+		background-color: #F2F6F9;
 		.contents{
-			@include black-border;
 			width: 100%;
 			height: 93%;
 			box-sizing: border-box;
@@ -52,7 +78,6 @@
 			view{
 				width: 100%;
 				margin-top: 20rpx;
-				background-color: rosybrown;
 			}
 		}
 		.tabbar{

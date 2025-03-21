@@ -23,14 +23,14 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.chart {
+.container.data-v-4bc47aea {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #F2F6F9;
 }
-.chart .contents {
-  border: 1rpx solid black;
+.container .contents.data-v-4bc47aea {
   width: 100%;
   height: 93%;
   box-sizing: border-box;
@@ -40,12 +40,11 @@
   justify-content: start;
   padding: 20rpx;
 }
-.chart .contents view {
+.container .contents view.data-v-4bc47aea {
   width: 100%;
   margin-top: 20rpx;
-  background-color: rosybrown;
 }
-.chart .tabbar {
+.container .tabbar.data-v-4bc47aea {
   width: 100%;
   height: 7%;
 }

@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const userInfoStore = common_vendor.defineStore("userinfo", {
+const utils_nowDate = require("../utils/now-date.js");
+const userInfoStore = common_vendor.defineStore("userInfo", {
   state: () => {
     return {
       datalist: [
@@ -173,7 +174,7 @@ const userInfoStore = common_vendor.defineStore("userinfo", {
             {
               "time": "19:00:00",
               "type": "expense",
-              "category": "学习",
+              "category": "教育",
               "amount": 300,
               "payment": "微信支付-零钱",
               "note": "购买在线课程",
@@ -284,7 +285,7 @@ const userInfoStore = common_vendor.defineStore("userinfo", {
             {
               "time": "10:00:00",
               "type": "expense",
-              "category": "旅游",
+              "category": "旅行",
               "amount": 1200,
               "payment": "支付宝-余额",
               "note": "周末短途旅行",
@@ -329,12 +330,62 @@ const userInfoStore = common_vendor.defineStore("userinfo", {
     };
   },
   getters: {
+    // 获取所有日期(原数据起始日期至今)
+    completionDate() {
+      const parseLocalDate = (dateStr) => {
+        const [year, month, day] = dateStr.split("-").map(Number);
+        return new Date(year, month - 1, day);
+      };
+      const startDateStr = this.datalist[0].date;
+      const endDateStr = utils_nowDate.getNowDate().date;
+      let currentDate = parseLocalDate(startDateStr);
+      const endDate = parseLocalDate(endDateStr);
+      const dateArr = [];
+      while (currentDate <= endDate) {
+        const formattedDate = [
+          currentDate.getFullYear(),
+          String(currentDate.getMonth() + 1).padStart(2, "0"),
+          String(currentDate.getDate()).padStart(2, "0")
+        ].join("-");
+        dateArr.push(formattedDate);
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      return dateArr;
+    },
+    // 填充所有日期
+    fillData() {
+      this.completionDate.forEach((date) => {
+        const dayData = this.datalist.find((d) => d.date === date);
+        if (!dayData) {
+          const newDay = {
+            date,
+            weekday: "",
+            records: []
+          };
+          this.datalist.push(newDay);
+          this.datalist.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateA - dateB;
+          });
+        }
+      });
+    },
     // 获取最后一天的信息
     getLastData() {
       return this.datalist[this.datalist.length - 1];
     }
   },
   actions: {
+    // 获取一周数据
+    getWeekData(targetDate) {
+    },
+    // 获取一月数据
+    getMonthData(targetDate) {
+    },
+    // 获取一年数据
+    getYearData(targetDate) {
+    },
     // 获取单日统计
     getTotalDay(targetDate) {
       const dayData = this.datalist.find((d) => d.date === targetDate);
@@ -368,9 +419,9 @@ const userInfoStore = common_vendor.defineStore("userinfo", {
       }, { income: 0, expense: 0 });
     },
     // 获取月统计 e.g ('2025-3')
-    getTotalMon(month) {
+    getTotalMon(targetDate) {
       return this.datalist.reduce((acc, day) => {
-        if (day.date.startsWith(month)) {
+        if (day.date.startsWith(targetDate)) {
           day.records.forEach((record) => {
             record.type === "income" ? acc.income += record.amount : acc.expense += record.amount;
           });
@@ -379,15 +430,57 @@ const userInfoStore = common_vendor.defineStore("userinfo", {
       }, { income: 0, expense: 0 });
     },
     // 获取年统计 e.g ('2025')
-    getTotalYear(year) {
+    getTotalYear(targetDate) {
       return this.datalist.reduce((acc, day) => {
-        if (day.date.startsWith(year)) {
+        if (day.date.startsWith(targetDate)) {
           day.records.forEach((record) => {
             record.type === "income" ? acc.income += record.amount : acc.expense += record.amount;
           });
         }
         return acc;
       }, { income: 0, expense: 0 });
+    },
+    // 分类统计
+    getCategoryPercentages(startDate, endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      const filteredData = this.datalist.filter((day) => {
+        const date = new Date(day.date);
+        return date >= start && date <= end;
+      });
+      const categoryIncome = {};
+      const categoryExpense = {};
+      let totalIncome = 0;
+      let totalExpense = 0;
+      filteredData.forEach((day) => {
+        day.records.forEach((record) => {
+          if (record.type === "income") {
+            totalIncome += record.amount;
+            if (!categoryIncome[record.category]) {
+              categoryIncome[record.category] = 0;
+            }
+            categoryIncome[record.category] += record.amount;
+          } else {
+            totalExpense += record.amount;
+            if (!categoryExpense[record.category]) {
+              categoryExpense[record.category] = 0;
+            }
+            categoryExpense[record.category] += record.amount;
+          }
+        });
+      });
+      const categoryIncomePercentages = {};
+      const categoryExpensePercentages = {};
+      for (const category in categoryIncome) {
+        categoryIncomePercentages[category] = (categoryIncome[category] / totalIncome * 100).toFixed(2);
+      }
+      for (const category in categoryExpense) {
+        categoryExpensePercentages[category] = (categoryExpense[category] / totalExpense * 100).toFixed(2);
+      }
+      return {
+        income: categoryIncomePercentages,
+        expense: categoryExpensePercentages
+      };
     }
   }
 });

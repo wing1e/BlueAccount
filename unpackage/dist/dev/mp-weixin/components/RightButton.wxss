@@ -23,7 +23,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.circle {
+.circle.data-v-31d693eb {
   display: flex;
   justify-content: center;
   align-items: center;

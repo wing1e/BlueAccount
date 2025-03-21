@@ -1,1 +1,1 @@
-<view class="circle"><uni-icons wx:if="{{a}}" u-i="a96f4136-0" bind:__l="__l" u-p="{{a}}"></uni-icons></view>
+<view class="circle data-v-31d693eb"><uni-icons wx:if="{{a}}" class="data-v-31d693eb" u-i="31d693eb-0" bind:__l="__l" u-p="{{a}}"></uni-icons></view>

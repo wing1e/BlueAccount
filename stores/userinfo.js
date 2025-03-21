@@ -1,8 +1,9 @@
 import {
 	defineStore
 } from "pinia";
-
-export const userInfoStore = defineStore('userinfo', {
+import {getNowDate} from '../utils/now-date.js'
+import { date } from "../uni_modules/uview-plus/libs/function/test.js";
+export const userInfoStore = defineStore('userInfo', {
 	state: () => {
 		return {
 			datalist: [
@@ -168,7 +169,7 @@ export const userInfoStore = defineStore('userinfo', {
 						{
 							"time": "19:00:00",
 							"type": "expense",
-							"category": "学习",
+							"category": "教育",
 							"amount": 300.00,
 							"payment": "微信支付-零钱",
 							"note": "购买在线课程",
@@ -274,7 +275,7 @@ export const userInfoStore = defineStore('userinfo', {
 					"records": [{
 							"time": "10:00:00",
 							"type": "expense",
-							"category": "旅游",
+							"category": "旅行",
 							"amount": 1200.00,
 							"payment": "支付宝-余额",
 							"note": "周末短途旅行",
@@ -318,12 +319,84 @@ export const userInfoStore = defineStore('userinfo', {
 		}
 	},
 	getters:{
+		
+		// 获取所有日期(原数据起始日期至今)
+		completionDate() {
+			// 辅助函数：将日期字符串转换为本地Date对象（午夜时间）
+			const parseLocalDate = (dateStr) => {
+				const [year, month, day] = dateStr.split('-').map(Number);
+				return new Date(year, month - 1, day); // 月份从0开始
+			};
+		
+			// 获取起始和结束日期字符串
+			const startDateStr = this.datalist[0].date;
+			const endDateStr = getNowDate().date;
+		
+			// 转换为Date对象
+			let currentDate = parseLocalDate(startDateStr);
+			const endDate = parseLocalDate(endDateStr);
+		
+			const dateArr = [];
+			
+			// 循环直到当前日期超过结束日期
+			while (currentDate <= endDate) {
+				// 格式化为YYYY-MM-DD
+				const formattedDate = [
+					currentDate.getFullYear(),
+					String(currentDate.getMonth() + 1).padStart(2, '0'),
+					String(currentDate.getDate()).padStart(2, '0')
+				].join('-');
+				
+				dateArr.push(formattedDate);
+				
+				// 增加一天
+				currentDate.setDate(currentDate.getDate() + 1);
+			}
+			return dateArr;
+		},
+		
+		// 填充所有日期
+		fillData(){
+			this.completionDate.forEach(date => {
+				// 判断日期是否存在
+				const dayData = this.datalist.find(d => d.date === date);
+				if (!dayData) {
+					// 不存在则创建一个新的日期对象
+					const newDay = {
+						date: date,
+						weekday: '',
+						records: []
+					};
+					// 添加到datalist中
+					this.datalist.push(newDay);
+					// 对日期进行排序
+					this.datalist.sort((a, b) => {
+						const dateA = new Date(a.date);
+						const dateB = new Date(b.date);
+						return dateA - dateB;
+					});
+				}	
+			})	
+		},
+		
 		// 获取最后一天的信息
 		getLastData(){
 			return this.datalist[this.datalist.length-1]
 		}
 	},
 	actions: {
+		// 获取一周数据
+		getWeekData(targetDate){
+			
+		},
+		// 获取一月数据
+		getMonthData(targetDate){
+			
+		},
+		// 获取一年数据
+		getYearData(targetDate){
+			
+		},
 		// 获取单日统计
 		getTotalDay(targetDate) {
 			// 判断日期是否存在
@@ -343,6 +416,7 @@ export const userInfoStore = defineStore('userinfo', {
 				expense: 0
 			});
 		},
+		
 		// 获取周统计
 		 getTotalWeek(targetDate) {
 		      const date = new Date(targetDate);
@@ -364,10 +438,11 @@ export const userInfoStore = defineStore('userinfo', {
 		        return acc;
 		      }, { income: 0, expense: 0 });
 		    },
+			
 		// 获取月统计 e.g ('2025-3')
-		 getTotalMon(month) {
+		 getTotalMon(targetDate) {
 		      return this.datalist.reduce((acc, day) => {
-		        if (day.date.startsWith(month)) {
+		        if (day.date.startsWith(targetDate)) {
 		          day.records.forEach(record => {
 		            record.type === 'income' 
 		              ? acc.income += record.amount 
@@ -377,10 +452,11 @@ export const userInfoStore = defineStore('userinfo', {
 		        return acc;
 		      }, { income: 0, expense: 0 });
 		    },
+			
 		// 获取年统计 e.g ('2025')
-		 getTotalYear(year) {
+		 getTotalYear(targetDate) {
 		      return this.datalist.reduce((acc, day) => {
-		        if (day.date.startsWith(year)) {
+		        if (day.date.startsWith(targetDate)) {
 		          day.records.forEach(record => {
 		            record.type === 'income' 
 		              ? acc.income += record.amount 
@@ -389,6 +465,61 @@ export const userInfoStore = defineStore('userinfo', {
 		        }
 		        return acc;
 		      }, { income: 0, expense: 0 });
+		},
+		
+		// 分类统计
+		getCategoryPercentages(startDate,endDate){
+			const start = new Date(startDate);
+			const end = new Date(endDate);
+			// 过滤目标日期的数据
+			const filteredData = this.datalist.filter(day => {
+				const date = new Date(day.date);
+				return date >= start && date <= end;
+			});
+
+			const categoryIncome = {};
+			const categoryExpense = {};
+			let totalIncome = 0;
+			let totalExpense = 0;
+
+			  // 遍历筛选后的数据
+			  filteredData.forEach(day => {
+				day.records.forEach(record => {
+					if (record.type === 'income') {
+						// 累加收入
+						totalIncome += record.amount;
+						if (!categoryIncome[record.category]) {
+							categoryIncome[record.category] = 0;
+						}
+						categoryIncome[record.category] += record.amount;
+					} else {
+						// 累加支出
+						totalExpense += record.amount;
+						if (!categoryExpense[record.category]) {
+							categoryExpense[record.category] = 0;
+						}
+						categoryExpense[record.category] += record.amount;
+					}
+				});
+			});
+			
+			// 计算百分比
+			const categoryIncomePercentages = {};
+			const categoryExpensePercentages = {};
+			for (const category in categoryIncome) {
+				categoryIncomePercentages[category] = ((categoryIncome[category] / totalIncome) * 100).toFixed(2);
+		
+			}
+			for (const category in categoryExpense) {
+				categoryExpensePercentages[category] = ((categoryExpense[category] / totalExpense) * 100).toFixed(2);
+			}
+
+			return {
+				income: categoryIncomePercentages,
+				expense: categoryExpensePercentages	
+			}
 		}
+
+		
 	}
 })

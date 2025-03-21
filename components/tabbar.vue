@@ -1,9 +1,12 @@
 <template>
 	<view class="tabbar">
-		<view class="bottomBtn" v-for="(item,index) in btnInfo" :key="index" @click="navigation(item.status)">
-			<u-icon :name="changeIcon(item).icon" size="28" :color="changeIcon(item).color"></u-icon>
-			<text :style="{color:changeIcon(item).color}">{{item.title}}</text>
+		<view class="btns">
+			<view class="bottomBtn" v-for="(item,index) in btnInfo" :key="index" @click="navigation(item.status)">
+				<u-icon :name="changeIcon(item).icon" size="28" :color="changeIcon(item).color"></u-icon>
+				<text :style="{color:changeIcon(item).color}">{{item.title}}</text>
+			</view>
 		</view>
+		
 		<!-- 添加按钮的半圆形边框 -->
 		<view class="addbtn">
 			<view class="cir" ></view>
@@ -52,7 +55,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@mixin flex-center {
 		display: flex;
 		justify-content: center;
@@ -67,7 +70,7 @@
 		justify-content: space-between;
 		box-sizing: border-box;
 		padding: 10rpx 0 0 10rpx;
-		border-top: 5rpx solid #b1b4b6;
+		border-top: 3rpx solid #e5e9ea;
 		position: relative;
 		.addbtn{
 			width: 100rpx;
@@ -84,7 +87,7 @@
 				aspect-ratio: 1/1;
 				border-radius: 50%;
 				box-sizing: border-box;
-				border: #b1b4b6 5rpx solid;
+				border: #e5e9ea 3rpx solid;
 				
 			}
 		}
@@ -100,15 +103,22 @@
 			left: 50%;
 			top: 0;
 		}
-		.bottomBtn{
-			width: 22%;
-			display: flex;
-			flex-direction: column;
-			justify-content: start;
-			align-items: center;
+		.btns{
+			width: 100%;
+			height: 100%;
+			@include flex-center;
 			font-size: 20rpx;
-			
+			.bottomBtn{
+				width: 22%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: start;
+				
+			}
 		}
+		
 		.bottomBtn:nth-child(3){
 			margin-left: auto;
 		}

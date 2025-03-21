@@ -1,11 +1,11 @@
 <template>
 	<view class="index">
 		<view class="head">
-			<chartIndexVue></chartIndexVue>
+			<indexChartVue></indexChartVue>
 		</view>
 		
 		<view class="list" >
-			<list-index-vue></list-index-vue>
+			<listVue></listVue>
 		</view>
 		<view class="tabbar">
 			<tabbarVue></tabbarVue>
@@ -15,39 +15,19 @@
 
 <script setup>
 import { computed, getCurrentInstance, onMounted, ref } from 'vue';
-import chartIndexVue from './components/chart-index.vue';
-import listIndexVue from './components/list-index.vue';
+import indexChartVue from './components/indexChart.vue'; 
+import listVue from './components/list.vue';
 import tabbarVue from '../../components/tabbar.vue';
-import { getNodeInfo } from '../../utils/getnodeinfo';
 import { userInfoStore } from '../../stores/userinfo';
-
-const {getLastData,getTotalDay} = userInfoStore()
-
-const total = computed(()=>{
-	const lastDate = getLastData.date
-	const {expense} = getTotalDay(lastDate)
-	return expense
+onMounted(()=>{
+	fillData
 })
-
-
-// 解析日期
-const parseDateString = (dateStr) =>{
-	const parts = dateStr.split(/[-/]/)
-	if(parts.length !==3){
-		throw new Error('无效的日期格式')
-	}
-	return {
-		year:parseInt(parts[0],10),
-		month:parseInt(parts[1],10),
-		day:parseInt(parts[2],10)
-	}
-
-}
+const {fillData} = userInfoStore()
 
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.index {
 		width: 100%;
 		height:100vh;

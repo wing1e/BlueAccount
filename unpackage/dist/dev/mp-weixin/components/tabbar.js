@@ -44,7 +44,7 @@ const _sfc_main = {
       return {
         a: common_vendor.f(btnInfo, (item, index, i0) => {
           return {
-            a: "373c25d2-0-" + i0,
+            a: "c6a4bdcf-0-" + i0,
             b: common_vendor.p({
               name: changeIcon(item).icon,
               size: "28",
@@ -65,5 +65,6 @@ const _sfc_main = {
     };
   }
 };
-wx.createComponent(_sfc_main);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-c6a4bdcf"]]);
+wx.createComponent(Component);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/components/tabbar.js.map

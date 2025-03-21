@@ -9,7 +9,7 @@
 	
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.circle{
 		display: flex;
 		justify-content: center;

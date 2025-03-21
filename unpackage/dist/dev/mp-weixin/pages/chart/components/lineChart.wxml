@@ -1,0 +1,1 @@
+<view class="container"><block wx:if="{{r0}}"><canvas class="{{a}}" canvas-id="{{b}}"></canvas></block></view>
