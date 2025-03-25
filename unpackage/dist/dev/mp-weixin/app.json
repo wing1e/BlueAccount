@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/chart/index"
+    "pages/chart/index",
+    "pages/details/index"
   ],
   "window": {
     "navigationBarTextStyle": "white",

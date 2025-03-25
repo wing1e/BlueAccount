@@ -1,1 +1,1 @@
-{"version":3,"file":"examiner.js","sources":["utils/examiner.js"],"sourcesContent":["export const examiner = (data) =>{\r\n\tdata.forEach(item =>{\r\n\t\tif(item.records){\r\n\t\t\treturn true\r\n\t\t}else{\r\n\t\t\treturn false\r\n\t\t}\r\n\t})\r\n}"],"names":[],"mappings":";AAAY,MAAC,WAAW,CAAC,SAAQ;AAChC,OAAK,QAAQ,UAAO;AACnB,QAAG,KAAK,SAAQ;AACf,aAAO;AAAA,IACV,OAAO;AACJ,aAAO;AAAA,IACP;AAAA,EACH,CAAE;AACF;;"}
+{"version":3,"file":"examiner.js","sources":[],"sourcesContent":[],"names":[],"mappings":";;;;;;;;;;;;;"}

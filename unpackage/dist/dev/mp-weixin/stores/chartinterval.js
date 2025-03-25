@@ -5,7 +5,7 @@ const chartInterval = common_vendor.defineStore("chartInterval", {
     return {
       status: {
         pieChart: "2023-03",
-        lineCart: "2023-03",
+        lineChart: "2023-03",
         barChart: "2023"
       }
     };

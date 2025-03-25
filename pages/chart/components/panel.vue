@@ -22,18 +22,15 @@ import RightButtonVue from '../../../components/RightButton.vue';
 import { userInfoStore } from '../../../stores/userinfo';
 
 
-	const {getTotalDay,getTotalWeek,getTotalMon,getTotalYear} = userInfoStore()
+	const {getTotal} = userInfoStore()
 	const props = defineProps({
 		title:String,
 		interval:String
 	})
 	
 	const count = computed(()=>{
-		return getTotalMon(props.interval)
+		return getTotal(props.interval)
 	})
-	// 年: 值: xxxx 
-	// 月: 值: xxxx-xx ==>判断年
-	// 日: 值  xxxx-xx-xx ==> 判断年
 	
 	
 	

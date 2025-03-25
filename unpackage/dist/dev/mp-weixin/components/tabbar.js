@@ -40,6 +40,9 @@ const _sfc_main = {
         }
       });
     };
+    const open = () => {
+      stores_tabbar.tabBarStore().pop = true;
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.f(btnInfo, (item, index, i0) => {
@@ -50,17 +53,16 @@ const _sfc_main = {
               size: "28",
               color: changeIcon(item).color
             }),
-            c: common_vendor.t(item.title),
-            d: changeIcon(item).color,
-            e: index,
-            f: common_vendor.o(($event) => navigation(item.status), index)
+            c: index,
+            d: common_vendor.o(($event) => navigation(item.status), index)
           };
         }),
         b: common_vendor.p({
           type: "plusempty",
           size: "30",
           color: "#fff"
-        })
+        }),
+        c: common_vendor.o(open)
       };
     };
   }

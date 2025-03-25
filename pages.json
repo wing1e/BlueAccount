@@ -13,6 +13,13 @@
 			{
 				"navigationBarTitleText" : "图表"
 			}
+		},
+		{
+			"path" : "pages/details/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "明细"
+			}
 		}
 	],
 	"tabBar": {

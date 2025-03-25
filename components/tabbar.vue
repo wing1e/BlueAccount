@@ -1,25 +1,30 @@
 <template>
-	<view class="tabbar">
-		<view class="btns">
-			<view class="bottomBtn" v-for="(item,index) in btnInfo" :key="index" @click="navigation(item.status)">
-				<u-icon :name="changeIcon(item).icon" size="28" :color="changeIcon(item).color"></u-icon>
-				<text :style="{color:changeIcon(item).color}">{{item.title}}</text>
+	<view class="container">
+		<view class="tabbar">
+			<view class="btns">
+				<view class="bottomBtn" v-for="(item,index) in btnInfo" :key="index" @click="navigation(item.status)">
+					<u-icon :name="changeIcon(item).icon" size="28" :color="changeIcon(item).color"></u-icon>
+				</view>
+			</view>
+			<!-- 添加按钮的半圆形边框 -->
+			<view class="addbtn">
+				<view class="cir" ></view>
+			</view>
+			<!-- 添加按钮 -->
+			<view class="icon_add" @click="open">
+				<uni-icons type="plusempty" size="30" color="#fff"></uni-icons>
 			</view>
 		</view>
 		
-		<!-- 添加按钮的半圆形边框 -->
-		<view class="addbtn">
-			<view class="cir" ></view>
-		</view>
-		<!-- 添加按钮 -->
-		<view class="icon_add">
-			<uni-icons type="plusempty" size="30" color="#fff"></uni-icons>
-		</view>
 	</view>
+	
 </template>
 
 <script setup>
-	import { tabBarStore } from '../stores/tabbar';
+import { ref } from 'vue';
+import { tabBarStore } from '../stores/tabbar';
+import AddPopVue from './AddPop.vue';
+import{storeToRefs} from 'pinia'
 	const btnInfo = [
 		{title:'首页',uncheck:'home',check:'home-fill',status:0},
 		{title:'图表',uncheck:'order',check:'order',status:1},
@@ -52,7 +57,13 @@
 			}
 			
 		})
+	}	
+
+	const open = () =>{
+		tabBarStore().pop = true
 	}
+
+	
 </script>
 
 <style lang="scss" scoped>
@@ -61,66 +72,76 @@
 		justify-content: center;
 		align-items: center;
 	}
-	.tabbar{ 
-		box-sizing: border-box;
+	.container{
 		width: 100%;
 		height: 100%;
-		background-color: #fff;
 		display: flex;
-		justify-content: space-between;
-		box-sizing: border-box;
-		padding: 10rpx 0 0 10rpx;
-		border-top: 3rpx solid #e5e9ea;
-		position: relative;
-		.addbtn{
-			width: 100rpx;
-			height: 50rpx;
+		align-items: start;
+		justify-content: center;
+		backdrop-filter:  blur(3rpx);
+		.tabbar{
 			box-sizing: border-box;
-			overflow: hidden;
-			position: absolute;
-			transform: translate(-50%,-100%);
-			left: 50%;
-			top: 0;
-			.cir{
-				background-color: #fff;
+			width: 90%;
+			height: 70%;
+			background-color: #fff;
+			border-radius: 20rpx;
+			filter: drop-shadow( 0 1rpx 5rpx rgba(0, 0, 0, 0.1));
+			display: flex;
+			justify-content: space-between;
+			box-sizing: border-box;
+			padding: 10rpx 0 0 10rpx;
+			position: relative;
+			.addbtn{
 				width: 100rpx;
+				height: 50rpx;
+				box-sizing: border-box;
+				overflow: hidden;
+				position: absolute;
+				transform: translate(-50%,-100%);
+				left: 50%;
+				top: 0;
+				.cir{
+					background-color: #fff;
+					width: 100rpx;
+					aspect-ratio: 1/1;
+					border-radius: 50%;
+					box-sizing: border-box;
+					border: #e5e9ea 3rpx solid;
+					
+				}
+			}
+			.icon_add{
+				@include flex-center;
+				box-sizing: border-box;
+				background-color: #00B6E6;
+				width: 80rpx;
 				aspect-ratio: 1/1;
 				border-radius: 50%;
-				box-sizing: border-box;
-				border: #e5e9ea 3rpx solid;
-				
+				position: absolute;
+				transform: translate(-50%,-50%);
+				left: 50%;
+				top: 0;
 			}
-		}
-		.icon_add{
-			@include flex-center;
-			box-sizing: border-box;
-			background-color: #00B6E6;
-			width: 80rpx;
-			aspect-ratio: 1/1;
-			border-radius: 50%;
-			position: absolute;
-			transform: translate(-50%,-50%);
-			left: 50%;
-			top: 0;
-		}
-		.btns{
-			width: 100%;
-			height: 100%;
-			@include flex-center;
-			font-size: 20rpx;
-			.bottomBtn{
-				width: 22%;
+			.btns{
+				width: 100%;
 				height: 100%;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: start;
-				
+				@include flex-center;
+				font-size: 20rpx;
+				.bottomBtn{
+					width: 22%;
+					height: 100%;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: start;
+					
+				}
 			}
-		}
-		
-		.bottomBtn:nth-child(3){
-			margin-left: auto;
+			
+			.bottomBtn:nth-child(3){
+				margin-left: auto;
+			}
 		}
 	}
+	
 </style>

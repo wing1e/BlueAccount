@@ -14,27 +14,21 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "income",
               "category": "工资",
               "amount": 23580,
-              "payment": "银行转账",
-              "note": "三月工资到账",
-              "status": "completed"
+              "note": "三月工资到账"
             },
             {
               "time": "12:30:00",
               "type": "expense",
               "category": "餐饮",
               "amount": 38.5,
-              "payment": "支付宝-余额",
-              "note": "午餐-麦当劳套餐",
-              "status": "completed"
+              "note": "午餐-麦当劳套餐"
             },
             {
               "time": "19:45:00",
               "type": "expense",
               "category": "服装",
               "amount": 299,
-              "payment": "微信支付-零钱",
-              "note": "优衣库春季衬衫",
-              "status": "completed"
+              "note": "优衣库春季衬衫"
             }
           ]
         },
@@ -47,18 +41,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "餐饮",
               "amount": 8.5,
-              "payment": "校园卡",
-              "note": "食堂早餐",
-              "status": "pending"
+              "note": "食堂早餐"
             },
             {
               "time": "17:20:00",
               "type": "income",
               "category": "兼职",
               "amount": 1500,
-              "payment": "现金",
-              "note": "家教课时费",
-              "status": "completed"
+              "note": "家教课时费"
             }
           ]
         },
@@ -71,18 +61,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "交通",
               "amount": 150,
-              "payment": "滴滴出行-企业账户",
-              "note": "机场快车",
-              "status": "refunded"
+              "note": "机场快车"
             },
             {
               "time": "22:15:00",
               "type": "expense",
               "category": "娱乐",
               "amount": 89,
-              "payment": "美团-信用支付",
-              "note": "深夜电影院",
-              "status": "completed"
+              "note": "深夜电影院"
             }
           ]
         },
@@ -95,18 +81,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "购物",
               "amount": 450,
-              "payment": "支付宝-花呗",
-              "note": "超市购物",
-              "status": "completed"
+              "note": "超市购物"
             },
             {
               "time": "15:45:00",
               "type": "income",
               "category": "奖金",
               "amount": 5e3,
-              "payment": "银行转账",
-              "note": "季度奖金",
-              "status": "completed"
+              "note": "季度奖金"
             }
           ]
         },
@@ -119,18 +101,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "餐饮",
               "amount": 25,
-              "payment": "微信支付-零钱",
-              "note": "早餐-豆浆油条",
-              "status": "completed"
+              "note": "早餐-豆浆油条"
             },
             {
               "time": "18:00:00",
               "type": "expense",
               "category": "娱乐",
               "amount": 120,
-              "payment": "支付宝-余额",
-              "note": "KTV聚会",
-              "status": "completed"
+              "note": "KTV聚会"
             }
           ]
         },
@@ -143,18 +121,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "交通",
               "amount": 6,
-              "payment": "公交卡",
-              "note": "公交上班",
-              "status": "completed"
+              "note": "公交上班"
             },
             {
               "time": "12:00:00",
               "type": "expense",
               "category": "餐饮",
               "amount": 20,
-              "payment": "微信支付-零钱",
-              "note": "午餐-快餐",
-              "status": "completed"
+              "note": "午餐-快餐"
             }
           ]
         },
@@ -167,18 +141,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "医疗",
               "amount": 200,
-              "payment": "支付宝-余额",
-              "note": "药店购药",
-              "status": "completed"
+              "note": "药店购药"
             },
             {
               "time": "19:00:00",
               "type": "expense",
               "category": "教育",
               "amount": 300,
-              "payment": "微信支付-零钱",
-              "note": "购买在线课程",
-              "status": "completed"
+              "note": "购买在线课程"
             }
           ]
         },
@@ -191,18 +161,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "交通",
               "amount": 10,
-              "payment": "滴滴出行-个人账户",
-              "note": "打车上班",
-              "status": "completed"
+              "note": "打车上班"
             },
             {
               "time": "13:00:00",
               "type": "expense",
               "category": "餐饮",
               "amount": 35,
-              "payment": "支付宝-余额",
-              "note": "午餐-外卖",
-              "status": "completed"
+              "note": "午餐-外卖"
             }
           ]
         },
@@ -215,18 +181,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "income",
               "category": "理财",
               "amount": 1500,
-              "payment": "银行转账",
-              "note": "理财产品收益",
-              "status": "completed"
+              "note": "理财产品收益"
             },
             {
               "time": "20:00:00",
               "type": "expense",
               "category": "娱乐",
               "amount": 80,
-              "payment": "微信支付-零钱",
-              "note": "电影票",
-              "status": "completed"
+              "note": "电影票"
             }
           ]
         },
@@ -239,18 +201,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "餐饮",
               "amount": 15,
-              "payment": "校园卡",
-              "note": "食堂早餐",
-              "status": "completed"
+              "note": "食堂早餐"
             },
             {
               "time": "18:30:00",
               "type": "expense",
               "category": "购物",
               "amount": 600,
-              "payment": "支付宝-花呗",
-              "note": "购买电子产品",
-              "status": "completed"
+              "note": "购买电子产品"
             }
           ]
         },
@@ -263,18 +221,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "餐饮",
               "amount": 50,
-              "payment": "微信支付-零钱",
-              "note": "朋友聚餐",
-              "status": "completed"
+              "note": "朋友聚餐"
             },
             {
               "time": "16:00:00",
               "type": "income",
               "category": "兼职",
               "amount": 800,
-              "payment": "现金",
-              "note": "周末兼职收入",
-              "status": "completed"
+              "note": "周末兼职收入"
             }
           ]
         },
@@ -287,18 +241,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "旅行",
               "amount": 1200,
-              "payment": "支付宝-余额",
-              "note": "周末短途旅行",
-              "status": "completed"
+              "note": "周末短途旅行"
             },
             {
               "time": "21:00:00",
               "type": "expense",
               "category": "娱乐",
               "amount": 100,
-              "payment": "微信支付-零钱",
-              "note": "酒吧消费",
-              "status": "completed"
+              "note": "酒吧消费"
             }
           ]
         },
@@ -311,18 +261,14 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "type": "expense",
               "category": "交通",
               "amount": 8,
-              "payment": "公交卡",
-              "note": "公交上班",
-              "status": "completed"
+              "note": "公交上班"
             },
             {
               "time": "12:30:00",
               "type": "expense",
               "category": "餐饮",
               "amount": 30,
-              "payment": "支付宝-余额",
-              "note": "午餐-外卖",
-              "status": "completed"
+              "note": "午餐-外卖"
             }
           ]
         }
@@ -330,13 +276,23 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
     };
   },
   getters: {
-    // 获取所有日期(原数据起始日期至今)
+    // 补全所有日期(原数据起始月期至今)
     completionDate() {
       const parseLocalDate = (dateStr) => {
         const [year, month, day] = dateStr.split("-").map(Number);
         return new Date(year, month - 1, day);
       };
-      const startDateStr = this.datalist[0].date;
+      const getFirstDayOfMonth = (dateStr) => {
+        const date = new Date(dateStr);
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const firstDay = new Date(year, month, 1);
+        const y = firstDay.getFullYear();
+        const m = String(firstDay.getMonth() + 1).padStart(2, "0");
+        const d = String(firstDay.getDate()).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+      };
+      const startDateStr = getFirstDayOfMonth(this.datalist[0].date);
       const endDateStr = utils_nowDate.getNowDate().date;
       let currentDate = parseLocalDate(startDateStr);
       const endDate = parseLocalDate(endDateStr);
@@ -359,7 +315,7 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
         if (!dayData) {
           const newDay = {
             date,
-            weekday: "",
+            weekday: getWeekDay(date),
             records: []
           };
           this.datalist.push(newDay);
@@ -377,68 +333,35 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
     }
   },
   actions: {
-    // 获取一周数据
-    getWeekData(targetDate) {
+    // 添加新数据
+    addData(date, records) {
+      const dayData = this.datalist.find((d) => d.date === date);
+      if (dayData) {
+        dayData.records.push(records);
+      }
     },
-    // 获取一月数据
-    getMonthData(targetDate) {
+    // 截取部分数据
+    getPartData(targetDate) {
+      const partData = this.datalist.filter((item) => item.date.startsWith(targetDate));
+      return partData;
     },
-    // 获取一年数据
-    getYearData(targetDate) {
-    },
-    // 获取单日统计
-    getTotalDay(targetDate) {
-      const dayData = this.datalist.find((d) => d.date === targetDate);
-      if (!dayData)
+    // 获取总统计
+    getTotal(targetDate) {
+      const partDate = this.getPartData(targetDate);
+      if (partDate.length === 0) {
         return {
           income: 0,
           expense: 0
         };
-      return dayData.records.reduce((acc, record) => {
-        record.type === "income" ? acc.income += record.amount : acc.expense += record.amount;
-        return acc;
-      }, {
-        income: 0,
-        expense: 0
-      });
-    },
-    // 获取周统计
-    getTotalWeek(targetDate) {
-      const date = new Date(targetDate);
-      const weekStart = new Date(date.setDate(date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1)));
-      const weekEnd = new Date(weekStart);
-      weekEnd.setDate(weekStart.getDate() + 6);
-      return this.datalist.reduce((acc, day) => {
-        const dayDate = new Date(day.date);
-        if (dayDate >= weekStart && dayDate <= weekEnd) {
+      } else {
+        return partDate.reduce((acc, day) => {
           day.records.forEach((record) => {
+            acc.num += 1;
             record.type === "income" ? acc.income += record.amount : acc.expense += record.amount;
           });
-        }
-        return acc;
-      }, { income: 0, expense: 0 });
-    },
-    // 获取月统计 e.g ('2025-3')
-    getTotalMon(targetDate) {
-      return this.datalist.reduce((acc, day) => {
-        if (day.date.startsWith(targetDate)) {
-          day.records.forEach((record) => {
-            record.type === "income" ? acc.income += record.amount : acc.expense += record.amount;
-          });
-        }
-        return acc;
-      }, { income: 0, expense: 0 });
-    },
-    // 获取年统计 e.g ('2025')
-    getTotalYear(targetDate) {
-      return this.datalist.reduce((acc, day) => {
-        if (day.date.startsWith(targetDate)) {
-          day.records.forEach((record) => {
-            record.type === "income" ? acc.income += record.amount : acc.expense += record.amount;
-          });
-        }
-        return acc;
-      }, { income: 0, expense: 0 });
+          return acc;
+        }, { income: 0, expense: 0, num: 0 });
+      }
     },
     // 分类统计
     getCategoryPercentages(startDate, endDate) {
@@ -472,7 +395,9 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
       const categoryIncomePercentages = {};
       const categoryExpensePercentages = {};
       for (const category in categoryIncome) {
-        categoryIncomePercentages[category] = (categoryIncome[category] / totalIncome * 100).toFixed(2);
+        categoryIncomePercentages[category] = (categoryIncome[category] / totalIncome * 100).toFixed(
+          2
+        );
       }
       for (const category in categoryExpense) {
         categoryExpensePercentages[category] = (categoryExpense[category] / totalExpense * 100).toFixed(2);
@@ -484,5 +409,10 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
     }
   }
 });
+const getWeekDay = (date) => {
+  const day = new Date(date).getDay();
+  const weekArr = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  return weekArr[day];
+};
 exports.userInfoStore = userInfoStore;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/stores/userinfo.js.map

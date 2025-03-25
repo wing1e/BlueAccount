@@ -27,12 +27,13 @@
   width: 100%;
   height: 100vh;
   display: flex;
+  position: relative;
   flex-direction: column;
   background-color: #F2F6F9;
 }
 .container .contents.data-v-4bc47aea {
   width: 100%;
-  height: 93%;
+  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -46,5 +47,7 @@
 }
 .container .tabbar.data-v-4bc47aea {
   width: 100%;
-  height: 7%;
+  height: 8%;
+  position: absolute;
+  bottom: 0;
 }

@@ -3,6 +3,7 @@
   "usingComponents": {
     "index-chart-vue": "./components/indexChart",
     "list-vue": "./components/list",
-    "tabbar-vue": "../../components/tabbar"
+    "tabbar-vue": "../../components/tabbar",
+    "add-pop-vue": "../../components/AddPop"
   }
 }

@@ -3,11 +3,17 @@ export const getNowDate = () =>{
 	
 	let year = date.getFullYear(); // 获取年份
 	
-	let month = date.getMonth() + 1; // 获取月份（0-11），所以需要+1
+	let month = (date.getMonth() + 1).toString().padStart(2, '0'); // 获取月份（0-11），所以需要+1
 	
-	let day = date.getDate(); // 获取日
+	let day = date.getDate().toString().padStart(2, '0'); // 获取日
 	
-	let ymdDate = [year,month,day].join('-')
+	const ymdDate = [year,month,day].join('-')
 	
-	return {year:year,month:month,day:day,date:ymdDate}
+	let hours = date.getHours().toString().padStart(2, '0');
+	
+	let minutes = date.getMinutes().toString().padStart(2, '0');
+	
+	const time = [hours,minutes].join(':')
+
+	return {year:year,month:month,day:day,date:ymdDate,time:time}
 }

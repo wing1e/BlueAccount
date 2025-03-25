@@ -2,11 +2,12 @@
 const common_vendor = require("../../common/vendor.js");
 const stores_userinfo = require("../../stores/userinfo.js");
 if (!Math) {
-  (indexChartVue + listVue + tabbarVue)();
+  (indexChartVue + listVue + tabbarVue + AddPopVue)();
 }
 const indexChartVue = () => "./components/indexChart.js";
 const listVue = () => "./components/list.js";
 const tabbarVue = () => "../../components/tabbar.js";
+const AddPopVue = () => "../../components/AddPop.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {

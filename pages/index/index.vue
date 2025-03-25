@@ -11,6 +11,8 @@
 			<tabbarVue></tabbarVue>
 		</view>
 	</view>
+	<!-- 添加按钮弹出框 -->
+	<AddPopVue></AddPopVue>
 </template>
 
 <script setup>
@@ -18,11 +20,14 @@ import { computed, getCurrentInstance, onMounted, ref } from 'vue';
 import indexChartVue from './components/indexChart.vue'; 
 import listVue from './components/list.vue';
 import tabbarVue from '../../components/tabbar.vue';
+import AddPopVue from '../../components/AddPop.vue';
 import { userInfoStore } from '../../stores/userinfo';
+import { getNodeInfo } from '../../utils/node-info';
 onMounted(()=>{
 	fillData
 })
 const {fillData} = userInfoStore()
+
 
 
 </script>
@@ -44,11 +49,13 @@ const {fillData} = userInfoStore()
 		
 		.list{
 			width: 100%;
-			height:63%;
+			height:70%;
 		}
 		.tabbar{
 			width: 100%;
-			height: 7%;
+			height: 8%;
+			position: absolute;
+			bottom: 0;
 		}
 		
 	}

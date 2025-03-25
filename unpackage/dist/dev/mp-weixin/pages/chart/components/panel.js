@@ -12,10 +12,10 @@ const _sfc_main = {
     interval: String
   },
   setup(__props) {
-    const { getTotalDay, getTotalWeek, getTotalMon, getTotalYear } = stores_userinfo.userInfoStore();
+    const { getTotal } = stores_userinfo.userInfoStore();
     const props = __props;
     const count = common_vendor.computed(() => {
-      return getTotalMon(props.interval);
+      return getTotal(props.interval);
     });
     return (_ctx, _cache) => {
       return {

@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const utils_nodeInfo = require("../node-info.js");
-const ACCOUNT_TYPE = [
+const EXPENSE_TYPE = [
   { "category": "购物", "color": "#00B6E6" },
   { "category": "餐饮", "color": "#FF6B6B" },
   { "category": "交通", "color": "#4CAF50" },
@@ -14,6 +14,13 @@ const ACCOUNT_TYPE = [
   { "category": "旅行", "color": "#E91E63" },
   { "category": "礼物", "color": "#FF4081" },
   { "category": "其他", "color": "#9E9E9E" }
+];
+const INCOME_TYPE = [
+  { "category": "工资", "color": "#4CAF50" },
+  { "category": "奖金", "color": "#9C27B0" },
+  { "category": "兼职", "color": "#E91E63" },
+  { "category": "理财", "color": "#FFC107" },
+  { "category": "其他收入", "color": "#9E9E9E" }
 ];
 const pieCharInit = async (instance, chartData, className, canvasId) => {
   try {
@@ -33,14 +40,16 @@ const pieCharInit = async (instance, chartData, className, canvasId) => {
       ctx.arc(centerX, centerY, outerR, startAngle, endAngle, false);
       ctx.arc(centerX, centerY, innerR, endAngle, startAngle, true);
       ctx.closePath();
-      ctx.setFillStyle(ACCOUNT_TYPE.find((item) => item.category == key).color);
+      ctx.setFillStyle(EXPENSE_TYPE.find((item) => item.category == key).color);
       ctx.fill();
       startAngle = endAngle;
     });
     ctx.draw();
   } catch (error) {
-    common_vendor.index.__f__("log", "at utils/chart/pie-chart.js:59", error);
+    common_vendor.index.__f__("log", "at utils/chart/pie-chart.js:67", error);
   }
 };
+exports.EXPENSE_TYPE = EXPENSE_TYPE;
+exports.INCOME_TYPE = INCOME_TYPE;
 exports.pieCharInit = pieCharInit;
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/utils/chart/pie-chart.js.map

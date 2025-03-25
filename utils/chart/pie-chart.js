@@ -1,6 +1,6 @@
 import {getNodeInfo} from "../node-info.js"
 
-const ACCOUNT_TYPE = [
+export const EXPENSE_TYPE = [
   {"category": "购物", "color": "#00B6E6"},
   {"category": "餐饮", "color": "#FF6B6B"},
   {"category": "交通", "color": "#4CAF50"},
@@ -13,6 +13,14 @@ const ACCOUNT_TYPE = [
   {"category": "旅行", "color": "#E91E63"},
   {"category": "礼物", "color": "#FF4081"},
   {"category": "其他", "color": "#9E9E9E"}
+]
+
+export const INCOME_TYPE = [
+	{"category": "工资", "color": "#4CAF50"},
+	{"category": "奖金", "color": "#9C27B0"},
+	{"category": "兼职", "color": "#E91E63"},
+	{"category": "理财", "color": "#FFC107"},
+	{"category": "其他收入", "color": "#9E9E9E"}
 ]
 
 export const pieCharInit = async (instance, chartData, className, canvasId) =>{
@@ -45,7 +53,7 @@ export const pieCharInit = async (instance, chartData, className, canvasId) =>{
 			        ctx.arc(centerX, centerY, innerR, endAngle, startAngle, true);
 			        ctx.closePath();	
 			        // 设置填充颜色
-			        ctx.setFillStyle(ACCOUNT_TYPE.find(item=>item.category == key).color);
+			        ctx.setFillStyle(EXPENSE_TYPE.find(item=>item.category == key).color);
 			        ctx.fill();
 						
 			        startAngle = endAngle; // 更新起始角度

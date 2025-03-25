@@ -6,13 +6,14 @@ if (!Array) {
   _component_template();
 }
 if (!Math) {
-  (pieChartVue + lineChartVue + barChartVue + panelVue + tabbarVue)();
+  (pieChartVue + lineChartVue + barChartVue + panelVue + tabbarVue + AddPopVue)();
 }
 const tabbarVue = () => "../../components/tabbar.js";
 const panelVue = () => "./components/panel.js";
 const pieChartVue = () => "./components/pieChart.js";
 const lineChartVue = () => "./components/lineChart.js";
 const barChartVue = () => "./components/barChart.js";
+const AddPopVue = () => "../../components/AddPop.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
@@ -33,7 +34,7 @@ const _sfc_main = {
       {
         title: "月度收支",
         component: barChartVue,
-        interval: status.pieChart,
+        interval: status.barChart,
         height: "25%"
       }
     ];

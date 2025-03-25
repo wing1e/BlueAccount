@@ -14,31 +14,37 @@
 </template>
 
 <script setup >
-import { computed, getCurrentInstance, onMounted, ref } from 'vue';
+import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue';
 import RightButton from '../../../components/RightButton.vue';
-import { indexChartInit } from '../../../utils/chart/index-chart.js';
+import { indexChartInit } from '../../../utils/chart/line-chart.js';
 import { userInfoStore } from '../../../stores/userinfo.js';
 import { getNowDate } from '../../../utils/now-date';
+import {storeToRefs} from 'pinia'
 onMounted(()=>{
-	const instance = getCurrentInstance()
-	
 	indexChartInit(instance,chartData.value,canvasInfo.className,canvasInfo.id)
 })
 
 const canvasInfo = {className:'.barChart',id:'indexChart'}
-const store = userInfoStore()
+const store =  userInfoStore()
 // 截取最后七天数据
 const chartData = computed(()=>{
 	return [...store.datalist]
 	.slice(-7)
 	.map(item => ({
 		date:item.date,
-		expense:store.getTotalDay(item.date).expense
+		expense:store.getTotal(item.date).expense
 	}))
 })
 const title = String(getNowDate().month)+"月支出"
-const total = computed(()=>chartData.value.reduce((acc,{expense}) => acc+expense,0)) //七天总支出
 
+const total = computed(()=>chartData.value.reduce((acc,{expense}) => acc + expense,0)) //七天总支出
+
+const instance = getCurrentInstance();
+
+// 监听 chartData 的变化
+watch(chartData, (newData) => {
+    indexChartInit(instance, newData, canvasInfo.className, canvasInfo.id);
+}, { deep: true });
 
 
 
@@ -49,13 +55,14 @@ const total = computed(()=>chartData.value.reduce((acc,{expense}) => acc+expense
 		box-sizing: border-box;
 		width: 100%;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		position: relative;
 		background-color: #fff;
 		box-shadow: 0rpx 6rpx 28rpx 0rpx rgba(0, 0, 0, 0.1);
 		border-radius: 30rpx;
-		padding:0 15rpx 15rpx;
-		position: relative;
+		padding:20rpx;
 		.title{
-			position: absolute;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;

@@ -20,7 +20,6 @@ const pickDate = {start:"2023-03-22",end:"2023-03-28"}
 const chartData = computed (()=>{
 	return getCategoryPercentages(pickDate.start,pickDate.end)	
 })
-
 	
 </script>
 

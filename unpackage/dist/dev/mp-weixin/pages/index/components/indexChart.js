@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
-const utils_chart_indexChart = require("../../../utils/chart/index-chart.js");
+const utils_chart_lineChart = require("../../../utils/chart/line-chart.js");
 const stores_userinfo = require("../../../stores/userinfo.js");
 const utils_nowDate = require("../../../utils/now-date.js");
 if (!Math) {
@@ -11,19 +11,22 @@ const _sfc_main = {
   __name: "indexChart",
   setup(__props) {
     common_vendor.onMounted(() => {
-      const instance = common_vendor.getCurrentInstance();
-      utils_chart_indexChart.indexChartInit(instance, chartData.value, canvasInfo.className, canvasInfo.id);
+      utils_chart_lineChart.indexChartInit(instance, chartData.value, canvasInfo.className, canvasInfo.id);
     });
     const canvasInfo = { className: ".barChart", id: "indexChart" };
     const store = stores_userinfo.userInfoStore();
     const chartData = common_vendor.computed(() => {
       return [...store.datalist].slice(-7).map((item) => ({
         date: item.date,
-        expense: store.getTotalDay(item.date).expense
+        expense: store.getTotal(item.date).expense
       }));
     });
     const title = String(utils_nowDate.getNowDate().month) + "月支出";
     const total = common_vendor.computed(() => chartData.value.reduce((acc, { expense }) => acc + expense, 0));
+    const instance = common_vendor.getCurrentInstance();
+    common_vendor.watch(chartData, (newData) => {
+      utils_chart_lineChart.indexChartInit(instance, newData, canvasInfo.className, canvasInfo.id);
+    }, { deep: true });
     return (_ctx, _cache) => {
       return {
         a: common_vendor.t(title),

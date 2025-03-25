@@ -14,8 +14,9 @@
 		<view class="tabbar">
 			<tabbarVue></tabbarVue>
 		</view>
-		
 	</view>
+	<!-- 添加按钮弹出框 -->
+	<AddPopVue></AddPopVue>
 </template>
 
 <script setup>
@@ -25,6 +26,7 @@
 	import lineChartVue from './components/lineChart.vue';
 	import barChartVue from './components/barChart.vue'
 	import {chartInterval} from '../../stores/chartinterval'
+	import AddPopVue from '../../components/AddPop.vue';
 
 	const {status} = chartInterval()
 	const chartList = [
@@ -44,7 +46,7 @@
 		{
 			title:'月度收支',
 			component:barChartVue,
-			interval:status.pieChart,
+			interval:status.barChart,
 			height:'25%'
 		}
 	]
@@ -64,11 +66,12 @@
 		width: 100%;
 		height:100vh;
 		display: flex;
+		position: relative;
 		flex-direction: column;
 		background-color: #F2F6F9;
 		.contents{
 			width: 100%;
-			height: 93%;
+			height: 100%;
 			box-sizing: border-box;
 			display: flex;
 			flex-direction: column;
@@ -82,7 +85,9 @@
 		}
 		.tabbar{
 			width: 100%;
-			height: 7%;
+			height: 8%;
+			position: absolute;
+			bottom: 0;
 		}
 	}
 </style>
