@@ -2,6 +2,7 @@
 const common_vendor = require("../../../common/vendor.js");
 const utils_chart_pieChart = require("../../../utils/chart/pie-chart.js");
 const stores_userinfo = require("../../../stores/userinfo.js");
+const pickDate = "2023-03";
 const _sfc_main = {
   __name: "pieChart",
   setup(__props) {
@@ -11,10 +12,10 @@ const _sfc_main = {
     });
     const canvasInfo = { className: ".pieChart", id: "pieChart" };
     const { getCategoryPercentages } = stores_userinfo.userInfoStore();
-    const pickDate = { start: "2023-03-22", end: "2023-03-28" };
     const chartData = common_vendor.computed(() => {
-      return getCategoryPercentages(pickDate.start, pickDate.end);
+      return getCategoryPercentages(pickDate);
     });
+    common_vendor.index.__f__("log", "at pages/chart/components/pieChart.vue:24", chartData.value);
     return (_ctx, _cache) => {
       return {
         a: canvasInfo.id,

@@ -18,7 +18,7 @@ import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue';
 import RightButton from '../../../components/RightButton.vue';
 import { indexChartInit } from '../../../utils/chart/line-chart.js';
 import { userInfoStore } from '../../../stores/userinfo.js';
-import { getNowDate } from '../../../utils/now-date';
+import { getNowDate } from '../../../utils/get-date.js';
 import {storeToRefs} from 'pinia'
 onMounted(()=>{
 	indexChartInit(instance,chartData.value,canvasInfo.className,canvasInfo.id)

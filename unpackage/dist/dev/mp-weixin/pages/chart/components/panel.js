@@ -17,11 +17,17 @@ const _sfc_main = {
     const count = common_vendor.computed(() => {
       return getTotal(props.interval);
     });
+    const toAnalysis = () => {
+      common_vendor.index.navigateTo({
+        url: `/pages/analysis/index?title=${props.title}&interval=${props.interval}`
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.t(props.title),
         b: common_vendor.t("-" + count.value.expense),
-        c: common_vendor.t(props.interval)
+        c: common_vendor.t(props.interval),
+        d: common_vendor.o(toAnalysis)
       };
     };
   }

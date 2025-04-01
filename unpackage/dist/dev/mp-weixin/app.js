@@ -6,6 +6,7 @@ if (!Math) {
   "./pages/index/index.js";
   "./pages/chart/index.js";
   "./pages/details/index.js";
+  "./pages/analysis/index.js";
 }
 const _sfc_main = {
   onLaunch: function() {

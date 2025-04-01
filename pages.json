@@ -20,6 +20,13 @@
 			{
 				"navigationBarTitleText" : "明细"
 			}
+		},
+		{
+			"path" : "pages/analysis/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"tabBar": {

@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/chart/index",
-    "pages/details/index"
+    "pages/details/index",
+    "pages/analysis/index"
   ],
   "window": {
     "navigationBarTextStyle": "white",

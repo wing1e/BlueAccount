@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "明细",
   "usingComponents": {
-    "uni-icons": "../../uni_modules/uni-icons/components/uni-icons/uni-icons",
-    "header-vue": "./components/header"
+    "header-vue": "../../components/HeadOptions",
+    "list-vue": "./components/list"
   }
 }

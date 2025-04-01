@@ -47,7 +47,7 @@
 import { reactive, ref, watch } from 'vue';
 import { tabBarStore } from '../stores/tabbar';
 import {EXPENSE_TYPE,INCOME_TYPE} from '../utils/chart/pie-chart.js'
-import { getNowDate } from '../utils/now-date';
+import { getNowDate } from '../utils/get-date.js';
 import { userInfoStore } from '../stores/userinfo';
 
 	const popup = ref(null)

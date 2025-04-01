@@ -8,6 +8,7 @@
 import { getCurrentInstance, onMounted,computed } from 'vue';
 import { pieCharInit } from '../../../utils/chart/pie-chart';
 import { userInfoStore } from '../../../stores/userinfo';
+import { getWeek } from '../../../utils/get-date';
 onMounted(()=>{
 	const instance = getCurrentInstance()
 	pieCharInit(instance,chartData.value,canvasInfo.className,canvasInfo.id)
@@ -16,10 +17,11 @@ onMounted(()=>{
 const canvasInfo = {className:'.pieChart',id:'pieChart'}
 const {getCategoryPercentages} = userInfoStore()
 
-const pickDate = {start:"2023-03-22",end:"2023-03-28"}
+const pickDate = '2023-03'
 const chartData = computed (()=>{
-	return getCategoryPercentages(pickDate.start,pickDate.end)	
+	return getCategoryPercentages(pickDate)	
 })
+console.log(chartData.value);
 	
 </script>
 

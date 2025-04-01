@@ -1,5 +1,5 @@
 import {defineStore} from "pinia"
-import {getNowDate} from '../utils/now-date.js'
+import {getNowDate} from '../utils/get-date.js'
 import {date} from "../uni_modules/uview-plus/libs/function/test.js";
 export const userInfoStore = defineStore('userInfo', {
 	state: () => {
@@ -25,7 +25,7 @@ export const userInfoStore = defineStore('userInfo', {
 						{
 							"time": "19:45:00",
 							"type": "expense",
-							"category": "服装",
+							"category": "购物",
 							"amount": 299.00,
 							"note": "优衣库春季衬衫",
 						}
@@ -39,14 +39,21 @@ export const userInfoStore = defineStore('userInfo', {
 							"type": "expense",
 							"category": "餐饮",
 							"amount": 8.50,
-							"note": "食堂早餐",
+							"note": "食堂早餐"
+						},
+						{
+							"time": "12:30:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 38.50,
+							"note": "午餐-麦当劳套餐",
 						},
 						{
 							"time": "17:20:00",
 							"type": "income",
 							"category": "兼职",
 							"amount": 1500.00,
-							"note": "家教课时费",
+							"note": "家教课时费"
 						}
 					]
 				},
@@ -54,6 +61,13 @@ export const userInfoStore = defineStore('userInfo', {
 					"date": "2023-03-17",
 					"weekday": "周五",
 					"records": [{
+							"time": "09:00:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 8.50,
+							"note": "食堂早餐"
+						},
+						{
 							"time": "10:00:00",
 							"type": "expense",
 							"category": "交通",
@@ -61,201 +75,25 @@ export const userInfoStore = defineStore('userInfo', {
 							"note": "机场快车",
 						},
 						{
+							"time": "12:30:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 38.50,
+							"note": "午餐-麦当劳套餐",
+						},
+						{
+							"time": "17:20:00",
+							"type": "income",
+							"category": "兼职",
+							"amount": 1500.00,
+							"note": "家教课时费"
+						},
+						{
 							"time": "22:15:00",
 							"type": "expense",
 							"category": "娱乐",
 							"amount": 89.00,
 							"note": "深夜电影院",
-						}
-					]
-				},
-				{
-					"date": "2023-03-18",
-					"weekday": "周六",
-					"records": [{
-							"time": "11:20:00",
-							"type": "expense",
-							"category": "购物",
-							"amount": 450.00,
-							"note": "超市购物",
-						},
-						{
-							"time": "15:45:00",
-							"type": "income",
-							"category": "奖金",
-							"amount": 5000.00,
-							"note": "季度奖金",
-						}
-					]
-				},
-				{
-					"date": "2023-03-19",
-					"weekday": "周日",
-					"records": [{
-							"time": "09:30:00",
-							"type": "expense",
-							"category": "餐饮",
-							"amount": 25.00,
-							"note":"早餐-豆浆油条"
-						},
-						{
-							"time": "18:00:00",
-							"type": "expense",
-							"category": "娱乐",
-							"amount": 120.00,
-							"note":"KTV聚会",
-						}
-					]
-				},
-				{
-					"date": "2023-03-20",
-					"weekday": "周一",
-					"records": [{
-							"time": "08:00:00",
-							"type": "expense",
-							"category": "交通",
-							"amount": 6.00,
-							"note": "公交上班",
-						},
-						{
-							"time": "12:00:00",
-							"type": "expense",
-							"category": "餐饮",
-							"amount": 20.00,
-							"note": "午餐-快餐",
-						}
-					]
-				},
-				{
-					"date": "2023-03-21",
-					"weekday": "周二",
-					"records": [{
-							"time": "10:30:00",
-							"type": "expense",
-							"category": "医疗",
-							"amount": 200.00,
-							"note": "药店购药",
-						},
-						{
-							"time": "19:00:00",
-							"type": "expense",
-							"category": "教育",
-							"amount": 300.00,
-							"note": "购买在线课程",
-						}
-					]
-				},
-				{
-					"date": "2023-03-22",
-					"weekday": "周三",
-					"records": [{
-							"time": "07:50:00",
-							"type": "expense",
-							"category": "交通",
-							"amount": 10.00,
-							"note": "打车上班",
-						},
-						{
-							"time": "13:00:00",
-							"type": "expense",
-							"category": "餐饮",
-							"amount": 35.00,
-							"note": "午餐-外卖",
-						}
-					]
-				},
-				{
-					"date": "2023-03-23",
-					"weekday": "周四",
-					"records": [{
-							"time": "09:00:00",
-							"type": "income",
-							"category": "理财",
-							"amount": 1500.00,
-							"note": "理财产品收益",
-						},
-						{
-							"time": "20:00:00",
-							"type": "expense",
-							"category": "娱乐",
-							"amount": 80.00,
-							"note": "电影票",
-						}
-					]
-				},
-				{
-					"date": "2023-03-24",
-					"weekday": "周五",
-					"records": [{
-							"time": "08:30:00",
-							"type": "expense",
-							"category": "餐饮",
-							"amount": 15.00,
-							"note": "食堂早餐",
-						},
-						{
-							"time": "18:30:00",
-							"type": "expense",
-							"category": "购物",
-							"amount": 600.00,
-							"note": "购买电子产品",
-						}
-					]
-				},
-				{
-					"date": "2023-03-25",
-					"weekday": "周六",
-					"records": [{
-							"time": "12:00:00",
-							"type": "expense",
-							"category": "餐饮",
-							"amount": 50.00,
-							"note": "朋友聚餐",
-						},
-						{
-							"time": "16:00:00",
-							"type": "income",
-							"category": "兼职",
-							"amount": 800.00,
-							"note": "周末兼职收入",
-						}
-					]
-				},
-				{
-					"date": "2023-03-26",
-					"weekday": "周日",
-					"records": [{
-							"time": "10:00:00",
-							"type": "expense",
-							"category": "旅行",
-							"amount": 1200.00,
-							"note": "周末短途旅行",
-						},
-						{
-							"time": "21:00:00",
-							"type": "expense",
-							"category": "娱乐",
-							"amount": 100.00,
-							"note": "酒吧消费",
-						}
-					]
-				},
-				{
-					"date": "2023-03-27",
-					"weekday": "周一",
-					"records": [{
-							"time": "08:00:00",
-							"type": "expense",
-							"category": "交通",
-							"amount": 8.00,
-							"note": "公交上班",
-						},
-						{
-							"time": "12:30:00",
-							"type": "expense",
-							"category": "餐饮",
-							"amount": 30.00,
-							"note": "午餐-外卖",
 						}
 					]
 				}
@@ -357,6 +195,19 @@ export const userInfoStore = defineStore('userInfo', {
 
 		// 截取部分数据
 		getPartData(targetDate) {
+			// 若未指定日期则返回所有数据
+			if (targetDate === '') {
+				return this.datalist
+			}
+			// 过滤目标日期的数据
+			if (targetDate.start) {
+				const startDate = new Date(targetDate.start)
+				const endDate = new Date(targetDate.end)
+				return this.datalist.filter(day => {
+					const date = new Date(day.date);
+					return date >= startDate && date <= endDate;
+				})	
+			}
 			const partData = this.datalist.filter(item => item.date.startsWith(targetDate))
 			return partData
 		},
@@ -367,7 +218,8 @@ export const userInfoStore = defineStore('userInfo', {
 			if (partDate.length === 0) {
 				return {
 					income: 0,
-					expense: 0
+					expense: 0,
+					num:0
 				}
 			}else{
 				return partDate.reduce((acc, day) => {
@@ -382,14 +234,8 @@ export const userInfoStore = defineStore('userInfo', {
 			}
 		},
 		// 分类统计
-		getCategoryPercentages(startDate, endDate) {
-			const start = new Date(startDate);
-			const end = new Date(endDate);
-			// 过滤目标日期的数据
-			const filteredData = this.datalist.filter(day => {
-				const date = new Date(day.date);
-				return date >= start && date <= end;
-			});
+		getCategoryPercentages(targetDate) {
+			const filteredData = this.getPartData(targetDate)
 
 			const categoryIncome = {};
 			const categoryExpense = {};

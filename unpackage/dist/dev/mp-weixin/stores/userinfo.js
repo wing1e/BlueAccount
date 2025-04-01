@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const utils_nowDate = require("../utils/now-date.js");
+const utils_getDate = require("../utils/get-date.js");
 const userInfoStore = common_vendor.defineStore("userInfo", {
   state: () => {
     return {
@@ -26,7 +26,7 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
             {
               "time": "19:45:00",
               "type": "expense",
-              "category": "服装",
+              "category": "购物",
               "amount": 299,
               "note": "优衣库春季衬衫"
             }
@@ -44,6 +44,13 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "note": "食堂早餐"
             },
             {
+              "time": "12:30:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 38.5,
+              "note": "午餐-麦当劳套餐"
+            },
+            {
               "time": "17:20:00",
               "type": "income",
               "category": "兼职",
@@ -57,6 +64,13 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
           "weekday": "周五",
           "records": [
             {
+              "time": "09:00:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 8.5,
+              "note": "食堂早餐"
+            },
+            {
               "time": "10:00:00",
               "type": "expense",
               "category": "交通",
@@ -64,211 +78,25 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "note": "机场快车"
             },
             {
+              "time": "12:30:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 38.5,
+              "note": "午餐-麦当劳套餐"
+            },
+            {
+              "time": "17:20:00",
+              "type": "income",
+              "category": "兼职",
+              "amount": 1500,
+              "note": "家教课时费"
+            },
+            {
               "time": "22:15:00",
               "type": "expense",
               "category": "娱乐",
               "amount": 89,
               "note": "深夜电影院"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-18",
-          "weekday": "周六",
-          "records": [
-            {
-              "time": "11:20:00",
-              "type": "expense",
-              "category": "购物",
-              "amount": 450,
-              "note": "超市购物"
-            },
-            {
-              "time": "15:45:00",
-              "type": "income",
-              "category": "奖金",
-              "amount": 5e3,
-              "note": "季度奖金"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-19",
-          "weekday": "周日",
-          "records": [
-            {
-              "time": "09:30:00",
-              "type": "expense",
-              "category": "餐饮",
-              "amount": 25,
-              "note": "早餐-豆浆油条"
-            },
-            {
-              "time": "18:00:00",
-              "type": "expense",
-              "category": "娱乐",
-              "amount": 120,
-              "note": "KTV聚会"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-20",
-          "weekday": "周一",
-          "records": [
-            {
-              "time": "08:00:00",
-              "type": "expense",
-              "category": "交通",
-              "amount": 6,
-              "note": "公交上班"
-            },
-            {
-              "time": "12:00:00",
-              "type": "expense",
-              "category": "餐饮",
-              "amount": 20,
-              "note": "午餐-快餐"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-21",
-          "weekday": "周二",
-          "records": [
-            {
-              "time": "10:30:00",
-              "type": "expense",
-              "category": "医疗",
-              "amount": 200,
-              "note": "药店购药"
-            },
-            {
-              "time": "19:00:00",
-              "type": "expense",
-              "category": "教育",
-              "amount": 300,
-              "note": "购买在线课程"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-22",
-          "weekday": "周三",
-          "records": [
-            {
-              "time": "07:50:00",
-              "type": "expense",
-              "category": "交通",
-              "amount": 10,
-              "note": "打车上班"
-            },
-            {
-              "time": "13:00:00",
-              "type": "expense",
-              "category": "餐饮",
-              "amount": 35,
-              "note": "午餐-外卖"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-23",
-          "weekday": "周四",
-          "records": [
-            {
-              "time": "09:00:00",
-              "type": "income",
-              "category": "理财",
-              "amount": 1500,
-              "note": "理财产品收益"
-            },
-            {
-              "time": "20:00:00",
-              "type": "expense",
-              "category": "娱乐",
-              "amount": 80,
-              "note": "电影票"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-24",
-          "weekday": "周五",
-          "records": [
-            {
-              "time": "08:30:00",
-              "type": "expense",
-              "category": "餐饮",
-              "amount": 15,
-              "note": "食堂早餐"
-            },
-            {
-              "time": "18:30:00",
-              "type": "expense",
-              "category": "购物",
-              "amount": 600,
-              "note": "购买电子产品"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-25",
-          "weekday": "周六",
-          "records": [
-            {
-              "time": "12:00:00",
-              "type": "expense",
-              "category": "餐饮",
-              "amount": 50,
-              "note": "朋友聚餐"
-            },
-            {
-              "time": "16:00:00",
-              "type": "income",
-              "category": "兼职",
-              "amount": 800,
-              "note": "周末兼职收入"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-26",
-          "weekday": "周日",
-          "records": [
-            {
-              "time": "10:00:00",
-              "type": "expense",
-              "category": "旅行",
-              "amount": 1200,
-              "note": "周末短途旅行"
-            },
-            {
-              "time": "21:00:00",
-              "type": "expense",
-              "category": "娱乐",
-              "amount": 100,
-              "note": "酒吧消费"
-            }
-          ]
-        },
-        {
-          "date": "2023-03-27",
-          "weekday": "周一",
-          "records": [
-            {
-              "time": "08:00:00",
-              "type": "expense",
-              "category": "交通",
-              "amount": 8,
-              "note": "公交上班"
-            },
-            {
-              "time": "12:30:00",
-              "type": "expense",
-              "category": "餐饮",
-              "amount": 30,
-              "note": "午餐-外卖"
             }
           ]
         }
@@ -293,7 +121,7 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
         return `${y}-${m}-${d}`;
       };
       const startDateStr = getFirstDayOfMonth(this.datalist[0].date);
-      const endDateStr = utils_nowDate.getNowDate().date;
+      const endDateStr = utils_getDate.getNowDate().date;
       let currentDate = parseLocalDate(startDateStr);
       const endDate = parseLocalDate(endDateStr);
       const dateArr = [];
@@ -342,6 +170,17 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
     },
     // 截取部分数据
     getPartData(targetDate) {
+      if (targetDate === "") {
+        return this.datalist;
+      }
+      if (targetDate.start) {
+        const startDate = new Date(targetDate.start);
+        const endDate = new Date(targetDate.end);
+        return this.datalist.filter((day) => {
+          const date = new Date(day.date);
+          return date >= startDate && date <= endDate;
+        });
+      }
       const partData = this.datalist.filter((item) => item.date.startsWith(targetDate));
       return partData;
     },
@@ -351,7 +190,8 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
       if (partDate.length === 0) {
         return {
           income: 0,
-          expense: 0
+          expense: 0,
+          num: 0
         };
       } else {
         return partDate.reduce((acc, day) => {
@@ -364,13 +204,8 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
       }
     },
     // 分类统计
-    getCategoryPercentages(startDate, endDate) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      const filteredData = this.datalist.filter((day) => {
-        const date = new Date(day.date);
-        return date >= start && date <= end;
-      });
+    getCategoryPercentages(targetDate) {
+      const filteredData = this.getPartData(targetDate);
       const categoryIncome = {};
       const categoryExpense = {};
       let totalIncome = 0;

@@ -2,7 +2,7 @@
 const common_vendor = require("../../../common/vendor.js");
 const utils_chart_lineChart = require("../../../utils/chart/line-chart.js");
 const stores_userinfo = require("../../../stores/userinfo.js");
-const utils_nowDate = require("../../../utils/now-date.js");
+const utils_getDate = require("../../../utils/get-date.js");
 if (!Math) {
   RightButton();
 }
@@ -21,7 +21,7 @@ const _sfc_main = {
         expense: store.getTotal(item.date).expense
       }));
     });
-    const title = String(utils_nowDate.getNowDate().month) + "月支出";
+    const title = String(utils_getDate.getNowDate().month) + "月支出";
     const total = common_vendor.computed(() => chartData.value.reduce((acc, { expense }) => acc + expense, 0));
     const instance = common_vendor.getCurrentInstance();
     common_vendor.watch(chartData, (newData) => {

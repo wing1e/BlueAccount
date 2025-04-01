@@ -6,7 +6,7 @@
 				<text >{{"-"+count.expense}}</text>
 				<text>{{props.interval}}</text>
 			</view>
-			<view class="btn">
+			<view class="btn" @click="toAnalysis">
 				<RightButtonVue></RightButtonVue>
 			</view>
 		</view>
@@ -31,6 +31,12 @@ import { userInfoStore } from '../../../stores/userinfo';
 	const count = computed(()=>{
 		return getTotal(props.interval)
 	})
+	
+	const toAnalysis = () =>{
+		uni.navigateTo({
+			url:`/pages/analysis/index?title=${props.title}&interval=${props.interval}`
+		})
+	}
 	
 	
 	
@@ -72,7 +78,7 @@ import { userInfoStore } from '../../../stores/userinfo';
 		}
 		.chart{
 			width: 100%;
-			height: 80%;
+			height: 100%;
 			display: flex;
 		}
 		

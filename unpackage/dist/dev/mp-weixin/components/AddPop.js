@@ -2,7 +2,7 @@
 const common_vendor = require("../common/vendor.js");
 const stores_tabbar = require("../stores/tabbar.js");
 const utils_chart_pieChart = require("../utils/chart/pie-chart.js");
-const utils_nowDate = require("../utils/now-date.js");
+const utils_getDate = require("../utils/get-date.js");
 const stores_userinfo = require("../stores/userinfo.js");
 if (!Array) {
   const _easycom_uni_popup2 = common_vendor.resolveComponent("uni-popup");
@@ -54,8 +54,8 @@ const _sfc_main = {
     };
     const { addData } = stores_userinfo.userInfoStore();
     const submit = () => {
-      form.date = utils_nowDate.getNowDate().date;
-      form.records.time = utils_nowDate.getNowDate().time;
+      form.date = utils_getDate.getNowDate().date;
+      form.records.time = utils_getDate.getNowDate().time;
       if (formValidate()) {
         addData(form.date, form.records);
         reset();
