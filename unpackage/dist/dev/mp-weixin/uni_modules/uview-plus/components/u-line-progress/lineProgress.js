@@ -10,4 +10,3 @@ const LineProgress = {
   }
 };
 exports.LineProgress = LineProgress;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-line-progress/lineProgress.js.map

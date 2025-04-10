@@ -16,4 +16,3 @@ const Skeleton = {
   }
 };
 exports.Skeleton = Skeleton;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-skeleton/skeleton.js.map

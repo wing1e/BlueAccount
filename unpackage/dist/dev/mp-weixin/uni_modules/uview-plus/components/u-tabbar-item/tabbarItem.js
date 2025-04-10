@@ -11,4 +11,3 @@ const TabbarItem = {
   }
 };
 exports.TabbarItem = TabbarItem;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-tabbar-item/tabbarItem.js.map

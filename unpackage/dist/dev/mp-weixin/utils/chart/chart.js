@@ -46,4 +46,3 @@ exports.AXIS_MARGIN = AXIS_MARGIN;
 exports.CHART_STYLES = CHART_STYLES;
 exports.calculateY = calculateY;
 exports.drawGridLines = drawGridLines;
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/utils/chart/chart.js.map

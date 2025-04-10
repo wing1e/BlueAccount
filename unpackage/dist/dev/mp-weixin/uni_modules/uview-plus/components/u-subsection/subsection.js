@@ -14,4 +14,3 @@ const Subsection = {
   }
 };
 exports.Subsection = Subsection;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-subsection/subsection.js.map

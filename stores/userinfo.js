@@ -1,11 +1,18 @@
-import {defineStore} from "pinia"
-import {getNowDate} from '../utils/get-date.js'
-import {date} from "../uni_modules/uview-plus/libs/function/test.js";
+import {
+	defineStore
+} from "pinia"
+import {
+	getNowDate
+} from '../utils/get-date.js'
+import {
+	date,
+	object
+} from "../uni_modules/uview-plus/libs/function/test.js";
+
 export const userInfoStore = defineStore('userInfo', {
 	state: () => {
 		return {
-			datalist: [
-				{
+			datalist: [{
 					"date": "2023-03-15",
 					"weekday": "周三",
 					"records": [{
@@ -104,13 +111,13 @@ export const userInfoStore = defineStore('userInfo', {
 
 		// 补全所有日期(原数据起始月期至今)
 		completionDate() {
-			// 辅助函数：将日期字符串转换为本地Date对象（午夜时间）
+			// 将日期字符串转换为本地Date对象（午夜时间）
 			const parseLocalDate = (dateStr) => {
 				const [year, month, day] = dateStr.split('-').map(Number);
 				return new Date(year, month - 1, day); // 月份从0开始
 			};
 
-			// 辅助函数：获取数据起始月第一天
+			// 获取数据起始月第一天
 			const getFirstDayOfMonth = (dateStr) => {
 				const date = new Date(dateStr);
 				const year = date.getFullYear();
@@ -175,10 +182,113 @@ export const userInfoStore = defineStore('userInfo', {
 				}
 			})
 		},
+		// 获取指定日期的数据
+		getPartData: (state) => (targetDate) => {
+			// 若未指定日期则返回所有数据
+			if (targetDate === '') {
+				return state.datalist
+			}
+			// 过滤目标日期的数据
+			if (targetDate.start) {
+				const startDate = new Date(targetDate.start)
+				const endDate = new Date(targetDate.end)
+				return state.datalist.filter(day => {
+					const date = new Date(day.date);
+					return date >= startDate && date <= endDate;
+				})
+			}
+			const partData = state.datalist.filter(item => item.date.startsWith(targetDate))
+			return partData
+		},
+		// 获取总数
+		getTotal() {
+			return (targetDate) => {
+				const partDate = this.getPartData(targetDate)
+				if (partDate.length === 0) {
+					// 若未指定日期则返回所有数据
+					return {
+						income: 0,
+						expense: 0,
+						num: 0
+					}
+				} else {
+					// 计算总收入/支出
+					return partDate.reduce((acc, day) => {
+						day.records.forEach(record => {
+							acc.num += 1
+							record.type === 'income' ?
+								acc.income += record.amount :
+								acc.expense += record.amount;
+						});
+						return acc;
+					}, {
+						income: 0,
+						expense: 0,
+						num: 0
+					})
+				}
+			}
+		},
+		// 获取分类信息
+		getCategoryInfo() {
+			return (targetDate) => {
+				const filteredData = this.getPartData(targetDate) // 获取指定日期的数据
+				const result = {
+					income: [],
+					expense: [],
+				}
+				// 计算总收入/支出
+				const totals = filteredData.reduce((acc, day) => {
+					day.records.forEach(record => {
+						if (record.type === 'income') {
+							acc.incomeTotal += record.amount
+						} else {
+							acc.expenseTotal += record.amount
+						}
+					})
+					return acc
+				}, {
+					incomeTotal: 0,
+					expenseTotal: 0
+				})
+				// 计算每个分类的总金额和数量
+				const categoryMap = filteredData.reduce((acc, day) => {
+					day.records.forEach(record => {
+						const type = record.type // 类型(支出/收入)
+						const category = record.category // 分类
+						// 若不存在分类则创建
+						if (!acc[type][category]) {
+							acc[type][category] = {
+								amount: 0,
+								count: 0
+							}
+						}
 
-		// 获取最后一天的信息
-		getLastData() {
-			return this.datalist[this.datalist.length - 1]
+						acc[type][category].amount += record.amount
+						acc[type][category].count++
+					})
+					return acc
+				}, {
+					income: {},
+					expense: {}
+				})
+
+				const typeArr = ['income', 'expense'] // 类型数组
+				// 计算每个分类的百分比
+				typeArr.forEach(type => {
+					Object.entries(categoryMap[type]).forEach(([category, data]) => {
+						const total = type === 'income' ? totals.incomeTotal : totals.expenseTotal
+						result[type].push({
+							category,
+							percent: ((data.amount / total) * 100).toFixed(2),
+							count: data.count,
+							total: data.amount
+						})
+					})
+				})
+
+				return result
+			}
 		}
 	},
 	actions: {
@@ -191,98 +301,7 @@ export const userInfoStore = defineStore('userInfo', {
 				dayData.records.push(records)
 			}
 
-		},
-
-		// 截取部分数据
-		getPartData(targetDate) {
-			// 若未指定日期则返回所有数据
-			if (targetDate === '') {
-				return this.datalist
-			}
-			// 过滤目标日期的数据
-			if (targetDate.start) {
-				const startDate = new Date(targetDate.start)
-				const endDate = new Date(targetDate.end)
-				return this.datalist.filter(day => {
-					const date = new Date(day.date);
-					return date >= startDate && date <= endDate;
-				})	
-			}
-			const partData = this.datalist.filter(item => item.date.startsWith(targetDate))
-			return partData
-		},
-
-		// 获取总统计
-		getTotal(targetDate){
-			const partDate =  this.getPartData(targetDate)
-			if (partDate.length === 0) {
-				return {
-					income: 0,
-					expense: 0,
-					num:0
-				}
-			}else{
-				return partDate.reduce((acc, day) => {
-					day.records.forEach(record => {
-						acc.num += 1
-						record.type === 'income'?
-							acc.income += record.amount :
-							acc.expense += record.amount;
-					});
-					return acc;	
-				},{income: 0, expense: 0,num:0})
-			}
-		},
-		// 分类统计
-		getCategoryPercentages(targetDate) {
-			const filteredData = this.getPartData(targetDate)
-
-			const categoryIncome = {};
-			const categoryExpense = {};
-			let totalIncome = 0;
-			let totalExpense = 0;
-
-			// 遍历筛选后的数据
-			filteredData.forEach(day => {
-				day.records.forEach(record => {
-					if (record.type === 'income') {
-						// 累加收入
-						totalIncome += record.amount;
-						if (!categoryIncome[record.category]) {
-							categoryIncome[record.category] = 0;
-						}
-						categoryIncome[record.category] += record.amount;
-					} else {
-						// 累加支出
-						totalExpense += record.amount;
-						if (!categoryExpense[record.category]) {
-							categoryExpense[record.category] = 0;
-						}
-						categoryExpense[record.category] += record.amount;
-					}
-				});
-			});
-
-			// 计算百分比
-			const categoryIncomePercentages = {};
-			const categoryExpensePercentages = {};
-			for (const category in categoryIncome) {
-				categoryIncomePercentages[category] = ((categoryIncome[category] / totalIncome) * 100).toFixed(
-					2);
-
-			}
-			for (const category in categoryExpense) {
-				categoryExpensePercentages[category] = ((categoryExpense[category] / totalExpense) * 100)
-					.toFixed(2);
-			}
-
-			return {
-				income: categoryIncomePercentages,
-				expense: categoryExpensePercentages
-			}
 		}
-
-
 	}
 })
 

@@ -646,4 +646,3 @@ const fontData = [
   }
 ];
 exports.fontData = fontData;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uni-icons/components/uni-icons/uniicons_file_vue.js.map

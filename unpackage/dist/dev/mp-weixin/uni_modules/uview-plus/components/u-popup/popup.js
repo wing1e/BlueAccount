@@ -20,4 +20,3 @@ const Popup = {
   }
 };
 exports.Popup = Popup;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-popup/popup.js.map

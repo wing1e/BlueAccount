@@ -8,4 +8,3 @@ const NumberKeyboard = {
   }
 };
 exports.NumberKeyboard = NumberKeyboard;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-number-keyboard/numberKeyboard.js.map

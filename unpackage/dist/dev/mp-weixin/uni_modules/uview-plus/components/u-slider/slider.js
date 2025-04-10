@@ -18,4 +18,3 @@ const Slider = {
   }
 };
 exports.Slider = Slider;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-slider/slider.js.map

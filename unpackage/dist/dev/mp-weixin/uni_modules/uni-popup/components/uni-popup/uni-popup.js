@@ -212,7 +212,7 @@ const _sfc_main = {
         direction = this.type;
       }
       if (!this.config[direction]) {
-        common_vendor.index.__f__("error", "at uni_modules/uni-popup/components/uni-popup/uni-popup.vue:310", "缺少类型：", direction);
+        console.error("缺少类型：", direction);
         return;
       }
       this[this.config[direction]]();
@@ -394,4 +394,3 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 wx.createComponent(Component);
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uni-popup/components/uni-popup/uni-popup.js.map

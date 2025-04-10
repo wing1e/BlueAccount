@@ -8,7 +8,7 @@
 			<listVue></listVue>
 		</view>
 		<view class="tabbar">
-			<tabbarVue></tabbarVue>
+			<TabbarVue></TabbarVue>
 		</view>
 	</view>
 	<!-- 添加按钮弹出框 -->
@@ -19,7 +19,7 @@
 import { computed, getCurrentInstance, onMounted, ref } from 'vue';
 import indexChartVue from './components/indexChart.vue'; 
 import listVue from './components/list.vue';
-import tabbarVue from '../../components/tabbar.vue';
+import TabbarVue from '../../components/Tabbar.vue';
 import AddPopVue from '../../components/AddPop.vue';
 import { userInfoStore } from '../../stores/userinfo';
 import { getNodeInfo } from '../../utils/node-info';

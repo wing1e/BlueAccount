@@ -18,4 +18,3 @@ const Badge = {
   }
 };
 exports.Badge = Badge;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-badge/badge.js.map

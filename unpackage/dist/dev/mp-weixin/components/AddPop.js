@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 const stores_tabbar = require("../stores/tabbar.js");
-const utils_chart_pieChart = require("../utils/chart/pie-chart.js");
+const utils_constants = require("../utils/constants.js");
 const utils_getDate = require("../utils/get-date.js");
 const stores_userinfo = require("../stores/userinfo.js");
 if (!Array) {
@@ -105,7 +105,7 @@ const _sfc_main = {
         j: common_vendor.o(common_vendor.m(($event) => form.records.amount = $event.detail.value, {
           number: true
         })),
-        k: common_vendor.f(form.records.type === "expense" ? common_vendor.unref(utils_chart_pieChart.EXPENSE_TYPE) : common_vendor.unref(utils_chart_pieChart.INCOME_TYPE), (item, index, i0) => {
+        k: common_vendor.f(form.records.type === "expense" ? common_vendor.unref(utils_constants.EXPENSE_TYPE) : common_vendor.unref(utils_constants.INCOME_TYPE), (item, index, i0) => {
           var _a, _b;
           return {
             a: common_vendor.t(item.category),
@@ -134,4 +134,3 @@ const _sfc_main = {
 };
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-e274f890"]]);
 wx.createComponent(Component);
-//# sourceMappingURL=../../.sourcemap/mp-weixin/components/AddPop.js.map

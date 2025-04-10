@@ -12,4 +12,3 @@ const defaults = {
   }
 };
 exports.defaults = defaults;
-//# sourceMappingURL=../../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/core/defaults.js.map

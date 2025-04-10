@@ -13,4 +13,3 @@ const Form = {
   }
 };
 exports.Form = Form;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-form/form.js.map

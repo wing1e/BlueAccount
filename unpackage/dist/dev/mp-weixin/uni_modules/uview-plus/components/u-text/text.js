@@ -29,4 +29,3 @@ const Text = {
   }
 };
 exports.Text = Text;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-text/text.js.map

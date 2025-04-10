@@ -24,4 +24,3 @@ const getWeek = (targetDate) => {
 };
 exports.getNowDate = getNowDate;
 exports.getWeek = getWeek;
-//# sourceMappingURL=../../.sourcemap/mp-weixin/utils/get-date.js.map

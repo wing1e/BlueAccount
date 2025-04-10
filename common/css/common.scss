@@ -1,0 +1,54 @@
+// 背景色
+$bg-color-white: #fff;
+$bg-color-grey: #f2f6f9;
+
+// 边框
+
+// 阴影
+$shadow: drop-shadow(0 0rpx 1rpx rgba(0, 0, 0, 0.1));
+
+// 字体
+$text-size-title: 28rpx;
+$text-size-big: 26rpx;
+$text-size-med: 24rpx;
+$text-size-sm: 20rpx;
+
+// 字体色
+$text-color-light-grey: #a3b2c6;
+$text-color-dark-grey: #5c5c5c;
+
+//picker 样式
+@mixin picker-layout {
+	height: 100%;
+	display: flex;
+	background-color: #fff;
+	box-sizing: border-box;
+	padding: 10rpx;
+	border-radius: 20rpx;
+	filter: $shadow;
+	font-size: $text-size-med;
+	font-weight: 600;
+}
+// 列表样式
+$option-height: 110rpx;
+@mixin options-layout {
+	width: 100%;
+	height: $option-height;
+	box-sizing: border-box;
+	padding: 20rpx;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 20rpx;
+}
+
+@mixin option-left {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+	font-size: $text-size-title;
+	margin-right: auto;
+	margin-left: 20rpx;
+}

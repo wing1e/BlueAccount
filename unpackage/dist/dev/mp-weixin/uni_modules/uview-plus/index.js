@@ -55,4 +55,3 @@ const uviewsPlus = {
   install
 };
 exports.uviewsPlus = uviewsPlus;
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/uni_modules/uview-plus/index.js.map

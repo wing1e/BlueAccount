@@ -5,7 +5,10 @@ const utils_chart_chart = require("./chart.js");
 const barChartInit = async (instance, chartData, className, canvasId) => {
   try {
     const canvasNode = await utils_nodeInfo.getNodeInfo(instance, className);
-    const { width: ctxW, height: ctxH } = canvasNode[0];
+    const {
+      width: ctxW,
+      height: ctxH
+    } = canvasNode[0];
     const ctx = common_vendor.index.createCanvasContext(canvasId, instance);
     const drawArea = {
       top: utils_chart_chart.AXIS_MARGIN.top,
@@ -29,7 +32,7 @@ const barChartInit = async (instance, chartData, className, canvasId) => {
     });
     ctx.draw();
   } catch (err) {
-    common_vendor.index.__f__("log", "at utils/chart/bar-chart.js:47", err);
+    console.log(err);
   }
 };
 const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
@@ -46,4 +49,3 @@ const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
   ctx.restore();
 };
 exports.barChartInit = barChartInit;
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/utils/chart/bar-chart.js.map

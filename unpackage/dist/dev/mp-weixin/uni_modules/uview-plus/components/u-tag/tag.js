@@ -21,4 +21,3 @@ const Tag = {
   }
 };
 exports.Tag = Tag;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-tag/tag.js.map

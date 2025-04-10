@@ -12,4 +12,3 @@ const RowNotice = {
   }
 };
 exports.RowNotice = RowNotice;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-row-notice/rowNotice.js.map

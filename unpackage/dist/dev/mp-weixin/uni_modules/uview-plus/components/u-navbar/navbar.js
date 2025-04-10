@@ -23,4 +23,3 @@ const Navbar = {
   }
 };
 exports.Navbar = Navbar;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-navbar/navbar.js.map

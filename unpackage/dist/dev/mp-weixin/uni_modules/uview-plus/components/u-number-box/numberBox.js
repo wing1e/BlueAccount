@@ -30,4 +30,3 @@ const NumberBox = {
   }
 };
 exports.NumberBox = NumberBox;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-number-box/numberBox.js.map

@@ -11,4 +11,3 @@ const zIndex = {
   indexListSticky: 965
 };
 exports.zIndex = zIndex;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/config/zIndex.js.map

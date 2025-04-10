@@ -91,4 +91,3 @@ const props = uni_modules_uviewPlus_libs_vue.defineMixin({
   }
 });
 exports.props = props;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-icon/props.js.map

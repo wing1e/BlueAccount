@@ -9,4 +9,3 @@ const Transition = {
   }
 };
 exports.Transition = Transition;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-transition/transition.js.map

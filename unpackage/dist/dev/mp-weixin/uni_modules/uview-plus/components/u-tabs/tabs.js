@@ -24,4 +24,3 @@ const Tabs = {
   }
 };
 exports.Tabs = Tabs;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-tabs/tabs.js.map

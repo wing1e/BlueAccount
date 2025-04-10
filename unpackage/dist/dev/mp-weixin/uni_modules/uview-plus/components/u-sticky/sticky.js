@@ -11,4 +11,3 @@ const Sticky = {
   }
 };
 exports.Sticky = Sticky;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-sticky/sticky.js.map

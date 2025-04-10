@@ -9,4 +9,3 @@ const examiner = (data) => {
   }
 };
 exports.examiner = examiner;
-//# sourceMappingURL=../../.sourcemap/mp-weixin/utils/examiner.js.map

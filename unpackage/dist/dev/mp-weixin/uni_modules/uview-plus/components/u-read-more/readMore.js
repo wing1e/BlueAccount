@@ -13,4 +13,3 @@ const ReadMore = {
   }
 };
 exports.ReadMore = ReadMore;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-read-more/readMore.js.map

@@ -179,4 +179,3 @@ const defProps = {
   ...uni_modules_uviewPlus_components_uUpload_upload.Upload
 };
 exports.defProps = defProps;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/config/props.js.map

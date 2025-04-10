@@ -40,16 +40,17 @@
 .list .date-list .date-item.data-v-cee0d0e9 {
   width: 100%;
   margin-top: 20rpx;
+  font-size: 26rpx;
 }
 .list .date-list .date-item .item.data-v-cee0d0e9 {
   width: 100%;
   background-color: #fff;
-  filter: drop-shadow(1rpx 2rpx 5rpx rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 0rpx 1rpx rgba(0, 0, 0, 0.1));
   border-radius: 20rpx;
 }
 .list .date-list .date-item .item .records.data-v-cee0d0e9 {
   width: 100%;
-  height: 120rpx;
+  height: 110rpx;
   box-sizing: border-box;
   padding: 20rpx;
   display: flex;
@@ -69,10 +70,10 @@
 }
 .list .amount-list .amount-item.data-v-cee0d0e9 {
   background-color: #fff;
-  filter: drop-shadow(1rpx 2rpx 5rpx rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 0rpx 1rpx rgba(0, 0, 0, 0.1));
   border-radius: 20rpx;
   width: 100%;
-  height: 120rpx;
+  height: 110rpx;
   box-sizing: border-box;
   padding: 20rpx;
   display: flex;

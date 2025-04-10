@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="contents">
 			<view v-for="(item,index) in chartList" :key="index" :style="{height:item.height}">
-				<panelVue :title="item.title" :interval="item.interval">
+				<panelVue :title="item.title">
 					<template slot="chart">
 						<pieChartVue v-if="index===0"></pieChartVue>
 						<lineChartVue v-if="index===1"></lineChartVue>
@@ -12,7 +12,7 @@
 			</view>
 		</view>
 		<view class="tabbar">
-			<tabbarVue></tabbarVue>
+			<TabbarVue></TabbarVue>
 		</view>
 	</view>
 	<!-- 添加按钮弹出框 -->
@@ -20,36 +20,31 @@
 </template>
 
 <script setup>
-	import tabbarVue from '../../components/tabbar.vue';
+	import TabbarVue from '../../components/Tabbar.vue';
 	import panelVue from './components/panel.vue';
-	import pieChartVue from './components/pieChart.vue';
-	import lineChartVue from './components/lineChart.vue';
-	import barChartVue from './components/barChart.vue'
-	import {chartInterval} from '../../stores/chartinterval'
+	import pieChartVue from '../../components/pieChart.vue'
+	import lineChartVue from '../../components/lineChart.vue';
+	import barChartVue from '../../components/barChart.vue'
 	import AddPopVue from '../../components/AddPop.vue';
+import { panelinfoStore } from '../../stores/panelinfo';
+import { reactive } from 'vue';
 
-	const {status} = chartInterval()
-	const chartList = [
+	const {panelList}= panelinfoStore()
+	const chartList =reactive([
 		{
-			title:'分类统计',
-			component:pieChartVue,
-			interval:status.pieChart,
+			...panelList[0],
 			height:'30%'
 		},
 		{
-			title:'日趋势',
-			component:lineChartVue,
-			interval:status.lineChart,
+			...panelList[1],
 			height:'25%'
 			
 		},
 		{
-			title:'月度收支',
-			component:barChartVue,
-			interval:status.barChart,
+			...panelList[2],
 			height:'25%'
 		}
-	]
+	]) 
 
 </script>
 

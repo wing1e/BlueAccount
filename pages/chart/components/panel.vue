@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
 		<view class="header">
-			<text style="font-size: 27rpx;font-weight: 600;letter-spacing: 2rpx;">{{props.title}}</text>
+			<text style="font-size: 28rpx;font-weight: 600;letter-spacing: 2rpx;">{{props.title}}</text>
 			<view class="count">
-				<text >{{"-"+count.expense}}</text>
-				<text>{{props.interval}}</text>
+				<text >{{"-"+data.amount.expense}}</text>
+				<text>{{formatDate(data.date)}}</text>
 			</view>
 			<view class="btn" @click="toAnalysis">
 				<RightButtonVue></RightButtonVue>
@@ -20,21 +20,24 @@
 import { computed } from 'vue';
 import RightButtonVue from '../../../components/RightButton.vue';
 import { userInfoStore } from '../../../stores/userinfo';
+import { formatDate } from '../../../utils/format';
+import { panelinfoStore } from '../../../stores/panelinfo';
+
 
 
 	const {getTotal} = userInfoStore()
+	const panelinfo = panelinfoStore()
 	const props = defineProps({
-		title:String,
-		interval:String
+		title:String
 	})
-	
-	const count = computed(()=>{
-		return getTotal(props.interval)
+	const data = computed(()=>{
+		const panelDate = panelinfo.getPanelInfo(props.title).date
+		return {date:panelDate,amount:getTotal(panelDate)}
 	})
 	
 	const toAnalysis = () =>{
 		uni.navigateTo({
-			url:`/pages/analysis/index?title=${props.title}&interval=${props.interval}`
+			url:`/pages/analysis/index?title=${props.title}`
 		})
 	}
 	
@@ -51,9 +54,9 @@ import { userInfoStore } from '../../../stores/userinfo';
 		flex-direction: column;
 		box-sizing: border-box;
 		padding: 20rpx;
-		background-color: #fff;
+		background-color: $bg-color-white;
 		border-radius: 20rpx;
-		filter: drop-shadow( 0 1rpx 5rpx rgba(0, 0, 0, 0.1));
+		filter: $shadow;
 		.header{
 			width: 100%;
 			height: 20%;

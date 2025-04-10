@@ -13,4 +13,3 @@ const Divider = {
   }
 };
 exports.Divider = Divider;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-divider/divider.js.map

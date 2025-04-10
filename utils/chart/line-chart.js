@@ -1,16 +1,27 @@
-import { examiner } from "../examiner.js"
-import {getNodeInfo} from "../node-info.js"
-import {CHART_STYLES,AXIS_MARGIN,drawGridLines,calculateY} from "./chart.js"
+import {
+	examiner
+} from "../examiner.js"
+import {
+	getNodeInfo
+} from "../node-info.js"
+import {
+	CHART_STYLES,
+	AXIS_MARGIN,
+	drawGridLines,
+	calculateY
+} from "./chart.js"
 
 export const indexChartInit = async (instance, chartData, className, canvasId) => {
 	try {
 		// 获取画布尺寸
 		const canvasNode = await getNodeInfo(instance, className)
-		const {width: ctxW,height: ctxH} = canvasNode[0]
+		const {
+			width: ctxW,
+			height: ctxH
+		} = canvasNode[0]
 		// 创建绘图上下文
 		const ctx = uni.createCanvasContext(canvasId, instance)
-		
-		
+
 		// 计算绘图区域
 		const drawArea = {
 			top: AXIS_MARGIN.top,
@@ -19,7 +30,7 @@ export const indexChartInit = async (instance, chartData, className, canvasId) =
 				return (this.top + this.bottom) / 2
 			}
 		}
-		
+
 		// 绘制网格系统
 		drawGridLines(ctx, ctxW, drawArea)
 
@@ -27,10 +38,10 @@ export const indexChartInit = async (instance, chartData, className, canvasId) =
 		drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData)
 
 		// 绘制数据折线
-		if(examiner(chartData)){
+		if (examiner(chartData)) {
 			drawChartLine(ctx, chartData, ctxW, drawArea)
 		}
-		
+
 		ctx.draw()
 	} catch (error) {
 		console.error('图表初始化失败:', error)
@@ -41,33 +52,31 @@ export const indexChartInit = async (instance, chartData, className, canvasId) =
 /* 绘制底部日期标签 */
 const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
 	const labelSpace = canvasWidth / (data.length + 1) // 动态计算间距
-	
+
 	ctx.save()
 	ctx.setFontSize(CHART_STYLES.label.fontSize)
 	ctx.fillStyle = CHART_STYLES.label.color
-	if(data.length<=12){
+	if (data.length <= 12) {
 		data.forEach((item, index) => {
 			const dateStr = item.date.split('-').slice(-1) // 提取DD
 			const xPos = (index + 1) * labelSpace
 			ctx.setTextAlign('center')
 			ctx.fillText(dateStr, xPos, bottomY + 15) // 下移15px避免重叠
 		})
-	}else{
+	} else {
 		data.forEach((item, index) => {
-			if(index%6===0){
-				const dateStr = item.date.split('-').slice(-1)  // 提取DD
+			if (index % 6 === 0) {
+				const dateStr = item.date.split('-').slice(-1) // 提取DD
 				const xPos = (index + 1) * labelSpace
 				ctx.setTextAlign('center')
 				ctx.fillText(dateStr, xPos, bottomY + 15) // 下移15px避免重叠
 			}
-			
+
 		})
 	}
-	
 
 	ctx.restore()
 }
-
 
 /* 绘制折线图主体 */
 const drawChartLine = (ctx, data, canvasWidth, area) => {
@@ -106,4 +115,3 @@ const drawChartLine = (ctx, data, canvasWidth, area) => {
 
 	ctx.restore()
 }
-

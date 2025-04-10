@@ -15,4 +15,3 @@ const LoadingPage = {
   }
 };
 exports.LoadingPage = LoadingPage;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-loading-page/loadingPage.js.map

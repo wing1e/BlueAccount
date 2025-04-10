@@ -16,4 +16,3 @@ const Tooltip = {
   }
 };
 exports.Tooltip = Tooltip;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-tooltip/tooltip.js.map

@@ -50,4 +50,3 @@ const mergeConfig = (globalsConfig, config2 = {}) => {
   return config;
 };
 exports.mergeConfig = mergeConfig;
-//# sourceMappingURL=../../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/core/mergeConfig.js.map

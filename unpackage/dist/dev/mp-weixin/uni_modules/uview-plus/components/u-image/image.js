@@ -21,4 +21,3 @@ const Image = {
   }
 };
 exports.Image = Image;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-image/image.js.map

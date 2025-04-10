@@ -8,4 +8,3 @@ const CellGroup = {
   }
 };
 exports.CellGroup = CellGroup;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-cell-group/cellGroup.js.map

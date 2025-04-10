@@ -19,7 +19,7 @@
     "ignoreUploadUnusedFiles": false
   },
   "compileType": "miniprogram",
-  "libVersion": "3.6.2",
+  "libVersion": "",
   "appid": "wxa53989795715ce6a",
   "projectname": "MoneyLover",
   "condition": {},

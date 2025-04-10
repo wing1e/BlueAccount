@@ -2,11 +2,11 @@
 const common_vendor = require("../../common/vendor.js");
 const stores_userinfo = require("../../stores/userinfo.js");
 if (!Math) {
-  (indexChartVue + listVue + tabbarVue + AddPopVue)();
+  (indexChartVue + listVue + TabbarVue + AddPopVue)();
 }
 const indexChartVue = () => "./components/indexChart.js";
 const listVue = () => "./components/list.js";
-const tabbarVue = () => "../../components/tabbar.js";
+const TabbarVue = () => "../../components/Tabbar.js";
 const AddPopVue = () => "../../components/AddPop.js";
 const _sfc_main = {
   __name: "index",
@@ -22,4 +22,3 @@ const _sfc_main = {
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
 wx.createPage(MiniProgramPage);
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/index/index.js.map

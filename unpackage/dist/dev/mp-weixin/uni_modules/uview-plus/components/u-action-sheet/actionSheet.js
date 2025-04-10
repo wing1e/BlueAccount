@@ -17,4 +17,3 @@ const ActionSheet = {
   }
 };
 exports.ActionSheet = ActionSheet;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-action-sheet/actionSheet.js.map

@@ -10,14 +10,14 @@ if (!Math) {
 }
 const _sfc_main = {
   onLaunch: function() {
-    common_vendor.index.__f__("log", "at App.vue:4", "App Launch");
+    console.log("App Launch");
   },
   onShow: function() {
     common_vendor.index.hideTabBar();
-    common_vendor.index.__f__("log", "at App.vue:8", "App Show");
+    console.log("App Show");
   },
   onHide: function() {
-    common_vendor.index.__f__("log", "at App.vue:11", "App Hide");
+    console.log("App Hide");
   }
 };
 function createApp() {
@@ -31,4 +31,3 @@ function createApp() {
 }
 createApp().app.mount("#app");
 exports.createApp = createApp;
-//# sourceMappingURL=../.sourcemap/mp-weixin/app.js.map

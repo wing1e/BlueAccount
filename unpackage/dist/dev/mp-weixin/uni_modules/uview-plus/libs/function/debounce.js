@@ -17,4 +17,3 @@ function debounce(func, wait = 500, immediate = false) {
   }
 }
 exports.debounce = debounce;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/function/debounce.js.map

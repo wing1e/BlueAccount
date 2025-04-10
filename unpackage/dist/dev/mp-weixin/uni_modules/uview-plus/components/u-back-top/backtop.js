@@ -18,4 +18,3 @@ const Backtop = {
   }
 };
 exports.Backtop = Backtop;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-back-top/backtop.js.map

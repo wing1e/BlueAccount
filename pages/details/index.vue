@@ -26,12 +26,13 @@
 
 <script setup>
 import { computed, onMounted, reactive, ref, watch } from 'vue';
-import headerVue from '../../components/HeadOptions.vue';
+import headerVue from './components/headOptions.vue';
 import listVue from './components/list.vue';
 import { getNowDate } from '../../utils/get-date.js';
 import { userInfoStore } from '../../stores/userinfo';
 import {formatAmount} from '../../utils/format.js'
 import {timeChain } from '../../utils/time-chain.js'
+import {calcQOQ,calcPercentage} from '../../utils/calc-changes.js'
 
 onMounted(() => fillBrand());
 // 获取数据
@@ -91,18 +92,6 @@ const fillBrand = () => {
 	brandData[2].percentage = calcPercentage(currentBalance, lastBalance);
 };
 
-
-const calcQOQ = (current, last) => {
-	const diff = current - last;
-	return formatAmount(diff);
-};
-
-const calcPercentage = (current, last) => {
-	if (last === 0) return current === 0 ? '0%' : '100%';
-	return ((current / last - 1) * 100).toFixed(1) + '%';
-};
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -123,11 +112,9 @@ const calcPercentage = (current, last) => {
 	flex-direction: column;
 	align-items: center;
 	background-color: #f2f6f9;
-	padding: 10rpx 0rpx 0;
 	.header {
 		width: 100%;
 		height: 5%;
-		@include padding30;
 	}
 	.container{
 		width: 100%;
@@ -139,7 +126,7 @@ const calcPercentage = (current, last) => {
 			height: 5%;
 			box-sizing: border-box;
 			padding: 20rpx;
-			font-size:26rpx ;
+			font-size:$text-size-big ;
 			color: #a3b2c6;
 			position: relative;
 			right: 50%;
@@ -155,7 +142,7 @@ const calcPercentage = (current, last) => {
 			justify-content: space-around;
 			align-items: center;
 			background: linear-gradient(to right, #485161, #00005b);
-			filter: drop-shadow(0 1rpx 5rpx rgba(0, 0, 0, 0.1));
+			filter: $shadow;
 			border-radius: 40rpx;
 			.brand-item {
 				height: 100%;
@@ -163,7 +150,7 @@ const calcPercentage = (current, last) => {
 				flex-direction: column;
 				justify-content: space-evenly;
 				align-items: center;
-				font-size: 21rpx;
+				font-size: $text-size-med;
 				color: #fff;
 			}
 		}

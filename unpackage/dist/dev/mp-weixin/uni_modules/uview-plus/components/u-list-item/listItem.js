@@ -6,4 +6,3 @@ const ListItem = {
   }
 };
 exports.ListItem = ListItem;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-list-item/listItem.js.map

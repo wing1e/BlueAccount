@@ -12,7 +12,7 @@ if (!Math) {
   (_easycom_u_icon + _easycom_uni_icons)();
 }
 const _sfc_main = {
-  __name: "tabbar",
+  __name: "Tabbar",
   setup(__props) {
     const btnInfo = [
       { title: "首页", uncheck: "home", check: "home-fill", status: 0 },
@@ -47,10 +47,10 @@ const _sfc_main = {
       return {
         a: common_vendor.f(btnInfo, (item, index, i0) => {
           return {
-            a: "c6a4bdcf-0-" + i0,
+            a: "f1652630-0-" + i0,
             b: common_vendor.p({
               name: changeIcon(item).icon,
-              size: "28",
+              size: "30",
               color: changeIcon(item).color
             }),
             c: index,
@@ -67,6 +67,5 @@ const _sfc_main = {
     };
   }
 };
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-c6a4bdcf"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-f1652630"]]);
 wx.createComponent(Component);
-//# sourceMappingURL=../../.sourcemap/mp-weixin/components/tabbar.js.map

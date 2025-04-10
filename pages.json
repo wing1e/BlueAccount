@@ -4,41 +4,37 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "ML"
-				
+
 			}
 		},
 		{
-			"path" : "pages/chart/index",
-			"style" : 
-			{
-				"navigationBarTitleText" : "图表"
+			"path": "pages/chart/index",
+			"style": {
+				"navigationBarTitleText": "图表"
 			}
 		},
 		{
-			"path" : "pages/details/index",
-			"style" : 
-			{
-				"navigationBarTitleText" : "明细"
+			"path": "pages/details/index",
+			"style": {
+				"navigationBarTitleText": "明细"
 			}
 		},
 		{
-			"path" : "pages/analysis/index",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
+			"path": "pages/analysis/index",
+			"style": {
+				"navigationBarTitleText": ""
 			}
 		}
 	],
 	"tabBar": {
-	    "list": [
-	      {
-	        "pagePath": "pages/index/index",
-	        "text": "首页"
-	      },
-	      {
-	        "pagePath": "pages/chart/index",
-	        "text": "账单"
-	      }
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/chart/index",
+				"text": "账单"
+			}
 		]
 	},
 	"globalStyle": {

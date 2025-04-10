@@ -26,4 +26,3 @@ const Icon = {
   }
 };
 exports.Icon = Icon;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-icon/icon.js.map

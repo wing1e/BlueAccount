@@ -42,4 +42,3 @@ function buildURL(url, params) {
   return url;
 }
 exports.buildURL = buildURL;
-//# sourceMappingURL=../../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/helpers/buildURL.js.map

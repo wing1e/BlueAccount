@@ -1,43 +1,37 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const stores_chartinterval = require("../../stores/chartinterval.js");
+const stores_panelinfo = require("../../stores/panelinfo.js");
 if (!Array) {
   const _component_template = common_vendor.resolveComponent("template");
   _component_template();
 }
 if (!Math) {
-  (pieChartVue + lineChartVue + barChartVue + panelVue + tabbarVue + AddPopVue)();
+  (pieChartVue + lineChartVue + barChartVue + panelVue + TabbarVue + AddPopVue)();
 }
-const tabbarVue = () => "../../components/tabbar.js";
+const TabbarVue = () => "../../components/Tabbar.js";
 const panelVue = () => "./components/panel.js";
-const pieChartVue = () => "./components/pieChart.js";
-const lineChartVue = () => "./components/lineChart.js";
-const barChartVue = () => "./components/barChart.js";
+const pieChartVue = () => "../../components/pieChart.js";
+const lineChartVue = () => "../../components/lineChart.js";
+const barChartVue = () => "../../components/barChart.js";
 const AddPopVue = () => "../../components/AddPop.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    const { status } = stores_chartinterval.chartInterval();
-    const chartList = [
+    const { panelList } = stores_panelinfo.panelinfoStore();
+    const chartList = common_vendor.reactive([
       {
-        title: "分类统计",
-        component: pieChartVue,
-        interval: status.pieChart,
+        ...panelList[0],
         height: "30%"
       },
       {
-        title: "日趋势",
-        component: lineChartVue,
-        interval: status.lineChart,
+        ...panelList[1],
         height: "25%"
       },
       {
-        title: "月度收支",
-        component: barChartVue,
-        interval: status.barChart,
+        ...panelList[2],
         height: "25%"
       }
-    ];
+    ]);
     return (_ctx, _cache) => {
       return {
         a: common_vendor.f(chartList, (item, index, i0) => {
@@ -56,8 +50,7 @@ const _sfc_main = {
           } : {}, {
             g: "4bc47aea-0-" + i0,
             h: common_vendor.p({
-              title: item.title,
-              interval: item.interval
+              title: item.title
             }),
             i: index,
             j: item.height
@@ -69,4 +62,3 @@ const _sfc_main = {
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-4bc47aea"]]);
 wx.createPage(MiniProgramPage);
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/chart/index.js.map

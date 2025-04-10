@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "明细",
   "usingComponents": {
-    "header-vue": "../../components/HeadOptions",
+    "header-vue": "./components/headOptions",
     "list-vue": "./components/list"
   }
 }

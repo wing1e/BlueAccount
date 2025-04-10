@@ -9,4 +9,3 @@ const CountDown = {
   }
 };
 exports.CountDown = CountDown;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-count-down/countDown.js.map

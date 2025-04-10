@@ -16,4 +16,3 @@ const ColumnNotice = {
   }
 };
 exports.ColumnNotice = ColumnNotice;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-column-notice/columnNotice.js.map

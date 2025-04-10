@@ -32,7 +32,7 @@
   padding: 20rpx;
   background-color: #fff;
   border-radius: 20rpx;
-  filter: drop-shadow(0 1rpx 5rpx rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 0rpx 1rpx rgba(0, 0, 0, 0.1));
 }
 .container .header.data-v-800bd557 {
   width: 100%;

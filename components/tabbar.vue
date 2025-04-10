@@ -3,7 +3,7 @@
 		<view class="tabbar">
 			<view class="btns">
 				<view class="bottomBtn" v-for="(item,index) in btnInfo" :key="index" @click="navigation(item.status)">
-					<u-icon :name="changeIcon(item).icon" size="28" :color="changeIcon(item).color"></u-icon>
+					<u-icon :name="changeIcon(item).icon" size="30" :color="changeIcon(item).color"></u-icon>
 				</view>
 			</view>
 			<!-- 添加按钮的半圆形边框 -->
@@ -81,15 +81,13 @@ import{storeToRefs} from 'pinia'
 		backdrop-filter:  blur(3rpx);
 		.tabbar{
 			box-sizing: border-box;
-			width: 90%;
-			height: 70%;
+			width: 95%;
+			height: 75%;
 			background-color: #fff;
 			border-radius: 20rpx;
-			filter: drop-shadow( 0 1rpx 5rpx rgba(0, 0, 0, 0.1));
+			filter: $shadow;
 			display: flex;
 			justify-content: space-between;
-			box-sizing: border-box;
-			padding: 10rpx 0 0 10rpx;
 			position: relative;
 			.addbtn{
 				width: 100rpx;
@@ -126,14 +124,13 @@ import{storeToRefs} from 'pinia'
 				width: 100%;
 				height: 100%;
 				@include flex-center;
-				font-size: 20rpx;
 				.bottomBtn{
 					width: 22%;
 					height: 100%;
 					display: flex;
 					flex-direction: column;
 					align-items: center;
-					justify-content: start;
+					justify-content: center;
 					
 				}
 			}

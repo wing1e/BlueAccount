@@ -13,4 +13,3 @@ const getNodeInfo = async (instance, nodeName) => {
   });
 };
 exports.getNodeInfo = getNodeInfo;
-//# sourceMappingURL=../../.sourcemap/mp-weixin/utils/node-info.js.map

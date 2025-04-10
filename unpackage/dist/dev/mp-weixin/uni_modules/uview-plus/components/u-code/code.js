@@ -11,4 +11,3 @@ const Code = {
   }
 };
 exports.Code = Code;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-code/code.js.map

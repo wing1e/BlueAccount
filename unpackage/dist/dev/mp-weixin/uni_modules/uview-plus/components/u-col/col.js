@@ -10,4 +10,3 @@ const Col = {
   }
 };
 exports.Col = Col;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-col/col.js.map

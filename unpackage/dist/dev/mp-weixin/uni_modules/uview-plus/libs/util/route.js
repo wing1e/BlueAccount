@@ -100,4 +100,3 @@ class Router {
 }
 const route = new Router().route;
 exports.route = route;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/util/route.js.map

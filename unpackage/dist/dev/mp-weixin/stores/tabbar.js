@@ -6,4 +6,3 @@ const tabBarStore = common_vendor.defineStore("tabbar", {
   }
 });
 exports.tabBarStore = tabBarStore;
-//# sourceMappingURL=../../.sourcemap/mp-weixin/stores/tabbar.js.map

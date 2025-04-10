@@ -28,8 +28,8 @@ const _sfc_main = {
         });
         return sortByDate.map((item) => {
           item.records = item.records.sort((a, b) => {
-            const dateA = (/* @__PURE__ */ new Date(`${item.date} ${a.time}`)).getTime();
-            const dateB = (/* @__PURE__ */ new Date(`${item.date} ${b.time}`)).getTime();
+            const dateA = (/* @__PURE__ */ new Date(`${item.date}T${a.time}`)).getTime();
+            const dateB = (/* @__PURE__ */ new Date(`${item.date}T${b.time}`)).getTime();
             return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
           });
           return item;
@@ -41,13 +41,11 @@ const _sfc_main = {
             newData.push({ date: item.date, ...record });
           });
         });
-        const a = newData.sort((a2, b) => {
-          const amountA = a2.amount;
+        return newData.sort((a, b) => {
+          const amountA = a.amount;
           const amountB = b.amount;
           return sortOrder === "asc" ? amountA - amountB : amountB - amountA;
         });
-        common_vendor.index.__f__("log", "at pages/details/components/list.vue:83", a);
-        return a;
       }
       return origin;
     });
@@ -87,7 +85,7 @@ const _sfc_main = {
             }),
             e: common_vendor.p({
               type: "smallcircle-filled",
-              size: "8",
+              size: "10",
               color: "#FE5D20"
             })
           } : {}, {
@@ -112,7 +110,7 @@ const _sfc_main = {
         }),
         e: common_vendor.p({
           type: "smallcircle-filled",
-          size: "8",
+          size: "10",
           color: "#FE5D20"
         })
       } : {});
@@ -121,4 +119,3 @@ const _sfc_main = {
 };
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-cee0d0e9"]]);
 wx.createComponent(Component);
-//# sourceMappingURL=../../../../.sourcemap/mp-weixin/pages/details/components/list.js.map

@@ -196,4 +196,3 @@ exports.array = array;
 exports.empty = empty;
 exports.number = number;
 exports.test = test;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/function/test.js.map

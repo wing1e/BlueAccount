@@ -22,4 +22,3 @@ const Picker = {
   }
 };
 exports.Picker = Picker;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-picker/picker.js.map

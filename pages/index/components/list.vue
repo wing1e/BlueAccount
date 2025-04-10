@@ -1,7 +1,7 @@
 <template>
 	<view class="list-index">
 		<view class="list-head">
-			<text style="font-weight: 600; font-size: 26rpx; letter-spacing: 4rpx; margin-left: 25rpx">七日交易</text>
+			<text style="font-weight: 600; font-size: 28rpx; letter-spacing: 4rpx; margin-left: 25rpx">七日交易</text>
 			<uni-icons type="right" size="20" color="#00B6E6" style="margin-right: 25rpx" @click="toDetails"></uni-icons>
 		</view>
 		<view class="list">
@@ -74,7 +74,7 @@ const toDetails = () =>{
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	background-color: #f2f6f9;
+	background-color: $bg-color-grey;
 
 	.list-head {
 		height: 5%;
@@ -150,7 +150,7 @@ const toDetails = () =>{
 
 			.items {
 				background-color: #fff;
-				filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.1));
+				filter: $shadow;
 				width: 85%;
 				display: flex;
 				flex-direction: column;
@@ -179,12 +179,12 @@ const toDetails = () =>{
 						justify-content: space-around;
 
 						.category {
-							font-size: 27rpx;
+							font-size: $text-size-title;
 							letter-spacing: 2rpx;
 						}
 
 						.note {
-							font-size: 18rpx;
+							font-size: $text-size-sm;
 							color: #8b97a9;
 						}
 					}

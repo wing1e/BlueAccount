@@ -20,4 +20,3 @@ const CodeInput = {
   }
 };
 exports.CodeInput = CodeInput;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-code-input/codeInput.js.map

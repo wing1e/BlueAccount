@@ -15,4 +15,3 @@ const GormItem = {
   }
 };
 exports.GormItem = GormItem;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-form-item/formItem.js.map

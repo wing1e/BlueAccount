@@ -15,4 +15,3 @@ const Switch = {
   }
 };
 exports.Switch = Switch;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-switch/switch.js.map

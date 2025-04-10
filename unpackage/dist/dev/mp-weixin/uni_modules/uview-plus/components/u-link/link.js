@@ -16,4 +16,3 @@ const Link = {
   }
 };
 exports.Link = Link;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-link/link.js.map

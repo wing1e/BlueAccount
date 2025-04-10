@@ -9,4 +9,3 @@ const Overlay = {
   }
 };
 exports.Overlay = Overlay;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-overlay/overlay.js.map

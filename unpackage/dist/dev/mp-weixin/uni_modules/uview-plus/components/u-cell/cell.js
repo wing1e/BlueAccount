@@ -26,4 +26,3 @@ const Cell = {
   }
 };
 exports.Cell = Cell;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-cell/cell.js.map

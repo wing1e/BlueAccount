@@ -7,4 +7,3 @@ const GridItem = {
   }
 };
 exports.GridItem = GridItem;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-grid-item/gridItem.js.map

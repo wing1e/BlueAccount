@@ -155,9 +155,100 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
         }
       });
     },
-    // 获取最后一天的信息
-    getLastData() {
-      return this.datalist[this.datalist.length - 1];
+    // 获取指定日期的数据
+    getPartData: (state) => (targetDate) => {
+      if (targetDate === "") {
+        return state.datalist;
+      }
+      if (targetDate.start) {
+        const startDate = new Date(targetDate.start);
+        const endDate = new Date(targetDate.end);
+        return state.datalist.filter((day) => {
+          const date = new Date(day.date);
+          return date >= startDate && date <= endDate;
+        });
+      }
+      const partData = state.datalist.filter((item) => item.date.startsWith(targetDate));
+      return partData;
+    },
+    // 获取总数
+    getTotal() {
+      return (targetDate) => {
+        const partDate = this.getPartData(targetDate);
+        if (partDate.length === 0) {
+          return {
+            income: 0,
+            expense: 0,
+            num: 0
+          };
+        } else {
+          return partDate.reduce((acc, day) => {
+            day.records.forEach((record) => {
+              acc.num += 1;
+              record.type === "income" ? acc.income += record.amount : acc.expense += record.amount;
+            });
+            return acc;
+          }, {
+            income: 0,
+            expense: 0,
+            num: 0
+          });
+        }
+      };
+    },
+    // 获取分类信息
+    getCategoryInfo() {
+      return (targetDate) => {
+        const filteredData = this.getPartData(targetDate);
+        const result = {
+          income: [],
+          expense: []
+        };
+        const totals = filteredData.reduce((acc, day) => {
+          day.records.forEach((record) => {
+            if (record.type === "income") {
+              acc.incomeTotal += record.amount;
+            } else {
+              acc.expenseTotal += record.amount;
+            }
+          });
+          return acc;
+        }, {
+          incomeTotal: 0,
+          expenseTotal: 0
+        });
+        const categoryMap = filteredData.reduce((acc, day) => {
+          day.records.forEach((record) => {
+            const type = record.type;
+            const category = record.category;
+            if (!acc[type][category]) {
+              acc[type][category] = {
+                amount: 0,
+                count: 0
+              };
+            }
+            acc[type][category].amount += record.amount;
+            acc[type][category].count++;
+          });
+          return acc;
+        }, {
+          income: {},
+          expense: {}
+        });
+        const typeArr = ["income", "expense"];
+        typeArr.forEach((type) => {
+          Object.entries(categoryMap[type]).forEach(([category, data]) => {
+            const total = type === "income" ? totals.incomeTotal : totals.expenseTotal;
+            result[type].push({
+              category,
+              percent: (data.amount / total * 100).toFixed(2),
+              count: data.count,
+              total: data.amount
+            });
+          });
+        });
+        return result;
+      };
     }
   },
   actions: {
@@ -167,80 +258,6 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
       if (dayData) {
         dayData.records.push(records);
       }
-    },
-    // 截取部分数据
-    getPartData(targetDate) {
-      if (targetDate === "") {
-        return this.datalist;
-      }
-      if (targetDate.start) {
-        const startDate = new Date(targetDate.start);
-        const endDate = new Date(targetDate.end);
-        return this.datalist.filter((day) => {
-          const date = new Date(day.date);
-          return date >= startDate && date <= endDate;
-        });
-      }
-      const partData = this.datalist.filter((item) => item.date.startsWith(targetDate));
-      return partData;
-    },
-    // 获取总统计
-    getTotal(targetDate) {
-      const partDate = this.getPartData(targetDate);
-      if (partDate.length === 0) {
-        return {
-          income: 0,
-          expense: 0,
-          num: 0
-        };
-      } else {
-        return partDate.reduce((acc, day) => {
-          day.records.forEach((record) => {
-            acc.num += 1;
-            record.type === "income" ? acc.income += record.amount : acc.expense += record.amount;
-          });
-          return acc;
-        }, { income: 0, expense: 0, num: 0 });
-      }
-    },
-    // 分类统计
-    getCategoryPercentages(targetDate) {
-      const filteredData = this.getPartData(targetDate);
-      const categoryIncome = {};
-      const categoryExpense = {};
-      let totalIncome = 0;
-      let totalExpense = 0;
-      filteredData.forEach((day) => {
-        day.records.forEach((record) => {
-          if (record.type === "income") {
-            totalIncome += record.amount;
-            if (!categoryIncome[record.category]) {
-              categoryIncome[record.category] = 0;
-            }
-            categoryIncome[record.category] += record.amount;
-          } else {
-            totalExpense += record.amount;
-            if (!categoryExpense[record.category]) {
-              categoryExpense[record.category] = 0;
-            }
-            categoryExpense[record.category] += record.amount;
-          }
-        });
-      });
-      const categoryIncomePercentages = {};
-      const categoryExpensePercentages = {};
-      for (const category in categoryIncome) {
-        categoryIncomePercentages[category] = (categoryIncome[category] / totalIncome * 100).toFixed(
-          2
-        );
-      }
-      for (const category in categoryExpense) {
-        categoryExpensePercentages[category] = (categoryExpense[category] / totalExpense * 100).toFixed(2);
-      }
-      return {
-        income: categoryIncomePercentages,
-        expense: categoryExpensePercentages
-      };
     }
   }
 });
@@ -250,4 +267,3 @@ const getWeekDay = (date) => {
   return weekArr[day];
 };
 exports.userInfoStore = userInfoStore;
-//# sourceMappingURL=../../.sourcemap/mp-weixin/stores/userinfo.js.map

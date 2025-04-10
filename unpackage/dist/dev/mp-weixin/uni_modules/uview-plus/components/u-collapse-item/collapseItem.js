@@ -22,4 +22,3 @@ const CollapseItem = {
   }
 };
 exports.CollapseItem = CollapseItem;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-collapse-item/collapseItem.js.map

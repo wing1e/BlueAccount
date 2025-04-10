@@ -9,4 +9,3 @@ function settle(resolve, reject, response) {
   }
 }
 exports.settle = settle;
-//# sourceMappingURL=../../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/core/settle.js.map

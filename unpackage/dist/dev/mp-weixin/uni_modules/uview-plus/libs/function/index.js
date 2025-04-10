@@ -176,7 +176,7 @@ function shallowMerge(target, source = {}) {
 }
 function error(err) {
   {
-    common_vendor.index.__f__("error", "at uni_modules/uview-plus/libs/function/index.js:304", `uView提示：${err}`);
+    console.error(`uView提示：${err}`);
   }
 }
 function randomArray(array = []) {
@@ -513,4 +513,3 @@ exports.deepMerge = deepMerge;
 exports.index = index;
 exports.page = page;
 exports.queryParams = queryParams;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/function/index.js.map

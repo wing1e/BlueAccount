@@ -8,4 +8,3 @@ const Grid = {
   }
 };
 exports.Grid = Grid;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-grid/grid.js.map

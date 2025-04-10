@@ -22,4 +22,3 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
   });
 };
 exports.InterceptorManager = InterceptorManager;
-//# sourceMappingURL=../../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/core/InterceptorManager.js.map

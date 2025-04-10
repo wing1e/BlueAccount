@@ -1,5 +1,4 @@
 "use strict";
-const common_vendor = require("../../../../../common/vendor.js");
 const uni_modules_uviewPlus_libs_luchRequest_core_dispatchRequest = require("./dispatchRequest.js");
 const uni_modules_uviewPlus_libs_luchRequest_core_InterceptorManager = require("./InterceptorManager.js");
 const uni_modules_uviewPlus_libs_luchRequest_core_mergeConfig = require("./mergeConfig.js");
@@ -24,7 +23,7 @@ class Request {
   constructor(arg = {}) {
     if (!uni_modules_uviewPlus_libs_luchRequest_utils.isPlainObject(arg)) {
       arg = {};
-      common_vendor.index.__f__("warn", "at uni_modules/uview-plus/libs/luch-request/core/Request.js:39", "设置全局参数必须接收一个Object");
+      console.warn("设置全局参数必须接收一个Object");
     }
     this.config = uni_modules_uviewPlus_libs_luchRequest_utils_clone.clone({ ...uni_modules_uviewPlus_libs_luchRequest_core_defaults.defaults, ...arg });
     this.interceptors = {
@@ -143,4 +142,3 @@ class Request {
   }
 }
 exports.Request = Request;
-//# sourceMappingURL=../../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/core/Request.js.map

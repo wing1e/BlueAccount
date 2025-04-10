@@ -61,4 +61,3 @@ exports.isObject = isObject;
 exports.isPlainObject = isPlainObject;
 exports.isURLSearchParams = isURLSearchParams;
 exports.isUndefined = isUndefined;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/utils.js.map

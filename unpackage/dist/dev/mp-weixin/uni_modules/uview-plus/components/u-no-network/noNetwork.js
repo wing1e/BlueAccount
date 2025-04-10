@@ -8,4 +8,3 @@ const NoNetwork = {
   }
 };
 exports.NoNetwork = NoNetwork;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-no-network/noNetwork.js.map

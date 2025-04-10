@@ -18,4 +18,3 @@ const Radio = {
   }
 };
 exports.Radio = Radio;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-radio/radio.js.map

@@ -28,4 +28,3 @@ const Search = {
   }
 };
 exports.Search = Search;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-search/search.js.map

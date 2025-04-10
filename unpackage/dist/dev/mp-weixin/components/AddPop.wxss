@@ -26,6 +26,7 @@
 .popup.data-v-e274f890 {
   width: 100%;
   height: 100%;
+  z-index: 1;
 }
 .popup .container.data-v-e274f890 {
   width: 100%;

@@ -32,7 +32,6 @@ export const calculateY = (value, maxValue, area) => {
 	return area.top + Yrange * (1 - value / maxValue)
 }
 
-
 /* 绘制网格线 */
 export const drawGridLines = (ctx, canvasWidth, area) => {
 	ctx.save() // 保存当前上下文状态
@@ -55,4 +54,3 @@ export const drawGridLines = (ctx, canvasWidth, area) => {
 
 	ctx.restore() // 恢复原始上下文状态
 }
-

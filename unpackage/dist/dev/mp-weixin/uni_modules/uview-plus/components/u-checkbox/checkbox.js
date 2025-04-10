@@ -18,4 +18,3 @@ const Checkbox = {
   }
 };
 exports.Checkbox = Checkbox;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-checkbox/checkbox.js.map

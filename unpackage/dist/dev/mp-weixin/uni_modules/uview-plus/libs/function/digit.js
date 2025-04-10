@@ -1,5 +1,4 @@
 "use strict";
-const common_vendor = require("../../../../common/vendor.js");
 function strip(num, precision = 15) {
   return +parseFloat(Number(num).toPrecision(precision));
 }
@@ -18,7 +17,7 @@ function float2Fixed(num) {
 function checkBoundary(num) {
   {
     if (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER) {
-      common_vendor.index.__f__("warn", "at uni_modules/uview-plus/libs/function/digit.js:45", `${num} 超出了精度限制，结果可能不正确`);
+      console.warn(`${num} 超出了精度限制，结果可能不正确`);
     }
   }
 }
@@ -62,4 +61,3 @@ function round(num, ratio) {
   return result;
 }
 exports.round = round;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/function/digit.js.map

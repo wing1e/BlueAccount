@@ -20,4 +20,3 @@ const Toast = {
   }
 };
 exports.Toast = Toast;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-toast/toast.js.map

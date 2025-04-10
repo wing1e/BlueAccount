@@ -12,4 +12,3 @@ const Steps = {
   }
 };
 exports.Steps = Steps;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-steps/steps.js.map

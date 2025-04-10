@@ -13,4 +13,3 @@ const Parse = {
   }
 };
 exports.Parse = Parse;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-parse/parse.js.map

@@ -20,4 +20,3 @@ const LoadingIcon = {
   }
 };
 exports.LoadingIcon = LoadingIcon;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-loading-icon/loadingIcon.js.map

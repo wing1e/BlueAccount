@@ -6,7 +6,10 @@ const utils_chart_chart = require("./chart.js");
 const indexChartInit = async (instance, chartData, className, canvasId) => {
   try {
     const canvasNode = await utils_nodeInfo.getNodeInfo(instance, className);
-    const { width: ctxW, height: ctxH } = canvasNode[0];
+    const {
+      width: ctxW,
+      height: ctxH
+    } = canvasNode[0];
     const ctx = common_vendor.index.createCanvasContext(canvasId, instance);
     const drawArea = {
       top: utils_chart_chart.AXIS_MARGIN.top,
@@ -22,7 +25,7 @@ const indexChartInit = async (instance, chartData, className, canvasId) => {
     }
     ctx.draw();
   } catch (error) {
-    common_vendor.index.__f__("error", "at utils/chart/line-chart.js:36", "图表初始化失败:", error);
+    console.error("图表初始化失败:", error);
   }
 };
 const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
@@ -78,4 +81,3 @@ const drawChartLine = (ctx, data, canvasWidth, area) => {
   ctx.restore();
 };
 exports.indexChartInit = indexChartInit;
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/utils/chart/line-chart.js.map

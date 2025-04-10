@@ -22,4 +22,3 @@ const RadioGroup = {
   }
 };
 exports.RadioGroup = RadioGroup;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-radio-group/radioGroup.js.map

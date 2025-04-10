@@ -11,4 +11,3 @@ const Toolbar = {
   }
 };
 exports.Toolbar = Toolbar;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-toolbar/toolbar.js.map

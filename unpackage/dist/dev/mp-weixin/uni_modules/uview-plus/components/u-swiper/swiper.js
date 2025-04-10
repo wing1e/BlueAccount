@@ -29,4 +29,3 @@ const Swiper = {
   }
 };
 exports.Swiper = Swiper;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-swiper/swiper.js.map

@@ -21,4 +21,3 @@ const Keyboard = {
   }
 };
 exports.Keyboard = Keyboard;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-keyboard/keyboard.js.map

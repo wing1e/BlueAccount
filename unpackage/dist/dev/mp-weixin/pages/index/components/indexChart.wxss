@@ -31,7 +31,7 @@
   flex-direction: column;
   position: relative;
   background-color: #fff;
-  box-shadow: 0rpx 6rpx 28rpx 0rpx rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(0 0rpx 1rpx rgba(0, 0, 0, 0.1));
   border-radius: 30rpx;
   padding: 20rpx;
 }
@@ -40,7 +40,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  color: #282C35;
   top: 20px;
   left: 10px;
 }

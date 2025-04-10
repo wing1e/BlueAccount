@@ -137,4 +137,3 @@ const mixin = uni_modules_uviewPlus_libs_vue.defineMixin({
   }
 });
 exports.mixin = mixin;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/mixin/mixin.js.map

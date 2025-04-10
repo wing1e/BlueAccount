@@ -59,4 +59,3 @@ const adapter = (config) => new Promise((resolve, reject) => {
   }
 });
 exports.adapter = adapter;
-//# sourceMappingURL=../../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/adapters/index.js.map

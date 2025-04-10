@@ -1,11 +1,10 @@
 "use strict";
-const common_vendor = require("../common/vendor.js");
 const utils_getDate = require("./get-date.js");
 const timeChain = (targetDate, dateType, chainType) => {
   let date;
   if (typeof targetDate === "object" && targetDate.start && targetDate.end) {
     date = new Date(targetDate.start);
-    common_vendor.index.__f__("log", "at utils/time-chain.js:8", "origin:" + date.toLocaleDateString());
+    console.log("origin:" + date.toLocaleDateString());
   } else if (targetDate.includes("-")) {
     if (targetDate.split("-").length === 2) {
       const [year, month] = targetDate.split("-");
@@ -49,4 +48,3 @@ const timeChain = (targetDate, dateType, chainType) => {
   return targetDate;
 };
 exports.timeChain = timeChain;
-//# sourceMappingURL=../../.sourcemap/mp-weixin/utils/time-chain.js.map

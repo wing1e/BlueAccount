@@ -16,4 +16,3 @@ const Empty = {
   }
 };
 exports.Empty = Empty;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-empty/empty.js.map

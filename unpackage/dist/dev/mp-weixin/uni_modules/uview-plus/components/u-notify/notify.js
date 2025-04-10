@@ -13,4 +13,3 @@ const Notify = {
   }
 };
 exports.Notify = Notify;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-notify/notify.js.map

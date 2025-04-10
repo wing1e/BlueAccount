@@ -14,4 +14,3 @@ const AvatarGroup = {
   }
 };
 exports.AvatarGroup = AvatarGroup;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-avatar-group/avatarGroup.js.map

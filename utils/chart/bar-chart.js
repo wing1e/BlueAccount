@@ -1,16 +1,26 @@
-import { getNodeInfo } from '../node-info'
-import {CHART_STYLES,AXIS_MARGIN,drawGridLines,calculateY} from "./chart.js"
+import {
+	getNodeInfo
+} from '../node-info'
+import {
+	CHART_STYLES,
+	AXIS_MARGIN,
+	drawGridLines,
+	calculateY
+} from "./chart.js"
 
-export const barChartInit = async (instance, chartData, className, canvasId) =>{
+export const barChartInit = async (instance, chartData, className, canvasId) => {
 	try {
 		// 获取画布尺寸
-		const canvasNode = await getNodeInfo(instance,className)
-		
-        const {width:ctxW,height:ctxH} = canvasNode[0]
-		
+		const canvasNode = await getNodeInfo(instance, className)
+
+		const {
+			width: ctxW,
+			height: ctxH
+		} = canvasNode[0]
+
 		// 创建绘图上下文
-		const ctx = uni.createCanvasContext(canvasId,instance)
-		
+		const ctx = uni.createCanvasContext(canvasId, instance)
+
 		// 计算绘图区域
 		const drawArea = {
 			top: AXIS_MARGIN.top,
@@ -19,47 +29,47 @@ export const barChartInit = async (instance, chartData, className, canvasId) =>{
 				return (this.top + this.bottom) / 2
 			}
 		}
-		
+
 		// 绘制网格系统
-		drawGridLines(ctx,ctxW,drawArea)
-		
+		drawGridLines(ctx, ctxW, drawArea)
+
 		// 绘制底部标签
-		drawBottomLabels(ctx,ctxW,drawArea.bottom,chartData,"bar")
-		
-		const BarSpace = ctxW/25;
-		
+		drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData, "bar")
+
+		const BarSpace = ctxW / 25;
+
 		const MaxValue = Math.max(...chartData.map(item => item.expense))
-		
-		const points = chartData.map((item,index) => ({
-			x:(2*index+1)*BarSpace,
-			y:calculateY(item.expense,MaxValue,drawArea),
-			value:item.expense
+
+		const points = chartData.map((item, index) => ({
+			x: (2 * index + 1) * BarSpace,
+			y: calculateY(item.expense, MaxValue, drawArea),
+			value: item.expense
 		}))
-		
-		points.forEach(item=>{
-			ctx.fillRect(item.x,item.y,BarSpace,drawArea.bottom-item.y)
+
+		points.forEach(item => {
+			ctx.fillRect(item.x, item.y, BarSpace, drawArea.bottom - item.y)
 			ctx.setFillStyle('#de6ea6')
 		})
-		
+
 		ctx.draw()
-		
-	}catch(err){
+
+	} catch (err) {
 		console.log(err);
-    }
+	}
 }
 
 /* 绘制底部日期标签 */
 const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
 	const labelSpace = canvasWidth / 25 // 间距
-	
+
 	ctx.save()
 	ctx.setFontSize(CHART_STYLES.label.fontSize)
 	ctx.fillStyle = CHART_STYLES.label.color
 	data.forEach((item, index) => {
-			const dateStr = item.date.split('-')[1] // 提取DD
-			const xPos = (2*index + 1) * labelSpace
-			ctx.setTextAlign('center')
-			ctx.fillText(dateStr, xPos, bottomY + 15) // 下移15px避免重叠
+		const dateStr = item.date.split('-')[1] // 提取DD
+		const xPos = (2 * index + 1) * labelSpace
+		ctx.setTextAlign('center')
+		ctx.fillText(dateStr, xPos, bottomY + 15) // 下移15px避免重叠
 	})
 
 	ctx.restore()

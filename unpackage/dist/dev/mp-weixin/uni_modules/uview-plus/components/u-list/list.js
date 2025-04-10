@@ -19,4 +19,3 @@ const List = {
   }
 };
 exports.List = List;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-list/list.js.map

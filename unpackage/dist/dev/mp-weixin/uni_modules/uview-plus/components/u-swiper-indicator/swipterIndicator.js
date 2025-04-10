@@ -10,4 +10,3 @@ const SwipterIndicator = {
   }
 };
 exports.SwipterIndicator = SwipterIndicator;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-swiper-indicator/swipterIndicator.js.map

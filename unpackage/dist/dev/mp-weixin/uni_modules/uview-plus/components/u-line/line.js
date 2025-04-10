@@ -11,4 +11,3 @@ const Line = {
   }
 };
 exports.Line = Line;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-line/line.js.map

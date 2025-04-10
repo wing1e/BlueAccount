@@ -110,4 +110,3 @@ const colorGradient$1 = {
   colorToRgba
 };
 exports.colorGradient = colorGradient$1;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/function/colorGradient.js.map

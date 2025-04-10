@@ -19,4 +19,3 @@ const NoticeBar = {
   }
 };
 exports.NoticeBar = NoticeBar;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-notice-bar/noticeBar.js.map

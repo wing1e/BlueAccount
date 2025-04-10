@@ -13,4 +13,3 @@ const Alert = {
   }
 };
 exports.Alert = Alert;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-alert/alert.js.map

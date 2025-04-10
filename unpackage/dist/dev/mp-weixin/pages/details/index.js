@@ -4,10 +4,11 @@ const utils_getDate = require("../../utils/get-date.js");
 const stores_userinfo = require("../../stores/userinfo.js");
 const utils_format = require("../../utils/format.js");
 const utils_timeChain = require("../../utils/time-chain.js");
+const utils_calcChanges = require("../../utils/calc-changes.js");
 if (!Math) {
   (headerVue + listVue)();
 }
-const headerVue = () => "../../components/HeadOptions.js";
+const headerVue = () => "./components/headOptions.js";
 const listVue = () => "./components/list.js";
 const _sfc_main = {
   __name: "index",
@@ -41,21 +42,12 @@ const _sfc_main = {
       brandData[0].num = utils_format.formatAmount(-currentExpense);
       brandData[1].num = utils_format.formatAmount(currentIncome);
       brandData[2].num = utils_format.formatAmount(currentBalance);
-      brandData[0].qoq = calcQOQ(currentExpense, lastExpense);
-      brandData[1].qoq = calcQOQ(currentIncome, lastIncome);
-      brandData[2].qoq = calcQOQ(currentBalance, lastBalance);
-      brandData[0].percentage = calcPercentage(currentExpense, lastExpense);
-      brandData[1].percentage = calcPercentage(currentIncome, lastIncome);
-      brandData[2].percentage = calcPercentage(currentBalance, lastBalance);
-    };
-    const calcQOQ = (current, last) => {
-      const diff = current - last;
-      return utils_format.formatAmount(diff);
-    };
-    const calcPercentage = (current, last) => {
-      if (last === 0)
-        return current === 0 ? "0%" : "100%";
-      return ((current / last - 1) * 100).toFixed(1) + "%";
+      brandData[0].qoq = utils_calcChanges.calcQOQ(currentExpense, lastExpense);
+      brandData[1].qoq = utils_calcChanges.calcQOQ(currentIncome, lastIncome);
+      brandData[2].qoq = utils_calcChanges.calcQOQ(currentBalance, lastBalance);
+      brandData[0].percentage = utils_calcChanges.calcPercentage(currentExpense, lastExpense);
+      brandData[1].percentage = utils_calcChanges.calcPercentage(currentIncome, lastIncome);
+      brandData[2].percentage = utils_calcChanges.calcPercentage(currentBalance, lastBalance);
     };
     return (_ctx, _cache) => {
       return {
@@ -82,4 +74,3 @@ const _sfc_main = {
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-a45dfdea"]]);
 wx.createPage(MiniProgramPage);
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/details/index.js.map

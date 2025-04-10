@@ -23,4 +23,3 @@ const Loadmore = {
   }
 };
 exports.Loadmore = Loadmore;
-//# sourceMappingURL=../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/components/u-loadmore/loadmore.js.map

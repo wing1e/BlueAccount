@@ -8,4 +8,3 @@ function buildFullPath(baseURL, requestedURL) {
   return requestedURL;
 }
 exports.buildFullPath = buildFullPath;
-//# sourceMappingURL=../../../../../../.sourcemap/mp-weixin/uni_modules/uview-plus/libs/luch-request/core/buildFullPath.js.map

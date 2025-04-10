@@ -96,7 +96,7 @@
 }
 .list-index .list .list-item .items.data-v-8420a3fd {
   background-color: #fff;
-  filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 0rpx 1rpx rgba(0, 0, 0, 0.1));
   width: 85%;
   display: flex;
   flex-direction: column;
@@ -126,11 +126,11 @@
   justify-content: space-around;
 }
 .list-index .list .list-item .items .item .detail .category.data-v-8420a3fd {
-  font-size: 27rpx;
+  font-size: 28rpx;
   letter-spacing: 2rpx;
 }
 .list-index .list .list-item .items .item .detail .note.data-v-8420a3fd {
-  font-size: 18rpx;
+  font-size: 20rpx;
   color: #8b97a9;
 }
 .list-index .list .list-item .items .item .amount.data-v-8420a3fd {
