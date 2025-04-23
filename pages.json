@@ -24,16 +24,23 @@
 			"style": {
 				"navigationBarTitleText": ""
 			}
+		},
+		{
+			"path": "pages/mypage/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
 		}
 	],
 	"tabBar": {
 		"list": [{
-				"pagePath": "pages/index/index",
-				"text": "首页"
+				"pagePath": "pages/index/index"
 			},
 			{
-				"pagePath": "pages/chart/index",
-				"text": "账单"
+				"pagePath": "pages/chart/index"
+			},
+			{
+				"pagePath": "pages/mypage/index"
 			}
 		]
 	},

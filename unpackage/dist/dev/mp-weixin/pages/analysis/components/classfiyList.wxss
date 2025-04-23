@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20rpx;
+  margin-top: 25rpx;
 }
 .list .list-item .left-word.data-v-0c9894ce {
   height: 100%;
@@ -57,12 +57,11 @@
 }
 .list .list-item .left-word .category.data-v-0c9894ce {
   font-size: 28rpx;
-  letter-spacing: 2rpx;
   font-weight: 600;
 }
 .list .list-item .left-word .info.data-v-0c9894ce {
-  font-size: 20rpx;
-  color: #5c5c5c;
+  font-size: 24rpx;
+  color: #797878;
 }
 .list .list-item .total.data-v-0c9894ce {
   font-size: 26rpx;

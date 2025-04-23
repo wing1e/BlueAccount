@@ -6,6 +6,33 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
     return {
       datalist: [
         {
+          "date": "2023-03-01",
+          "weekday": "周三",
+          "records": [
+            {
+              "time": "09:00:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 8.5,
+              "note": "食堂早餐"
+            },
+            {
+              "time": "12:30:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 10.5,
+              "note": "午餐-食堂"
+            },
+            {
+              "time": "17:20:00",
+              "type": "income",
+              "category": "兼职",
+              "amount": 200,
+              "note": "咸鱼"
+            }
+          ]
+        },
+        {
           "date": "2023-03-15",
           "weekday": "周三",
           "records": [
@@ -97,6 +124,60 @@ const userInfoStore = common_vendor.defineStore("userInfo", {
               "category": "娱乐",
               "amount": 89,
               "note": "深夜电影院"
+            }
+          ]
+        },
+        {
+          "date": "2023-03-18",
+          "weekday": "周六",
+          "records": [
+            {
+              "time": "09:00:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 8.5,
+              "note": "食堂早餐"
+            },
+            {
+              "time": "12:30:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 20.5,
+              "note": "午餐-麦当劳套餐"
+            },
+            {
+              "time": "17:20:00",
+              "type": "income",
+              "category": "兼职",
+              "amount": 1500,
+              "note": "家教课时费"
+            }
+          ]
+        },
+        {
+          "date": "2023-03-19",
+          "weekday": "周日",
+          "records": [
+            {
+              "time": "09:00:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 8.5,
+              "note": "食堂早餐"
+            },
+            {
+              "time": "12:30:00",
+              "type": "expense",
+              "category": "餐饮",
+              "amount": 38.5,
+              "note": "午餐-麦当劳套餐"
+            },
+            {
+              "time": "17:20:00",
+              "type": "income",
+              "category": "兼职",
+              "amount": 1e3,
+              "note": "家教课时费"
             }
           ]
         }

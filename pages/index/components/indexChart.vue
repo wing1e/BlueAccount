@@ -14,7 +14,7 @@
 </template>
 
 <script setup >
-import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue';
+import { computed, getCurrentInstance, onMounted, watch } from 'vue';
 import RightButton from '../../../components/RightButton.vue';
 import { indexChartInit } from '../../../utils/chart/line-chart.js';
 import { userInfoStore } from '../../../stores/userinfo.js';
@@ -32,12 +32,12 @@ const chartData = computed(()=>{
 	.slice(-7)
 	.map(item => ({
 		date:item.date,
-		expense:store.getTotal(item.date).expense
+		data:store.getTotal(item.date).expense
 	}))
 })
 const title = String(getNowDate().month)+"月支出"
 
-const total = computed(()=>chartData.value.reduce((acc,{expense}) => acc + expense,0)) //七天总支出
+const total = computed(()=>chartData.value.reduce((acc,{data}) => acc + data,0)) //七天总支出
 
 const instance = getCurrentInstance();
 

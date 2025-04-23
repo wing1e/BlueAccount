@@ -43,7 +43,6 @@
 <script setup>
 import { reactive, ref, getCurrentInstance, computed } from 'vue';
 import { userInfoStore } from '../../../stores/userinfo';
-import { examiner } from '../../../utils/examiner';
 const { datalist } = userInfoStore();
 const data = computed(() => {
 	const origin = datalist.slice(-7).reverse();

@@ -16,13 +16,12 @@
 </template>
 
 <script setup>
-import { computed, getCurrentInstance, onMounted, ref } from 'vue';
+import { onMounted} from 'vue';
 import indexChartVue from './components/indexChart.vue'; 
 import listVue from './components/list.vue';
 import TabbarVue from '../../components/Tabbar.vue';
 import AddPopVue from '../../components/AddPop.vue';
 import { userInfoStore } from '../../stores/userinfo';
-import { getNodeInfo } from '../../utils/node-info';
 onMounted(()=>{
 	fillData
 })

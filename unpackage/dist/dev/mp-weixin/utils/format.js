@@ -1,4 +1,5 @@
 "use strict";
+const utils_constants = require("./constants.js");
 const utils_getDate = require("./get-date.js");
 const formatDate = (date) => {
   if (!date)
@@ -9,9 +10,9 @@ const formatDate = (date) => {
     case 1:
       return `${parseInt(parts[0])}年`;
     case 2:
-      return parseInt(parts[0]) === currentYear ? `${parseInt(parts[1])}月` : `${parseInt(parts[0])}年${parseInt(parts[1])}月`;
+      return parseInt(parts[0]) === currentYear ? `${parseInt(parts[1])}月` : `${parseInt(parts[0])}.${parseInt(parts[1])}`;
     case 3:
-      return parseInt(parts[0]) === currentYear ? `${parseInt(parts[1])}月${parseInt(parts[2])}日` : `${parseInt(parts[0])}年${parseInt(parts[1])}月${parseInt(parts[2])}日`;
+      return parseInt(parts[0]) === currentYear ? `${parseInt(parts[1])}.${parseInt(parts[2])}` : `${parseInt(parts[0])}.${parseInt(parts[1])}.${parseInt(parts[2])}`;
     default:
       return date;
   }
@@ -20,35 +21,18 @@ const formatAmount = (num) => {
   const sign = num >= 0 ? "+" : "-";
   return sign + Math.abs(num).toFixed(2);
 };
-const formatOptionsDate = (targetDate, rangeIndex) => {
-  const RANGE_YEAR = 0;
-  const RANGE_MONTH = 1;
-  const RANGE_WEEK = 2;
-  const RANGE_DAY = 3;
-  const {
-    year
-  } = utils_getDate.getNowDate();
-  switch (rangeIndex) {
-    case RANGE_YEAR:
+const formatOptionsDate = (targetDate, rangeVal) => {
+  const { range_year, range_month, range_week, range_day } = utils_constants.PICKER_INFO.picker_range;
+  switch (rangeVal) {
+    case range_year:
       return targetDate;
-    case RANGE_MONTH:
-      const [showYear, showMonth] = targetDate.split("-");
-      if (showYear === String(year)) {
-        return `${parseInt(showMonth)}月`;
-      }
-      return `${parseInt(showYear)}年${parseInt(showMonth)}月`;
-    case RANGE_WEEK:
-      const {
-        start,
-        end
-      } = utils_getDate.getWeek(targetDate.start);
+    case range_month:
+      return formatDate(targetDate);
+    case range_week:
+      const { start, end } = utils_getDate.getWeek(targetDate.start);
       return `${formatDate(start)}-${formatDate(end)}`;
-    case RANGE_DAY:
-      const [dayYear, dayMonth, dayDay] = targetDate.split("-");
-      if (dayYear === String(year)) {
-        return `${parseInt(dayMonth)}.${parseInt(dayDay)}`;
-      }
-      return `${parseInt(dayYear)}.${parseInt(dayMonth)}.${parseInt(dayDay)}`;
+    case range_day:
+      return formatDate(targetDate);
     default:
       return targetDate;
   }

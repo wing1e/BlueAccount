@@ -6,7 +6,7 @@
 			</view>
 			<picker style="width: 100%" mode="selector" :range="range" :value="pickerRange" @change="rangeChange">
 				<view class="btn-center">
-					<view class="date-input">{{ formatOptionsDate(pickerDate, pickerRange) }}</view>
+					<view class="date-input">{{ formatOptionsDate(pickerDate, range[pickerRange]) }}</view>
 					<uni-icons type="down"></uni-icons>
 				</view>
 			</picker>
@@ -58,14 +58,16 @@ const rangeChange = (e) => {
 
 // 减少时间
 const reduceDate = () => {
-	const lastDate = timeChain(pickerDate.value, pickerRange.value, 'last');
+	const rangeVal = range[pickerRange.value];
+	const lastDate = timeChain(pickerDate.value, rangeVal, 'last');
 	pickerDate.value = lastDate;
 	emitFilterData();
 };
 
 //增加时间
 const addDate = () => {
-	const nextDate = timeChain(pickerDate.value, pickerRange.value, 'next');
+	const rangeVal = range[pickerRange.value];
+	const nextDate = timeChain(pickerDate.value, rangeVal, 'next');
 	pickerDate.value = nextDate;
 	emitFilterData();
 };
@@ -171,7 +173,7 @@ const emitFilterData = () => {
 		.btn-center {
 			@include flex-center;
 			margin: 15rpx;
-			.date-input{
+			.date-input {
 				@include flex-center;
 				white-space: nowrap;
 				letter-spacing: 4rpx;

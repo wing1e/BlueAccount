@@ -2,7 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 const stores_userinfo = require("../../stores/userinfo.js");
 const stores_panelinfo = require("../../stores/panelinfo.js");
-const utils_calcChanges = require("../../utils/calc-changes.js");
+const utils_calc = require("../../utils/calc.js");
 const utils_timeChain = require("../../utils/time-chain.js");
 if (!Math) {
   (headOptionsVue + pieChartVue + lineChartVue + barChartVue + classfiyListVue + trendListVue + incomeAndExpenseListVue)();
@@ -28,15 +28,19 @@ const _sfc_main = {
       });
     });
     const { getTotal } = stores_userinfo.userInfoStore();
-    const { getPanelInfo } = stores_panelinfo.panelinfoStore();
+    const panelinfo = stores_panelinfo.panelinfoStore();
     const data = common_vendor.computed(() => {
-      console.log(title.value);
-      const { date, range } = getPanelInfo(title.value);
-      const { expense: currentExpense, income: currentIncome } = getTotal(date);
-      const { expense: lastExpense, income: lastIncome } = getTotal(utils_timeChain.timeChain(date, range, "last"));
-      const amount = type.value === "expense" ? currentExpense : currentIncome;
-      const QOQ = type.value === "expense" ? utils_calcChanges.calcPercentage(currentExpense, lastExpense) : utils_calcChanges.calcPercentage(currentIncome, lastIncome);
-      return { amount, QOQ };
+      if (title.value) {
+        const { date, range } = panelinfo.getPanelInfo(title.value);
+        const { expense: currentExpense, income: currentIncome } = getTotal(date);
+        const { expense: lastExpense, income: lastIncome } = getTotal(
+          utils_timeChain.timeChain(date, range, "last")
+        );
+        const amount = type.value === "expense" ? currentExpense : currentIncome;
+        const QOQ = type.value === "expense" ? utils_calc.calcPercentage(currentExpense, lastExpense) : utils_calc.calcPercentage(currentIncome, lastIncome);
+        return { amount, QOQ };
+      }
+      return { amount: 0, QOQ: 0 };
     });
     return (_ctx, _cache) => {
       return common_vendor.e({

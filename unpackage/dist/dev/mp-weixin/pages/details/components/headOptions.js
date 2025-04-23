@@ -36,12 +36,14 @@ const _sfc_main = {
       }
     };
     const reduceDate = () => {
-      const lastDate = utils_timeChain.timeChain(pickerDate.value, pickerRange.value, "last");
+      const rangeVal = range[pickerRange.value];
+      const lastDate = utils_timeChain.timeChain(pickerDate.value, rangeVal, "last");
       pickerDate.value = lastDate;
       emitFilterData();
     };
     const addDate = () => {
-      const nextDate = utils_timeChain.timeChain(pickerDate.value, pickerRange.value, "next");
+      const rangeVal = range[pickerRange.value];
+      const nextDate = utils_timeChain.timeChain(pickerDate.value, rangeVal, "next");
       pickerDate.value = nextDate;
       emitFilterData();
     };
@@ -94,7 +96,7 @@ const _sfc_main = {
           size: "14"
         }),
         b: common_vendor.o(reduceDate),
-        c: common_vendor.t(common_vendor.unref(utils_format.formatOptionsDate)(pickerDate.value, pickerRange.value)),
+        c: common_vendor.t(common_vendor.unref(utils_format.formatOptionsDate)(pickerDate.value, range[pickerRange.value])),
         d: common_vendor.p({
           type: "down"
         }),

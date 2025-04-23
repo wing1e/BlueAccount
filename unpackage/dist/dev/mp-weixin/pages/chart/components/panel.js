@@ -16,10 +16,17 @@ const _sfc_main = {
     const { getTotal } = stores_userinfo.userInfoStore();
     const panelinfo = stores_panelinfo.panelinfoStore();
     const props = __props;
-    const data = common_vendor.computed(() => {
-      const panelDate = panelinfo.getPanelInfo(props.title).date;
-      return { date: panelDate, amount: getTotal(panelDate) };
+    const panelData = common_vendor.computed(() => {
+      const { date, allowRange, range, type } = panelinfo.getPanelInfo(props.title);
+      return {
+        date,
+        rangeVal: allowRange[range],
+        type,
+        typeText: type === 0 ? "支出" : "收入",
+        amount: type === 0 ? getTotal(date).expense : getTotal(date).income
+      };
     });
+    console.log(panelData.value);
     const toAnalysis = () => {
       common_vendor.index.navigateTo({
         url: `/pages/analysis/index?title=${props.title}`
@@ -28,9 +35,10 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return {
         a: common_vendor.t(props.title),
-        b: common_vendor.t("-" + data.value.amount.expense),
-        c: common_vendor.t(common_vendor.unref(utils_format.formatDate)(data.value.date)),
-        d: common_vendor.o(toAnalysis)
+        b: common_vendor.t(panelData.value.type === 0 ? "-" : ""),
+        c: common_vendor.t(panelData.value.amount),
+        d: common_vendor.t(common_vendor.unref(utils_format.formatOptionsDate)(panelData.value.date, panelData.value.rangeVal) + " · " + panelData.value.typeText),
+        e: common_vendor.o(toAnalysis)
       };
     };
   }

@@ -17,14 +17,14 @@ const barChartInit = async (instance, chartData, className, canvasId) => {
         return (this.top + this.bottom) / 2;
       }
     };
-    utils_chart_chart.drawGridLines(ctx, ctxW, drawArea);
+    utils_chart_chart.drawGridLines(ctx, ctxW, drawArea, chartData);
     drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData, "bar");
     const BarSpace = ctxW / 25;
-    const MaxValue = Math.max(...chartData.map((item) => item.expense));
+    const MaxValue = Math.max(...chartData.map((item) => item.amount));
     const points = chartData.map((item, index) => ({
       x: (2 * index + 1) * BarSpace,
-      y: utils_chart_chart.calculateY(item.expense, MaxValue, drawArea),
-      value: item.expense
+      y: utils_chart_chart.calculateY(item.amount, MaxValue, drawArea),
+      value: item.amount
     }));
     points.forEach((item) => {
       ctx.fillRect(item.x, item.y, BarSpace, drawArea.bottom - item.y);

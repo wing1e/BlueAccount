@@ -18,11 +18,11 @@ const _sfc_main = {
     const chartData = common_vendor.computed(() => {
       return [...store.datalist].slice(-7).map((item) => ({
         date: item.date,
-        expense: store.getTotal(item.date).expense
+        data: store.getTotal(item.date).expense
       }));
     });
     const title = String(utils_getDate.getNowDate().month) + "月支出";
-    const total = common_vendor.computed(() => chartData.value.reduce((acc, { expense }) => acc + expense, 0));
+    const total = common_vendor.computed(() => chartData.value.reduce((acc, { data }) => acc + data, 0));
     const instance = common_vendor.getCurrentInstance();
     common_vendor.watch(chartData, (newData) => {
       utils_chart_lineChart.indexChartInit(instance, newData, canvasInfo.className, canvasInfo.id);

@@ -44,8 +44,9 @@
   position: relative;
 }
 .container .header .count.data-v-800bd557 {
-  font-size: 21rpx;
-  color: #8B97A9;
+  width: 100%;
+  font-size: 24rpx;
+  color: #8b97a9;
 }
 .container .header .count text.data-v-800bd557 {
   margin-right: 15rpx;

@@ -51,25 +51,48 @@
   justify-content: center;
   align-items: center;
   border-right: 1rpx solid #8b97a9;
-  width: 60rpx;
+  width: 100rpx;
 }
 .container .date-pick .btn-center.data-v-b5b25a55 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 15rpx;
 }
 .container .date-pick .btn-center .date-input.data-v-b5b25a55 {
   display: flex;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  letter-spacing: 4rpx;
+  letter-spacing: 2rpx;
 }
 .container .date-pick .btn-right.data-v-b5b25a55 {
   display: flex;
   justify-content: center;
   align-items: center;
   border-left: 1rpx solid #8b97a9;
-  width: 60rpx;
+  width: 100rpx;
+}
+.container .type-picker.data-v-b5b25a55, .container .reset.data-v-b5b25a55 {
+  height: 100%;
+  width: 15%;
+  display: flex;
+  background-color: #fff;
+  filter: drop-shadow(0 0rpx 1rpx rgba(0, 0, 0, 0.1));
+  box-sizing: border-box;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  margin-left: 20rpx;
+}
+.container .type-picker .btn-type.data-v-b5b25a55, .container .reset .btn-type.data-v-b5b25a55 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+.container .reset.data-v-b5b25a55 {
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  font-weight: 600;
 }

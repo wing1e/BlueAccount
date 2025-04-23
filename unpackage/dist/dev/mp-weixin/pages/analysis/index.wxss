@@ -41,7 +41,7 @@
 }
 .container .body .panel.data-v-49fa13a1 {
   width: 100%;
-  height: 30%;
+  height: 25%;
   box-sizing: border-box;
   padding: 0 20rpx;
   display: flex;

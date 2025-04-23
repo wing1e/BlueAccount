@@ -17,17 +17,28 @@ const _sfc_main = {
   setup(__props) {
     const panelinfo = stores_panelinfo.panelinfoStore();
     const userinfo = stores_userinfo.userInfoStore();
+    const typeVal = common_vendor.computed(() => panelinfo.getPanelInfo(PANEL_TITLE).type);
     const listData = common_vendor.computed(() => {
       const listDate = panelinfo.getPanelInfo(PANEL_TITLE).date;
       const originData = userinfo.getCategoryInfo(listDate);
-      return { expense: originData.expense, income: originData.expense };
+      if (typeVal.value === 0) {
+        return originData.expense;
+      } else {
+        return originData.income;
+      }
     });
     const getColor = (val) => {
-      return utils_constants.EXPENSE_TYPE.find((item) => item.category === val).color;
+      if (typeVal.value === 0) {
+        const item = utils_constants.EXPENSE_TYPE.find((item2) => item2.category === val);
+        return item ? item.color : "#9E9E9E";
+      } else {
+        const item = utils_constants.INCOME_TYPE.find((item2) => item2.category === val);
+        return item ? item.color : "#9E9E9E";
+      }
     };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.f(listData.value.expense, (item, index, i0) => {
+        a: common_vendor.f(listData.value, (item, index, i0) => {
           return {
             a: "0c9894ce-0-" + i0,
             b: common_vendor.p({
@@ -37,7 +48,7 @@ const _sfc_main = {
             }),
             c: common_vendor.t(item.category),
             d: common_vendor.t(item.percent + "%"),
-            e: common_vendor.t("   ·   " + item.count + "笔"),
+            e: common_vendor.t("     " + item.count + "笔"),
             f: common_vendor.t(item.total),
             g: index
           };

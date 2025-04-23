@@ -31,19 +31,19 @@ export const barChartInit = async (instance, chartData, className, canvasId) => 
 		}
 
 		// 绘制网格系统
-		drawGridLines(ctx, ctxW, drawArea)
+		drawGridLines(ctx, ctxW, drawArea,chartData)
 
 		// 绘制底部标签
 		drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData, "bar")
 
 		const BarSpace = ctxW / 25;
 
-		const MaxValue = Math.max(...chartData.map(item => item.expense))
+		const MaxValue = Math.max(...chartData.map(item => item.amount))
 
 		const points = chartData.map((item, index) => ({
 			x: (2 * index + 1) * BarSpace,
-			y: calculateY(item.expense, MaxValue, drawArea),
-			value: item.expense
+			y: calculateY(item.amount, MaxValue, drawArea),
+			value: item.amount
 		}))
 
 		points.forEach(item => {
@@ -66,7 +66,7 @@ const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
 	ctx.setFontSize(CHART_STYLES.label.fontSize)
 	ctx.fillStyle = CHART_STYLES.label.color
 	data.forEach((item, index) => {
-		const dateStr = item.date.split('-')[1] // 提取DD
+		const dateStr = item.date.split('-')[1] // 提取MM
 		const xPos = (2 * index + 1) * labelSpace
 		ctx.setTextAlign('center')
 		ctx.fillText(dateStr, xPos, bottomY + 15) // 下移15px避免重叠

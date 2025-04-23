@@ -28,7 +28,8 @@ const _sfc_main = {
     };
     const navigationMap = /* @__PURE__ */ new Map([
       [0, "/pages/index/index"],
-      [1, "/pages/chart/index"]
+      [1, "/pages/chart/index"],
+      [3, "/pages/mypage/index"]
     ]);
     const navigation = (status) => {
       if (status === stores_tabbar.tabBarStore().status)

@@ -6,8 +6,9 @@ export const PICKER_INFO = {
 		range_day:'日范围'
 	},
 	picker_type:{
-		income:'收入',
-		expense:'支出'
+		expense:'支出',
+		income:'收入'
+		
 	}
 	
 }

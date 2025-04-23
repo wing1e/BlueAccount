@@ -15,7 +15,7 @@ $text-size-sm: 20rpx;
 
 // 字体色
 $text-color-light-grey: #a3b2c6;
-$text-color-dark-grey: #5c5c5c;
+$text-color-dark-grey: #797878;
 
 //picker 样式
 @mixin picker-layout {
@@ -31,7 +31,7 @@ $text-color-dark-grey: #5c5c5c;
 }
 // 列表样式
 $option-height: 110rpx;
-@mixin options-layout {
+@mixin row-layout {
 	width: 100%;
 	height: $option-height;
 	box-sizing: border-box;
@@ -39,10 +39,10 @@ $option-height: 110rpx;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: 20rpx;
+	margin-top: 25rpx;
 }
 
-@mixin option-left {
+@mixin row-left {
 	height: 100%;
 	display: flex;
 	flex-direction: column;

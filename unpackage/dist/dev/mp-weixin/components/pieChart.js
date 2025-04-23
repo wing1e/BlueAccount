@@ -9,21 +9,28 @@ const _sfc_main = {
     common_vendor.onMounted(() => {
       drawChart();
     });
+    common_vendor.onShow(() => {
+      drawChart();
+    });
     const instance = common_vendor.getCurrentInstance();
     const canvasInfo = { className: ".pieChart", id: "pieChart" };
     const { getCategoryInfo } = stores_userinfo.userInfoStore();
-    const { panelList, getPanelInfo } = stores_panelinfo.panelinfoStore();
+    const panelinfo = stores_panelinfo.panelinfoStore();
     const chartData = common_vendor.computed(() => {
-      const pickDate = panelList[0].date;
-      return getCategoryInfo(pickDate);
+      const typeVal = panelinfo.panelList[0].type === 0 ? "expense" : "income";
+      const pickDate = panelinfo.panelList[0].date;
+      return getCategoryInfo(pickDate)[typeVal];
     });
     const drawChart = () => {
       utils_chart_pieChart.pieCharInit(instance, chartData.value, canvasInfo.className, canvasInfo.id);
     };
-    common_vendor.watch(() => stores_panelinfo.panelinfoStore().panelList[0].date, () => {
-      console.log("change");
-      drawChart();
-    });
+    common_vendor.watch(
+      () => stores_panelinfo.panelinfoStore().panelList[0],
+      () => {
+        drawChart();
+      },
+      { deep: true }
+    );
     return (_ctx, _cache) => {
       return {
         a: canvasInfo.id,

@@ -56,7 +56,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20rpx;
+  margin-top: 25rpx;
 }
 .list .date-list .date-item .item .records .left-word.data-v-cee0d0e9 {
   height: 100%;
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20rpx;
+  margin-top: 25rpx;
 }
 .list .amount-list .amount-item .left-word.data-v-cee0d0e9 {
   height: 100%;
@@ -90,4 +90,17 @@
   font-size: 28rpx;
   margin-right: auto;
   margin-left: 20rpx;
+}
+.list .amount-list .amount-item .left-word .category.data-v-cee0d0e9 {
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+  font-weight: 600;
+}
+.list .amount-list .amount-item .left-word .info.data-v-cee0d0e9 {
+  font-size: 20rpx;
+  color: #797878;
+}
+.list .amount-list .amount-item .total.data-v-cee0d0e9 {
+  font-size: 26rpx;
+  font-weight: 600;
 }

@@ -32,7 +32,7 @@ import { getNowDate } from '../../utils/get-date.js';
 import { userInfoStore } from '../../stores/userinfo';
 import {formatAmount} from '../../utils/format.js'
 import {timeChain } from '../../utils/time-chain.js'
-import {calcQOQ,calcPercentage} from '../../utils/calc-changes.js'
+import {calcQOQ,calcPercentage} from '../../utils/calc.js'
 
 onMounted(() => fillBrand());
 // 获取数据

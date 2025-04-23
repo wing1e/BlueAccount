@@ -5,6 +5,7 @@ const utils_timeChain = require("../../../utils/time-chain.js");
 const stores_panelinfo = require("../../../stores/panelinfo.js");
 const utils_format = require("../../../utils/format.js");
 const utils_constants = require("../../../utils/constants.js");
+const utils_examiner = require("../../../utils/examiner.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   _easycom_uni_icons2();
@@ -24,27 +25,51 @@ const _sfc_main = {
     const props = __props;
     const panelinfo = stores_panelinfo.panelinfoStore();
     const range = common_vendor.ref([]);
+    const typeArr = Object.values(utils_constants.PICKER_INFO.picker_type);
     const picker = common_vendor.computed(() => {
-      const item = panelinfo.panelList.find((item2) => item2.title === props.panelTitle);
-      return {
-        date: (item == null ? void 0 : item.date) || "",
-        range: (item == null ? void 0 : item.range) || 0,
-        ...item
-      };
+      const item = panelinfo.panelList.find(
+        (item2) => item2.title === props.panelTitle
+      );
+      return { ...item };
     });
     const rangeChange = (e) => {
       const val = Number(e.detail.value);
       if (picker.value.range !== val) {
-        setPickerDate(range[val]);
+        const newDate = setPickerDate(range.value[val]);
+        panelChange({ date: newDate, range: val });
+      }
+    };
+    const typeChange = (e) => {
+      const val = Number(e.detail.value);
+      if (picker.value.type !== val) {
+        panelChange({ type: val });
       }
     };
     const reduceDate = () => {
-      const lastDate = utils_timeChain.timeChain(picker.value.date, picker.value.range, "last");
-      panelChange({ date: lastDate, range: picker.value.range });
+      const dateType = range.value[picker.value.range];
+      const lastDate = utils_timeChain.timeChain(picker.value.date, dateType, "last");
+      if (utils_examiner.OptionsActionExaminer(lastDate)) {
+        panelChange({ date: lastDate, range: picker.value.range });
+      } else {
+        common_vendor.index.showToast({
+          title: "超出当前时间范围",
+          icon: "none",
+          duration: 2e3
+        });
+      }
     };
     const addDate = () => {
-      const nextDate = utils_timeChain.timeChain(picker.value.date, picker.value.range, "next");
-      panelChange({ date: nextDate, range: picker.value.range });
+      const dateType = range.value[picker.value.range];
+      const nextDate = utils_timeChain.timeChain(picker.value.date, dateType, "next");
+      if (utils_examiner.OptionsActionExaminer(nextDate)) {
+        panelChange({ date: nextDate, range: picker.value.range });
+      } else {
+        common_vendor.index.showToast({
+          title: "超出当前时间范围",
+          icon: "none",
+          duration: 2e3
+        });
+      }
     };
     const setPickerDate = (rangeValue) => {
       const { range_year, range_month, range_week, range_day } = utils_constants.PICKER_INFO.picker_range;
@@ -67,11 +92,14 @@ const _sfc_main = {
           console.error("无效的范围值:", rangeValue);
           return;
       }
-      const data = { date: newDate, range: rangeValue };
-      panelChange(data);
+      return newDate;
+    };
+    const reset = () => {
+      panelinfo.reset(props.panelTitle);
     };
     const panelChange = (data) => {
       panelinfo.setPanel(props.panelTitle, data);
+      console.log(picker.value);
     };
     return (_ctx, _cache) => {
       return {
@@ -80,7 +108,7 @@ const _sfc_main = {
           size: "14"
         }),
         b: common_vendor.o(reduceDate),
-        c: common_vendor.t(common_vendor.unref(utils_format.formatOptionsDate)(picker.value.date, picker.value.range)),
+        c: common_vendor.t(common_vendor.unref(utils_format.formatOptionsDate)(picker.value.date, range.value[picker.value.range])),
         d: common_vendor.p({
           type: "down"
         }),
@@ -91,7 +119,12 @@ const _sfc_main = {
           type: "right",
           size: "14"
         }),
-        i: common_vendor.o(addDate)
+        i: common_vendor.o(addDate),
+        j: common_vendor.t(common_vendor.unref(typeArr)[picker.value.type]),
+        k: common_vendor.unref(typeArr),
+        l: picker.value.type,
+        m: common_vendor.o(typeChange),
+        n: common_vendor.o(reset)
       };
     };
   }

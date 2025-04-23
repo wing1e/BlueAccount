@@ -1,12 +1,12 @@
 <template>
 	<view class="list">
-		<view class="list-item" v-for="(item,index) in listData.expense" :key="index">
+		<view class="list-item" v-for="(item,index) in listData" :key="index">
 			<uni-icons type="smallcircle-filled" size="10" :color="getColor(item.category)"></uni-icons>
 			<view class="left-word">
 				<text class="category">{{item.category}}</text>
 				<view class="info">
 					<text>{{ item.percent + '%' }}</text>
-					<text>{{ ' &nbsp; · &nbsp; ' + item.count + '笔' }}</text>
+					<text>{{ ' &nbsp; &nbsp; ' + item.count + '笔' }}</text>
 				</view>
 			</view>
 			<text class="total">
@@ -17,8 +17,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { EXPENSE_TYPE } from '../../../utils/constants.js';
+import { computed} from 'vue';
+import { EXPENSE_TYPE,INCOME_TYPE } from '../../../utils/constants.js';
 import { userInfoStore } from '../../../stores/userinfo.js';
 import { panelinfoStore } from '../../../stores/panelinfo.js';
 
@@ -26,16 +26,29 @@ const panelinfo = panelinfoStore();
 const userinfo = userInfoStore()
 
 const PANEL_TITLE = '分类统计'
-
+const typeVal = computed(()=>panelinfo.getPanelInfo(PANEL_TITLE).type)
 const listData = computed(() => {
 	const listDate = panelinfo.getPanelInfo(PANEL_TITLE).date
 	const originData = userinfo.getCategoryInfo(listDate)
-	return {expense:originData.expense,income:originData.expense};
+	if (typeVal.value === 0) {
+		return originData.expense
+	}else{
+		return originData.income
+	}
+	return [];
 });
 
 const getColor = (val) => {
-	return EXPENSE_TYPE.find((item) => item.category === val).color;
+	if(typeVal.value === 0){
+		const item = EXPENSE_TYPE.find((item) => item.category === val);
+		return item ? item.color : '#9E9E9E';  // 如果找不到类别，返回默认颜色
+	}else{
+		const item = INCOME_TYPE.find((item) => item.category === val);
+		return item ? item.color : '#9E9E9E';  // 如果找不到类别，返回默认颜色
+	}
 };
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -51,16 +64,15 @@ const getColor = (val) => {
 		background-color: #fff;
 		filter: $shadow;
 		border-radius: 20rpx;
-		@include options-layout;
+		@include row-layout;
 		.left-word {
-			@include option-left;
+			@include row-left;
 			.category {
 				font-size: $text-size-title;
-				letter-spacing: 2rpx;
 				font-weight: 600;
 			}
 			.info {
-				font-size: $text-size-sm;
+				font-size: $text-size-med;
 				color: $text-color-dark-grey;
 			}
 		}

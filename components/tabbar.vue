@@ -44,7 +44,8 @@ import{storeToRefs} from 'pinia'
 	// [status,'页面路径']
 	const navigationMap = new Map([
 		[0,'/pages/index/index'],
-		[1,'/pages/chart/index']
+		[1,'/pages/chart/index'],
+		[3,'/pages/mypage/index']
 	])
 	
 	// 路由

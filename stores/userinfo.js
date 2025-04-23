@@ -4,15 +4,38 @@ import {
 import {
 	getNowDate
 } from '../utils/get-date.js'
-import {
-	date,
-	object
-} from "../uni_modules/uview-plus/libs/function/test.js";
+
 
 export const userInfoStore = defineStore('userInfo', {
 	state: () => {
 		return {
-			datalist: [{
+			datalist: [
+				{
+					"date": "2023-03-01",
+					"weekday": "周三",
+					"records": [{
+							"time": "09:00:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 8.50,
+							"note": "食堂早餐"
+						},
+						{
+							"time": "12:30:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 10.50,
+							"note": "午餐-食堂",
+						},
+						{
+							"time": "17:20:00",
+							"type": "income",
+							"category": "兼职",
+							"amount": 200.00,
+							"note": "咸鱼"
+						}
+					]
+				},{
 					"date": "2023-03-15",
 					"weekday": "周三",
 					"records": [{
@@ -103,7 +126,59 @@ export const userInfoStore = defineStore('userInfo', {
 							"note": "深夜电影院",
 						}
 					]
-				}
+				},
+				{
+					"date": "2023-03-18",
+					"weekday": "周六",
+					"records": [{
+							"time": "09:00:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 8.50,
+							"note": "食堂早餐"
+						},
+						{
+							"time": "12:30:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 20.50,
+							"note": "午餐-麦当劳套餐",
+						},
+						{
+							"time": "17:20:00",
+							"type": "income",
+							"category": "兼职",
+							"amount": 1500.00,
+							"note": "家教课时费"
+						}
+					]
+				},
+				{
+					"date": "2023-03-19",
+					"weekday": "周日",
+					"records": [{
+							"time": "09:00:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 8.50,
+							"note": "食堂早餐"
+						},
+						{
+							"time": "12:30:00",
+							"type": "expense",
+							"category": "餐饮",
+							"amount": 38.50,
+							"note": "午餐-麦当劳套餐",
+						},
+						{
+							"time": "17:20:00",
+							"type": "income",
+							"category": "兼职",
+							"amount": 1000.00,
+							"note": "家教课时费"
+						}
+					]
+				},
 			]
 		}
 	},
@@ -135,7 +210,6 @@ export const userInfoStore = defineStore('userInfo', {
 			// 数据起始月第一天和现在的日期字符串
 			const startDateStr = getFirstDayOfMonth(this.datalist[0].date);
 			const endDateStr = getNowDate().date;
-
 			// 转换为Date对象
 			let currentDate = parseLocalDate(startDateStr);
 			const endDate = parseLocalDate(endDateStr);

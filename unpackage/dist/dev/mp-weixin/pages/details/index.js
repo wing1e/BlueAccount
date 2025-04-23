@@ -4,7 +4,7 @@ const utils_getDate = require("../../utils/get-date.js");
 const stores_userinfo = require("../../stores/userinfo.js");
 const utils_format = require("../../utils/format.js");
 const utils_timeChain = require("../../utils/time-chain.js");
-const utils_calcChanges = require("../../utils/calc-changes.js");
+const utils_calc = require("../../utils/calc.js");
 if (!Math) {
   (headerVue + listVue)();
 }
@@ -42,12 +42,12 @@ const _sfc_main = {
       brandData[0].num = utils_format.formatAmount(-currentExpense);
       brandData[1].num = utils_format.formatAmount(currentIncome);
       brandData[2].num = utils_format.formatAmount(currentBalance);
-      brandData[0].qoq = utils_calcChanges.calcQOQ(currentExpense, lastExpense);
-      brandData[1].qoq = utils_calcChanges.calcQOQ(currentIncome, lastIncome);
-      brandData[2].qoq = utils_calcChanges.calcQOQ(currentBalance, lastBalance);
-      brandData[0].percentage = utils_calcChanges.calcPercentage(currentExpense, lastExpense);
-      brandData[1].percentage = utils_calcChanges.calcPercentage(currentIncome, lastIncome);
-      brandData[2].percentage = utils_calcChanges.calcPercentage(currentBalance, lastBalance);
+      brandData[0].qoq = utils_calc.calcQOQ(currentExpense, lastExpense);
+      brandData[1].qoq = utils_calc.calcQOQ(currentIncome, lastIncome);
+      brandData[2].qoq = utils_calc.calcQOQ(currentBalance, lastBalance);
+      brandData[0].percentage = utils_calc.calcPercentage(currentExpense, lastExpense);
+      brandData[1].percentage = utils_calc.calcPercentage(currentIncome, lastIncome);
+      brandData[2].percentage = utils_calc.calcPercentage(currentBalance, lastBalance);
     };
     return (_ctx, _cache) => {
       return {

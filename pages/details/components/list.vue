@@ -26,13 +26,13 @@
 			<view class="amount-item" v-for="(item, index) in listData" :key="index">
 				<uni-icons type="smallcircle-filled" size="10" color="#FE5D20"></uni-icons>
 				<view class="left-word">
-					<text style="letter-spacing: 2rpx; font-weight: 600">{{ item.category }}</text>
-					<view style="font-size: 20rpx; color: #5c6470">
+					<text class="category">{{ item.category }}</text>
+					<view class="info">
 						<text>{{ item.date }}</text>
 						<text v-if="item.note">{{ ' &nbsp; · &nbsp; ' + item.note }}</text>
 					</view>
 				</view>
-				<text class="total" style="font-weight: 600">
+				<text class="total">
 					{{ item.type === 'income' ? item.amount : '-' + item.amount }}
 				</text>
 			</view>
@@ -125,9 +125,9 @@ const handleSort = (orderIndex) => {
 				filter: $shadow;
 				border-radius: 20rpx;
 				.records {
-					@include options-layout;
+					@include row-layout;
 					.left-word {
-						@include option-left;
+						@include row-left;
 					}
 				}
 			}
@@ -138,9 +138,22 @@ const handleSort = (orderIndex) => {
 			background-color: #fff;
 			filter: $shadow;
 			border-radius: 20rpx;
-			@include options-layout;
+			@include row-layout;
 			.left-word {
-				@include option-left;
+				@include row-left;
+				.category {
+					font-size: $text-size-title;
+					letter-spacing: 2rpx;
+					font-weight: 600;
+				}
+				.info {
+					font-size: $text-size-sm;
+					color: $text-color-dark-grey;
+				}
+			}
+			.total{
+				font-size: $text-size-big;
+				font-weight: 600;
 			}
 		}
 	}

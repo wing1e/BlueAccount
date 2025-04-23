@@ -9,17 +9,20 @@ const _sfc_main = {
     common_vendor.onMounted(() => {
       drawChart();
     });
+    common_vendor.onShow(() => {
+      drawChart();
+    });
     const { getTotal, getPartData } = stores_userinfo.userInfoStore();
-    const { panelList, getPanelInfo } = stores_panelinfo.panelinfoStore();
+    const panelinfo = stores_panelinfo.panelinfoStore();
     const instance = common_vendor.getCurrentInstance();
     const canvasInfo = { className: ".barChart", id: "barChart" };
     const chartData = common_vendor.computed(() => {
       const data = [];
-      const chartYear = panelList[2].date;
+      const { date: year, type } = panelinfo.panelList[2];
       let monNum = 1;
       while (monNum <= 12) {
-        const ym = chartYear + "-" + String(monNum).padStart(2, "0");
-        data.push({ date: ym, expense: getTotal(ym).expense });
+        const ym = year + "-" + String(monNum).padStart(2, "0");
+        data.push({ date: ym, amount: type === 0 ? getTotal(ym).expense : getTotal(ym).income });
         monNum += 1;
       }
       return data;
@@ -27,9 +30,12 @@ const _sfc_main = {
     const drawChart = () => {
       utils_chart_barChart.barChartInit(instance, chartData.value, canvasInfo.className, canvasInfo.id);
     };
-    common_vendor.watch(() => stores_panelinfo.panelinfoStore().panelList[2].date, (date) => {
-      drawChart();
-    });
+    common_vendor.watch(
+      () => stores_panelinfo.panelinfoStore().panelList[2].date,
+      (date) => {
+        drawChart();
+      }
+    );
     return (_ctx, _cache) => {
       return {
         a: canvasInfo.id,

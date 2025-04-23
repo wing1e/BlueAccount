@@ -1,6 +1,5 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const utils_examiner = require("../examiner.js");
 const utils_nodeInfo = require("../node-info.js");
 const utils_chart_chart = require("./chart.js");
 const indexChartInit = async (instance, chartData, className, canvasId) => {
@@ -14,13 +13,14 @@ const indexChartInit = async (instance, chartData, className, canvasId) => {
     const drawArea = {
       top: utils_chart_chart.AXIS_MARGIN.top,
       bottom: ctxH - utils_chart_chart.AXIS_MARGIN.bottom,
+      left: utils_chart_chart.AXIS_MARGIN.left,
       get center() {
         return (this.top + this.bottom) / 2;
       }
     };
-    utils_chart_chart.drawGridLines(ctx, ctxW, drawArea);
+    utils_chart_chart.drawGridLines(ctx, ctxW, drawArea, chartData);
     drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData);
-    if (utils_examiner.examiner(chartData)) {
+    if (chartData.find((item) => item.amount > 0)) {
       drawChartLine(ctx, chartData, ctxW, drawArea);
     }
     ctx.draw();
@@ -29,14 +29,14 @@ const indexChartInit = async (instance, chartData, className, canvasId) => {
   }
 };
 const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
-  const labelSpace = canvasWidth / (data.length + 1);
+  const labelSpace = (canvasWidth - utils_chart_chart.AXIS_MARGIN.left) / data.length;
   ctx.save();
   ctx.setFontSize(utils_chart_chart.CHART_STYLES.label.fontSize);
   ctx.fillStyle = utils_chart_chart.CHART_STYLES.label.color;
   if (data.length <= 12) {
     data.forEach((item, index) => {
       const dateStr = item.date.split("-").slice(-1);
-      const xPos = (index + 1) * labelSpace;
+      const xPos = index * labelSpace + utils_chart_chart.AXIS_MARGIN.left;
       ctx.setTextAlign("center");
       ctx.fillText(dateStr, xPos, bottomY + 15);
     });
@@ -44,7 +44,7 @@ const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
     data.forEach((item, index) => {
       if (index % 6 === 0) {
         const dateStr = item.date.split("-").slice(-1);
-        const xPos = (index + 1) * labelSpace;
+        const xPos = index * labelSpace + utils_chart_chart.AXIS_MARGIN.left;
         ctx.setTextAlign("center");
         ctx.fillText(dateStr, xPos, bottomY + 15);
       }
@@ -52,32 +52,49 @@ const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
   }
   ctx.restore();
 };
-const drawChartLine = (ctx, data, canvasWidth, area) => {
-  const maxValue = Math.max(...data.map((item) => item.expense));
-  const pointSpace = canvasWidth / (data.length + 1);
-  const points = data.map((item, index) => ({
-    x: (index + 1) * pointSpace,
-    y: utils_chart_chart.calculateY(item.expense, maxValue, area),
-    value: item.expense
+const drawChartLine = (ctx, chartData, canvasWidth, area) => {
+  const maxValue = Math.max(...chartData.map((item) => item.amount));
+  const pointSpace = (canvasWidth - utils_chart_chart.AXIS_MARGIN.left) / chartData.length;
+  const points = chartData.map((item, index) => ({
+    x: index * pointSpace + utils_chart_chart.AXIS_MARGIN.left,
+    y: utils_chart_chart.calculateY(item.amount, maxValue, area),
+    value: item.amount
   }));
   ctx.save();
   ctx.beginPath();
-  ctx.strokeStyle = utils_chart_chart.CHART_STYLES.line.color;
-  ctx.lineWidth = utils_chart_chart.CHART_STYLES.line.lineWidth;
-  ctx.setLineDash([]);
-  points.forEach((point, index) => {
-    index === 0 ? ctx.moveTo(point.x, point.y) : ctx.lineTo(point.x, point.y);
-  });
-  ctx.stroke();
-  points.forEach((point) => {
-    ctx.beginPath();
-    ctx.arc(point.x, point.y, utils_chart_chart.CHART_STYLES.point.radius, 0, Math.PI * 2);
-    ctx.fillStyle = utils_chart_chart.CHART_STYLES.point.fill;
-    ctx.fill();
-    {
-      ctx.stroke();
+  if (points.length > 0) {
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      const curr = points[i];
+      const prev = points[i - 1];
+      const m = 0.4;
+      const cp1x = prev.x + (curr.x - prev.x) * m;
+      const cp1y = prev.y;
+      const cp2x = prev.x + (curr.x - prev.x) * (1 - m);
+      const cp2y = curr.y;
+      ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, curr.x, curr.y);
     }
-  });
+    ctx.lineTo(points[points.length - 1].x, area.bottom);
+    ctx.lineTo(points[0].x, area.bottom);
+    ctx.closePath();
+    ctx.fillStyle = utils_chart_chart.CHART_STYLES.line.fill;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      const curr = points[i];
+      const prev = points[i - 1];
+      const m = 0.4;
+      const cp1x = prev.x + (curr.x - prev.x) * m;
+      const cp1y = prev.y;
+      const cp2x = prev.x + (curr.x - prev.x) * (1 - m);
+      const cp2y = curr.y;
+      ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, curr.x, curr.y);
+    }
+    ctx.strokeStyle = utils_chart_chart.CHART_STYLES.line.color;
+    ctx.lineWidth = utils_chart_chart.CHART_STYLES.line.lineWidth;
+    ctx.stroke();
+  }
   ctx.restore();
 };
 exports.indexChartInit = indexChartInit;

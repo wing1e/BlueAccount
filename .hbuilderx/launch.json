@@ -4,6 +4,16 @@
         {
             "playground" : "custom",
             "type" : "uni-app:app-android"
+        },
+        {
+            "default" : {
+                "launchtype" : "local"
+            },
+            "mp-weixin" : {
+                "launchtype" : "local"
+            },
+            "provider" : "alipay",
+            "type" : "uniCloud"
         }
     ]
 }
