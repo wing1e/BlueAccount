@@ -5,14 +5,14 @@
 </template>
 
 <script setup>
-const getUserInfo = ()=>{
-	uni.getUserInfo({
-		provider:'weixin',
-		success(info) {
-			console.log(info);
-		}
-	})
-}
+import { reactive } from 'vue';
+import { userInfoStore } from '../../stores/userinfo';
+
+const userinfo = userInfoStore()
+const data = reactive({
+	username:'',
+	head:''
+})
 </script>
 
 <style lang="scss" scoped>

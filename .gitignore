@@ -33,6 +33,7 @@ project.swan.json
 
 # HBuilderX 自动生成文件
 .project
+.hbuilderx/
 .settings/
 
 # 缓存和临时文件
