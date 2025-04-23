@@ -1,1 +1,0 @@
-{"version":3,"file":"analysis.js","sources":["../../../../Development/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXMvYW5hbHlzaXMvYW5hbHlzaXMudnVl"],"sourcesContent":["import MiniProgramPage from 'D:/Work/WorkSpace/MyProject/MoneyLover/pages/analysis/analysis.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;AACA,GAAG,WAAW,eAAe;"}
