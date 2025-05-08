@@ -5,8 +5,7 @@ const {
 } = require('wx-token')
 
 //小程序的AppID 和 AppSecret
-const APP_ID = "wxa53989795715ce6a"
-const APP_SECRET = "62cd78b9e390d2d8f86fd10b34eb0af7"
+const {APP_ID,APP_SECRET} = require('cloud-config')
 
 const db = uniCloud.database()
 const user = db.collection('user')

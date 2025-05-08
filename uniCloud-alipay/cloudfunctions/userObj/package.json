@@ -1,7 +1,8 @@
 {
   "name": "objoen",
   "dependencies": {
-    "wx-token": "file:../common/wx-token"
+    "wx-token": "file:../common/wx-token",
+    "cloud-config": "file:../common/cloud-config"
   },
   "extensions": {
     "uni-cloud-jql": {}

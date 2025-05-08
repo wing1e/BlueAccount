@@ -35,12 +35,6 @@ project.swan.json
 .project
 .hbuilderx/
 .settings/
-.uniCloud-alipay/
-.uniCloud-aliyun/
-.uniCloud-tencent/
-.uniCloud-huawei/
-
-
 # 缓存和临时文件
 .cache/
 .temp/

@@ -1,17 +1,17 @@
-const jwt = require('jsonwebtoken')
+const {SECRET} = require('cloud-config')
 
-const secret = '123@abcABC'
+const jwt = require('jsonwebtoken')
 
 // 生成token
 const getToken = (value) =>{
 	//sign(加密数据，加密辅助，过期时间(s))
-	return jwt.sign({openid:value},secret,{expiresIn:20})
+	return jwt.sign({openid:value},SECRET,{expiresIn:20})
 }
 
 // 解密token
 const verifyToken = async (token) =>{
 	try{
-		return jwt.verify(token,secret)
+		return jwt.verify(token,SECRET)
 	}catch(e){
 		return false
 	}
