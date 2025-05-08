@@ -1,6 +1,8 @@
 <script>
+	import loading from './utils/loading.js'
 	export default {
 		onLaunch: function() {
+			loading() //添加全局Loading
 			console.log('App Launch')
 		},
 		onShow: function() {

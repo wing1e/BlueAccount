@@ -43,7 +43,7 @@ const {fillData} = userInfoStore()
 			height: 30%;
 			box-sizing: border-box;
 			padding: 20rpx;
-			background:linear-gradient(to bottom,#0039A4 50%,#fff 50%);
+			background:linear-gradient(to bottom,#003498 50%,#fff 50%);
 		}
 		
 		.list{

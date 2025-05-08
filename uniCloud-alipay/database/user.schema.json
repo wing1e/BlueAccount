@@ -1,0 +1,37 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"required": ["openid","nickname","avatarUrl","session_key","token"],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"openid":{
+			"description": "微信用户唯一标识",
+			"bsonType": "string"
+		},
+		"nickName":{
+			"description": "用户昵称",
+			"bsonType": "string"
+		},
+		"avatarUrl":{
+			"description": "头像地址",
+			"bsonType": "string",
+			"format": "url"
+		},
+		"session_key":{
+			"description": "微信用户会话密匙",
+			"bsonType": "string"
+		},
+		"token":{
+			"bsonType": "string"
+		}
+		
+	}
+}

@@ -1,0 +1,9 @@
+{
+  "name": "DataOperation",
+  "dependencies": {
+    "wx-token": "file:../common/wx-token"
+  },
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

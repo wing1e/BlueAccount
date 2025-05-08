@@ -9,6 +9,10 @@ import {
 export const userInfoStore = defineStore('userInfo', {
 	state: () => {
 		return {
+			basicInfo:{
+				avatar:'/static/img/default.png',
+				nickname:'点击登录'
+			},
 			datalist: [
 				{
 					"date": "2023-03-01",
