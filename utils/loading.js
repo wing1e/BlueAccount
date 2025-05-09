@@ -34,6 +34,7 @@ export default function(){
 			hideLoading(); // 失败时隐藏
 		},
 		complete(res) {
+			console.log(loadingCount);
 			hideLoading(); //完成时隐藏
 		}
 	});

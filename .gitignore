@@ -6,6 +6,8 @@
 node_modules/
 dist/
 unpackage/ # uni-app 编译生成目录
+//忽略本地配置文件
+.env*
 .env.local
 .env.*.local
 

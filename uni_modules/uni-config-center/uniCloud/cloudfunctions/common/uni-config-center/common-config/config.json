@@ -1,0 +1,8 @@
+{
+	"APP_ID":"wxa53989795715ce6a",
+	"APP_SECRET":"62cd78b9e390d2d8f86fd10b34eb0af7",
+	"TOKEN":{
+		"SECRET_KEY":"123@abcABC",
+		"ExpiresIn":600
+	}
+}

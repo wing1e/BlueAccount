@@ -1,6 +1,7 @@
 {
   "name": "DataOperation",
   "dependencies": {
+    "middleware": "file:../common/middleware",
     "wx-token": "file:../common/wx-token"
   },
   "extensions": {

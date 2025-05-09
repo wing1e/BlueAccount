@@ -2,7 +2,7 @@
   "name": "objoen",
   "dependencies": {
     "wx-token": "file:../common/wx-token",
-    "cloud-config": "file:../common/cloud-config"
+    "uni-config-center": "file:../../../uni_modules/uni-config-center/uniCloud/cloudfunctions/common/uni-config-center"
   },
   "extensions": {
     "uni-cloud-jql": {}

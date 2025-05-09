@@ -1,7 +1,6 @@
-// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
 {
 	"bsonType": "object",
-	"required": ["openid","type","category","note"],
+	"required": ["openid", "type", "category", "amount", "note"],
 	"permission": {
 		"read": false,
 		"create": false,
@@ -12,32 +11,49 @@
 		"_id": {
 			"description": "ID，系统自动生成"
 		},
-		"openid":{
+		"openid": {
 			"description": "微信用户唯一标识",
 			"bsonType": "string",
-			"foreignKey": "user.openid"
+			"foreignKey": "user.openid",
+			"errorMessage": {
+				"required": "{openid}不能为空"
+			}
 		},
-		"timestamp":{
+		"timestamp": {
 			"description": "记录的时间戳",
 			"bsonType": "timestamp",
-			"forceDefaultValue":{
-				 "$env": "now"
+			"forceDefaultValue": {
+				"$env": "now"
 			}
 		},
-		"type":{
-			"description": "类型",
-			"bsonType": "array",
-			"enum":["income","expense"],
-			"errorMessage":{
-				"required":"{type}不能为空"
+		"amount": {
+			"bsonType": "double",
+			"minimum": 0,
+			"errorMessage": {
+				"required": "金额不能为空",
+				"minimum": "金额必须大于0"
 			}
 		},
-		"category":{
-			"description": "记录的种类"
+		"type": {
+			"bsonType": "string",
+			"enum": ["income", "expense"],
+			"errorMessage": {
+				"required": "{type}不能为空",
+				"enum": "类型只能是 income 或 expense"
+			}
 		},
-		"note":{
+		"category": {
+			"bsonType": "string",
+			"errorMessage": {
+				"required": "{category}不能为空"
+			}
+		},
+		"note": {
 			"description": "描述",
-			"bsonType": "string"
+			"bsonType": "string",
+			"errorMessage": {
+				"required": "{note}不能为空"
+			}
 		}
 	}
 }

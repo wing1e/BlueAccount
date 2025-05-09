@@ -4,6 +4,7 @@ import {
 import {
 	getNowDate
 } from '../utils/get-date.js'
+import { request } from "../utils/request.js";
 
 
 export const userInfoStore = defineStore('userInfo', {
@@ -371,12 +372,17 @@ export const userInfoStore = defineStore('userInfo', {
 	},
 	actions: {
 		// 添加新数据
-		addData(date, records) {
+		async addData(date, records) {
 			// 判断日期是否存在
 			const dayData = this.datalist.find(d => d.date === date);
 			if (dayData) {
 				// 存在则将新记录添加到该日期的记录中
 				dayData.records.push(records)
+				try{
+					const res =await request({records}).add()
+				}catch(e){
+					
+				}
 			}
 
 		}

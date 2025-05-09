@@ -3,17 +3,20 @@
 const {
 	getToken
 } = require('wx-token')
+// 获取配置
+const createConfig = require('uni-config-center')
+const commonConfig = createConfig({
+	pluginId: 'common-config'
+})
 
-//小程序的AppID 和 AppSecret
-const {APP_ID,APP_SECRET} = require('cloud-config')
-
-const db = uniCloud.database()
+// 连接数据库
+const db = uniCloud.databaseForJQL()
 const user = db.collection('user')
 
 module.exports = {
 	_before: function() { // 通用预处理器
 		const name = this.getMethodName()
-		const nameArr = ['login','loginInUrl']
+		const nameArr = ['login', 'loginInUrl']
 		if (!nameArr.includes(name)) {
 			throw new Error('方法不存在')
 		}
@@ -25,13 +28,19 @@ module.exports = {
 			code,
 			userinfo
 		} = event
+
+		const APP_ID = commonConfig.config('APP_ID')
+		const APP_SECRET = commonConfig.config('APP_SECRET')
+		
 		const code2Session =
 			`https://api.weixin.qq.com/sns/jscode2session?appid=${APP_ID}&secret=${APP_SECRET}&js_code=${code}&grant_type=authorization_code`
+
 		try {
 			// 获取微信用户唯一标识
 			const res = await uniCloud.request({
 				url: code2Session
 			})
+
 			//请求成功
 			if (res.statusCode === 200 && !res.data.errcode) {
 				const wx_openid = res.data.openid
@@ -79,7 +88,7 @@ module.exports = {
 				throw new Error()
 			}
 		} catch (e) {
-			throw new Error('获取微信服务失败')
+			throw new Error(e)
 		}
 	},
 	async loginInUrl() {
@@ -145,7 +154,7 @@ module.exports = {
 		}
 	},
 
-	_after:function(error, result) {
+	_after: function(error, result) {
 		if (error) {
 			return {
 				errCode: 'LOGIN_FAILED',

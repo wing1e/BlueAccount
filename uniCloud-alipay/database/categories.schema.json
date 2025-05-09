@@ -1,4 +1,3 @@
-// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
 {
 	"bsonType": "object",
 	"required": ["name", "type", "color"],
@@ -16,7 +15,7 @@
 			"description": "微信用户唯一标识",
 			"bsonType": "string",
 			"foreignKey": "user.openid",
-			"defaultValue":"0"
+			"defaultValue": "0"
 		},
 		"name": {
 			"description": "字段名",

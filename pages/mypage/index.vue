@@ -26,9 +26,9 @@ const store = userInfoStore();
 
 const test =async () =>{
 	try{
-		const res = await request({a:1}).add()
+		const res = await request().add()
+
 	}catch(e){
-		
 	}
 }
 
@@ -45,7 +45,7 @@ const getUserInfo = async () => {
     //使用自带api访问
     const user = uniCloud.importObject("userObj");
     const res = await user.login({ code: loginRes.code, userinfo: userInfo });
-    const data = res.result.data[0];
+    const data = res.result[0];
 
     // 使用url访问
     // const res = await uni.request({
