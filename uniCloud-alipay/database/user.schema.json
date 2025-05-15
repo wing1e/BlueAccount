@@ -27,9 +27,6 @@
 		"session_key": {
 			"description": "微信用户会话密匙",
 			"bsonType": "string"
-		},
-		"token": {
-			"bsonType": "string"
 		}
 
 	}

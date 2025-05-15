@@ -5,30 +5,30 @@
 				<!-- 头部 -->
 				<view class="header">
 					<!-- 支出选项 -->
-					<view class="expense" @click="form.records.type = 'expense'">
+					<view class="expense" @click="(flagType = 'expense'), reset()">
 						<text :style="{ color: titleStyle('expense').color }">支出</text>
 						<view class="line" v-if="titleStyle('expense').line"></view>
 					</view>
 					<!-- 收入选项 -->
-					<view class="income" @click="form.records.type = 'income'">
+					<view class="income" @click="(flagType = 'income'), reset()">
 						<text :style="{ color: titleStyle('income').color }">收入</text>
 						<view class="line" v-if="titleStyle('income').line"></view>
 					</view>
 					<!-- 取消按钮 -->
-					<text style="position: absolute; right: 0; top: 0; color: black" @click="reset">取消</text>
+					<text style="position: absolute; right: 0; top: 0; color: black" @click="reset(), close()">取消</text>
 				</view>
 				<!-- 金额输入框 -->
 				<view class="input">
-					<text v-if="form.records.type === 'expense'" style="font-size: 26rpx; margin-right: 10rpx">一</text>
-					<input type="number" style="width: 100%; height: 100%" v-model.number="form.records.amount" />
+					<text v-if="flagType === 'expense'" style="font-size: 26rpx; margin-right: 10rpx">一</text>
+					<input type="number" style="width: 100%; height: 100%" v-model.number="form.amount" />
 				</view>
 				<!-- 种类选择 -->
 				<view class="category">
 					<view
 						class="category_btn"
-						v-for="(item, index) in form.records.type === 'expense' ? EXPENSE_TYPE : INCOME_TYPE"
+						v-for="(item, index) in flagType === 'expense' ? EXPENSE_TYPE : INCOME_TYPE"
 						:key="index"
-						@click="form.records.category = item.category"
+						@click="form.category = item.category"
 						:style="{ border: categoryStyle(item.category)?.bs, color: categoryStyle(item.category)?.fs }"
 					>
 						<text>{{ item.category }}</text>
@@ -37,7 +37,7 @@
 				<!-- 备注 -->
 				<view class="notes">
 					<text style="font-size: 20rpx; color: #656565">备注</text>
-					<input type="text" placeholder="点击填写备注" v-model="form.records.note" />
+					<input type="text" placeholder="点击填写备注" v-model="form.note" />
 				</view>
 				<!-- 保存按钮 -->
 				<button @click="submit" size="default" style="width: 80%; background-color: #00b6e6; color: #fff">保存</button>
@@ -52,12 +52,14 @@ import { tabBarStore } from '../stores/tabbar';
 import { EXPENSE_TYPE, INCOME_TYPE } from '../utils/constants.js';
 import { getNowDate } from '../utils/get-date.js';
 import { userInfoStore } from '../stores/userinfo';
-
+const pupStore = tabBarStore();
 const popup = ref(null);
+
+const flagType = ref('expense');
 
 // 监听弹窗状态
 watch(
-	() => tabBarStore().pop,
+	() => pupStore.pup,
 	(newVal) => {
 		newVal ? open() : close();
 	}
@@ -65,33 +67,32 @@ watch(
 
 // 打开弹窗
 const open = () => {
+	pupStore.setPup(true);
 	popup.value?.open();
 };
 // 关闭弹窗
 const close = () => {
+	pupStore.setPup(false);
 	popup.value?.close();
 };
 
 // 弹窗状态改变
 const popChange = (e) => {
-	tabBarStore().pop = e?.show;
+	pupStore.setPup(e?.show);
 };
 
 // 表单
 const form = reactive({
+	type: flagType.value,
 	date: '',
-	records: {
-		time: '',
-		type: 'expense',
-		category: '',
-		amount: '',
-		note: ''
-	}
+	category: '',
+	amount: '',
+	note: ''
 });
 
 // 动态修改标题样式
 const titleStyle = (type) => {
-	if (form.records.type === type) {
+	if (flagType.value === type) {
 		return { color: '#000', line: true };
 	} else {
 		return { color: '#8B97A9', line: false };
@@ -100,39 +101,52 @@ const titleStyle = (type) => {
 
 // 动态修改种类样式
 const categoryStyle = (category) => {
-	if (category === form.records.category) {
+	if (category === form.category) {
 		return { bs: '#00B6E6 1rpx solid;', fs: '#00B6E6' };
 	}
 };
 
-const { addData } = userInfoStore();
+const store = userInfoStore();
 
 // 提交
-const submit =async () => {
-	console.log(form.records);
-	if (formValidate()) {
-		form.date = getNowDate().date;
-		form.records.time = getNowDate().time;
-		await addData(form.date, form.records);
-		reset();
+const submit = async () => {
+	try {
+		if (formValidate()) {
+			form.date = getNowDate().date;
+			const addRes = await store.addData(form.date, form);
+			const queryRes = await store.queryData();
+			if (addRes.errCode === 0 && queryRes.errCode === 0) {
+				uni.showToast({
+					title: addRes.msg,
+					icon: 'success',
+					duration: 1000
+				});
+				reset();
+				close();
+			} else {
+				throw Error;
+			}
+		}
+	} catch (e) {
+		throw new Error(e);
 	}
 };
 
 // 表单验证
 const formValidate = () => {
-	if (form.records.amount === '') {
+	if (form.amount === '') {
 		uni.showToast({
 			title: '请选择金额',
 			icon: 'error'
 		});
 		return false;
-	} else if (!(/^\d+$/).test(form.records.amount)) {
+	} else if (!/^\d+$/.test(form.amount)) {
 		uni.showToast({
 			title: '请输入正确金额',
 			icon: 'error'
 		});
 		return false;
-	} else if (form.records.category === '') {
+	} else if (form.category === '') {
 		uni.showToast({
 			title: '请选择种类',
 			icon: 'error'
@@ -144,15 +158,14 @@ const formValidate = () => {
 };
 // 重置
 const reset = () => {
-	form.date = '';
-	form.records = {
-		time: '',
-		type: 'expense',
+	const originForm = {
+		type: flagType.value,
+		date: '',
 		category: '',
 		amount: '',
 		note: ''
 	};
-	close();
+	Object.assign(form, originForm);
 };
 </script>
 
@@ -173,7 +186,7 @@ const reset = () => {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 20rpx;
+		padding: $space;
 		.header {
 			@include flex-center;
 			position: relative;
@@ -194,7 +207,7 @@ const reset = () => {
 				text {
 					height: 100%;
 					@include flex-center;
-					font-size: 32rpx;
+					font-size: $text-size-title;
 				}
 			}
 		}

@@ -20,12 +20,12 @@
 import { computed, ref } from 'vue';
 import { panelinfoStore } from '../../../stores/panelinfo';
 import { userInfoStore } from '../../../stores/userinfo';
-import {formatDate} from '../../../utils/format';
+import { formatDate } from '../../../utils/format';
 
 const userinfo = userInfoStore();
 const panelinfo = panelinfoStore();
 const PANEL_TITLE = '日趋势';
-const flag = computed(() => panelinfo.getPanelInfo(PANEL_TITLE).type===0?'expense':'income');
+const flag = computed(() => (panelinfo.getPanelInfo(PANEL_TITLE).type === 0 ? 'expense' : 'income'));
 const data = computed(() => {
 	const listDate = panelinfo.getPanelInfo(PANEL_TITLE).date;
 	const partData = userinfo.getPartData(listDate);
@@ -40,13 +40,12 @@ const data = computed(() => {
 			{ expense: 0, income: 0, count: 0 }
 		);
 		const total = userinfo.getTotal(listDate);
-		return { date: date, ...others, percent:{expense:(others.expense/total.expense*100).toFixed(2),income:(others.income/total.income*100).toFixed(2)} };
+		return { date: date, ...others, percent: { expense: ((others.expense / total.expense) * 100).toFixed(2), income: ((others.income / total.income) * 100).toFixed(2) } };
 	});
 
 	return originData.filter((item) => item.count > 0);
 });
 console.log(data.value);
-
 </script>
 
 <style lang="scss" scoped>
@@ -58,19 +57,21 @@ console.log(data.value);
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	padding: 0 $space;
 	.list-item {
 		background-color: #fff;
 		filter: $shadow;
-		border-radius: 20rpx;
+		border-radius: 30rpx;
+		margin-top: $space;
 		@include row-layout;
 		.left-word {
 			@include row-left;
 			.date {
-				font-size: $text-size-title;
+				font-size: $text-size-big;
 				font-weight: 600;
 			}
 			.info {
-				font-size: $text-size-med;
+				font-size: $text-size-sm;
 				color: $text-color-dark-grey;
 			}
 		}

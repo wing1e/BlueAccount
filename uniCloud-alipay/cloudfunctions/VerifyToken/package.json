@@ -1,8 +1,7 @@
 {
   "name": "VerifyToken",
   "dependencies": {
-    "wx-token": "file:../common/wx-token",
-    "uni-config-center": "file:../../../uni_modules/uni-config-center/uniCloud/cloudfunctions/common/uni-config-center"
+    "middleware": "file:../common/middleware"
   },
   "extensions": {
     "uni-cloud-jql": {}

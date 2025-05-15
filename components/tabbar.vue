@@ -21,14 +21,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { tabBarStore } from '../stores/tabbar';
-import AddPopVue from './AddPop.vue';
-import{storeToRefs} from 'pinia'
+const tabstore = tabBarStore()
 	const btnInfo = [
 		{title:'首页',uncheck:'home',check:'home-fill',status:0},
 		{title:'图表',uncheck:'order',check:'order',status:1},
-		{title:'资产',uncheck:'rmb-circle',check:'rmb-circle-fill',status:2},
+		{title:'预算',uncheck:'rmb-circle',check:'rmb-circle-fill',status:2},
 		{title:'我的',uncheck:'account',check:'account-fill',status:3}
 	]
 	
@@ -45,6 +43,7 @@ import{storeToRefs} from 'pinia'
 	const navigationMap = new Map([
 		[0,'/pages/index/index'],
 		[1,'/pages/chart/index'],
+		[2,'pages/budget/index'],
 		[3,'/pages/mypage/index']
 	])
 	
@@ -61,7 +60,7 @@ import{storeToRefs} from 'pinia'
 	}	
 
 	const open = () =>{
-		tabBarStore().pop = true
+		tabstore.setPup(true)
 	}
 
 	
@@ -79,13 +78,12 @@ import{storeToRefs} from 'pinia'
 		display: flex;
 		align-items: start;
 		justify-content: center;
-		backdrop-filter:  blur(3rpx);
 		.tabbar{
 			box-sizing: border-box;
+			background-color:$bg-color-white ;
 			width: 95%;
 			height: 75%;
-			background-color: #fff;
-			border-radius: 20rpx;
+			border-radius: 30rpx;
 			filter: $shadow;
 			display: flex;
 			justify-content: space-between;

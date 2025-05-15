@@ -3,7 +3,7 @@ const db = uniCloud.database()
 const userCollection = db.collection('user')
 
 // 检查用户是否登录
-async function checkLogin(event, context) {
+async function checkLogin(event) {
 	try {
 		const token = event.token || event.headers?.token
 		if (!token) {
@@ -18,8 +18,7 @@ async function checkLogin(event, context) {
 		
 		// 查询用户信息
 		const user = await userCollection.where({
-			openid: tokenInfo.openid,
-			token: token
+			openid: tokenInfo.openid
 		}).get()
 		
 		if (!user.data.length) {

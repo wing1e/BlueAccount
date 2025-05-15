@@ -44,7 +44,6 @@ const panelData = computed(() => {
     amount: type === 0 ? getTotal(date).expense : getTotal(date).income,
   };
 });
-console.log(panelData.value);
 
 const toAnalysis = () => {
   uni.navigateTo({
@@ -60,9 +59,9 @@ const toAnalysis = () => {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 20rpx;
+  padding: $space;
   background-color: $bg-color-white;
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   filter: $shadow;
   .header {
     width: 100%;

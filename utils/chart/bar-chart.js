@@ -5,7 +5,8 @@ import {
 	CHART_STYLES,
 	AXIS_MARGIN,
 	drawGridLines,
-	calculateY
+	calculateY,
+	getPath
 } from "./chart.js"
 
 export const barChartInit = async (instance, chartData, className, canvasId) => {
@@ -30,31 +31,22 @@ export const barChartInit = async (instance, chartData, className, canvasId) => 
 			}
 		}
 
-		// 绘制网格系统
-		drawGridLines(ctx, ctxW, drawArea,chartData)
-
 		// 绘制底部标签
-		drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData, "bar")
+		drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData)
 
-		const BarSpace = ctxW / 25;
+		if (chartData.find((item) => item.amount > 0)) {
+			//绘制柱状图
+			drawBar(ctx, ctxW, chartData, drawArea)
+			// 绘制网格系统
+			drawGridLines(ctx, ctxW, drawArea, chartData)
+		}
 
-		const MaxValue = Math.max(...chartData.map(item => item.amount))
-
-		const points = chartData.map((item, index) => ({
-			x: (2 * index + 1) * BarSpace,
-			y: calculateY(item.amount, MaxValue, drawArea),
-			value: item.amount
-		}))
-
-		points.forEach(item => {
-			ctx.fillRect(item.x, item.y, BarSpace, drawArea.bottom - item.y)
-			ctx.setFillStyle('#de6ea6')
-		})
-
-		ctx.draw()
+		ctx.draw(false)
+		return await getPath(canvasId, instance)
 
 	} catch (err) {
 		console.log(err);
+		throw new Error(err)
 	}
 }
 
@@ -73,4 +65,21 @@ const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
 	})
 
 	ctx.restore()
+}
+
+const drawBar = (ctx, ctxW, chartData, drawArea) => {
+	const BarSpace = ctxW / 25;
+
+	const MaxValue = Math.max(...chartData.map(item => item.amount))
+
+	const points = chartData.map((item, index) => ({
+		x: (2 * index + 1) * BarSpace,
+		y: calculateY(item.amount, MaxValue, drawArea),
+		value: item.amount
+	}))
+
+	points.forEach(item => {
+		ctx.fillRect(item.x, item.y, BarSpace, drawArea.bottom - item.y)
+		ctx.setFillStyle('#de6ea6')
+	})
 }

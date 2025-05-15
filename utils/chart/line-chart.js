@@ -1,3 +1,4 @@
+import { nextTick } from "vue";
 import {
 	getNodeInfo
 } from "../node-info.js";
@@ -6,9 +7,10 @@ import {
 	AXIS_MARGIN,
 	drawGridLines,
 	calculateY,
+	getPath,
 } from "./chart.js";
 
-export const indexChartInit = async (
+export const lineChartInit = async (
 	instance,
 	chartData,
 	className,
@@ -23,7 +25,7 @@ export const indexChartInit = async (
 		} = canvasNode[0];
 		// 创建绘图上下文
 		const ctx = uni.createCanvasContext(canvasId, instance);
-
+		
 		// 计算绘图区域
 		const drawArea = {
 			top: AXIS_MARGIN.top,
@@ -41,14 +43,17 @@ export const indexChartInit = async (
 		drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData);
 
 		// 绘制数据折线
-		if (chartData.find((item) => item.amount>0)) {
+		if (chartData.find((item) => item.amount > 0)) {
 			drawChartLine(ctx, chartData, ctxW, drawArea);
 		}
+		ctx.draw(false);
+		return await getPath(canvasId,instance)
+		
 
-		ctx.draw();
 	} catch (error) {
-		console.error("图表初始化失败:", error);
-		// 可在这里添加错误处理逻辑
+		console.log(error);
+		throw new Error(error)
+
 	}
 };
 
@@ -68,7 +73,7 @@ const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
 		});
 	} else {
 		data.forEach((item, index) => {
-			if (index % 6 === 0) { // 每隔6个数据点显示一次日期
+			if (index % 6 === 0||index== data.length-1) { // 每隔6个数据点显示一次日期，或者是最后一天
 				const dateStr = item.date.split("-").slice(-1); // 提取DD
 				const xPos = index * labelSpace + AXIS_MARGIN.left;
 				ctx.setTextAlign("center");
@@ -146,3 +151,4 @@ const drawChartLine = (ctx, chartData, canvasWidth, area) => {
 
 	ctx.restore();
 };
+

@@ -30,6 +30,13 @@
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
+		},
+		{
+			"path" : "pages/budget/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "预算"
+			}
 		}
 	],
 	"tabBar": {
@@ -38,6 +45,9 @@
 			},
 			{
 				"pagePath": "pages/chart/index"
+			},
+			{
+				"pagePath": "pages/budget/index"
 			},
 			{
 				"pagePath": "pages/mypage/index"
@@ -49,6 +59,5 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#003498",
 		"backgroundColor": "#F8F8F8"
-	},
-	"uniIdRouter": {}
+	}
 }

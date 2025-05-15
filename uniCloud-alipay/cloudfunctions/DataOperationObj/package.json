@@ -1,8 +1,8 @@
 {
   "name": "DataOperation",
   "dependencies": {
-    "middleware": "file:../common/middleware",
-    "wx-token": "file:../common/wx-token"
+    "wx-token": "file:../common/wx-token",
+    "middleware": "file:../common/middleware"
   },
   "extensions": {
     "uni-cloud-jql": {}

@@ -5,12 +5,12 @@
 		</view>
 		<view class="container">
 			<text class="num">
-				{{getTotal(filterData.date).num +'笔交易' }}
+				{{ getTotal(filterData.date).num + '笔交易' }}
 			</text>
 			<view class="brand">
 				<view class="brand-item" v-for="(item, index) in brandData" :key="index">
-					<text >{{ item.title }}</text>
-					<text style="font-size: 32rpx">{{ item.num}}</text>
+					<text>{{ item.title }}</text>
+					<text style="font-size: 32rpx">{{ item.num }}</text>
 					<view style="font-size: 16rpx">
 						<text style="margin-right: 15rpx">{{ item.qoq }}</text>
 						<text>{{ item.percentage }}</text>
@@ -30,9 +30,9 @@ import headerVue from './components/headOptions.vue';
 import listVue from './components/list.vue';
 import { getNowDate } from '../../utils/get-date.js';
 import { userInfoStore } from '../../stores/userinfo';
-import {formatAmount} from '../../utils/format.js'
-import {timeChain } from '../../utils/time-chain.js'
-import {calcQOQ,calcPercentage} from '../../utils/calc.js'
+import { formatAmount } from '../../utils/format.js';
+import { timeChain } from '../../utils/time-chain.js';
+import { calcQOQ, calcPercentage } from '../../utils/calc.js';
 
 onMounted(() => fillBrand());
 // 获取数据
@@ -40,13 +40,13 @@ const { getTotal } = userInfoStore();
 // 获取当前日期
 const { year, month } = getNowDate();
 
-// 定义筛选数据对象
+// 定义筛选数据条件
 const filterData = reactive({
-	range: 0,
-	date: '2023',
-	order: 0
+	range: 1, // 选择的日期范围
+	date: [year,month].join('-'),//指定的日期
+	order: 0 //排序方式
 });
-// 定义数据
+// 定义统计面板
 const brandData = reactive([
 	{ title: '支出', num: '-12345.00', qoq: '12345.00', percentage: '100%' },
 	{ title: '收入', num: '12345.00', qoq: '12345.00', percentage: '100%' },
@@ -54,7 +54,6 @@ const brandData = reactive([
 ]);
 
 
-// 新增处理函数
 const handleFilterChange = (data) => {
 	// 更新筛选数据
 	Object.assign(filterData, data);
@@ -71,7 +70,7 @@ const fillBrand = () => {
 	const currentBalance = currentIncome - currentExpense;
 
 	// 获取环比数据
-	const lastMonth = getTotal(timeChain(filterData.date,filterData.range,'last'));
+	const lastMonth = getTotal(timeChain(filterData.date, filterData.range, 'last'));
 	const lastExpense = lastMonth.expense || 0;
 	const lastIncome = lastMonth.income || 0;
 	const lastBalance = lastIncome - lastExpense;
@@ -91,7 +90,6 @@ const fillBrand = () => {
 	brandData[1].percentage = calcPercentage(currentIncome, lastIncome);
 	brandData[2].percentage = calcPercentage(currentBalance, lastBalance);
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -102,41 +100,40 @@ const fillBrand = () => {
 }
 @mixin padding30 {
 	box-sizing: border-box;
-	padding: 30rpx;
+	padding:0 30rpx;
 }
 .detail {
 	width: 100%;
 	height: 100vh;
 	display: flex;
-	box-sizing: border-box;
 	flex-direction: column;
 	align-items: center;
 	background-color: #f2f6f9;
+	@include padding30;
 	.header {
 		width: 100%;
-		height: 5%;
+		height: 7%;
 	}
-	.container{
+	.container {
 		width: 100%;
 		height: 95%;
 		overflow: auto;
-		@include padding30;
-		.num{
+		
+		.num {
 			width: 100%;
 			height: 5%;
 			box-sizing: border-box;
 			padding: 20rpx;
-			font-size:$text-size-big ;
+			font-size: $text-size-big;
 			color: #a3b2c6;
 			position: relative;
 			right: 50%;
-			transform: translate(50%,0);
+			transform: translate(50%, 0);
 			display: block;
 		}
 		.brand {
 			width: 100%;
-			height:15% ;
-			padding: 20rpx;
+			height: 15%;
 			box-sizing: border-box;
 			display: flex;
 			justify-content: space-around;
@@ -154,10 +151,9 @@ const fillBrand = () => {
 				color: #fff;
 			}
 		}
-		.list{
+		.list {
 			width: 100%;
 		}
 	}
-	
 }
 </style>

@@ -142,13 +142,13 @@ const emitFilterData = () => {
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	box-sizing: border-box;
-	padding: 10rpx;
+	padding: 25rpx 0;
 	.date-pick,
 	.order-pick,
 	.clear {
 		@include flex-center;
 		height: 100%;
-		font-size: 24rpx;
+		font-size: $text-size-med;
 		font-weight: 600;
 		background-color: #fff;
 		box-sizing: border-box;
@@ -186,7 +186,7 @@ const emitFilterData = () => {
 		}
 	}
 	.order-pick {
-		width: 20%;
+		width: 25%;
 	}
 	.clear {
 		width: 15%;

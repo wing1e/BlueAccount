@@ -55,7 +55,10 @@
             "urlCheck" : false
         },
         "usingComponents" : true,
-        "permission" : {}
+        "permission" : {},
+        "secureNetwork" : {
+            "enable" : false
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true

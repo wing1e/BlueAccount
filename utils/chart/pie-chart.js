@@ -1,7 +1,7 @@
 import { getNodeInfo } from "../node-info.js";
 
 import { EXPENSE_TYPE, INCOME_TYPE } from "../constants.js";
-import { CHART_STYLES } from "./chart.js";
+import { CHART_STYLES, getPath } from "./chart.js";
 import { panelinfoStore } from "../../stores/panelinfo.js";
 
 const LABEL_CONFIG = {
@@ -37,9 +37,11 @@ export const pieCharInit = async (instance, chartData, className, canvasId) => {
     }
 
     // 执行绘制
-    ctx.draw();
+    ctx.draw(false);
+		return await getPath(canvasId,instance)
   } catch (error) {
-    console.log(error);
+		console.log(error);
+    throw new Error(error)
   }
 };
 const drwaChart = (ctx, chartData, centerX, centerY, outerR, innerR,lineOffset,labelOffset) => {

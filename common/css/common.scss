@@ -1,3 +1,8 @@
+//主题色
+$blue-dark:#003498;
+$blue-med:#00B6E6;
+$blue-light:#C2D3EA;
+
 // 背景色
 $bg-color-white: #fff;
 $bg-color-grey: #f2f6f9;
@@ -8,14 +13,22 @@ $bg-color-grey: #f2f6f9;
 $shadow: drop-shadow(0 0rpx 1rpx rgba(0, 0, 0, 0.1));
 
 // 字体
-$text-size-title: 28rpx;
-$text-size-big: 26rpx;
-$text-size-med: 24rpx;
-$text-size-sm: 20rpx;
+$text-size-title: 30rpx;
+$text-size-big: 28rpx;
+$text-size-med: 26rpx;
+$text-size-sm: 22rpx;
 
 // 字体色
 $text-color-light-grey: #a3b2c6;
 $text-color-dark-grey: #797878;
+
+//全局间距
+$space:30rpx;
+
+// 高度
+$option-height: 120rpx;
+
+//圆角
 
 //picker 样式
 @mixin picker-layout {
@@ -29,26 +42,24 @@ $text-color-dark-grey: #797878;
 	font-size: $text-size-med;
 	font-weight: 600;
 }
-// 列表样式
-$option-height: 110rpx;
+
 @mixin row-layout {
 	width: 100%;
 	height: $option-height;
 	box-sizing: border-box;
-	padding: 20rpx;
+	padding:$space;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: 25rpx;
 }
 
 @mixin row-left {
 	height: 100%;
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	justify-content: space-between;
-	font-size: $text-size-title;
+	justify-content: center;
 	margin-right: auto;
-	margin-left: 20rpx;
+	margin-left: $space;
 }

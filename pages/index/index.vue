@@ -1,7 +1,7 @@
 <template>
 	<view class="index">
 		<view class="head">
-			<indexChartVue></indexChartVue>
+			<indexChartVue v-if="isShow"></indexChartVue>
 		</view>
 		
 		<view class="list" >
@@ -16,18 +16,21 @@
 </template>
 
 <script setup>
-import { onMounted} from 'vue';
+import {onShow,onHide} from '@dcloudio/uni-app'
 import indexChartVue from './components/indexChart.vue'; 
 import listVue from './components/list.vue';
 import TabbarVue from '../../components/Tabbar.vue';
 import AddPopVue from '../../components/AddPop.vue';
 import { userInfoStore } from '../../stores/userinfo';
-onMounted(()=>{
-	fillData
+import { ref } from 'vue';
+
+onShow(()=>{
+	isShow.value = true
 })
-const {fillData} = userInfoStore()
-
-
+onHide(()=>{
+	isShow.value = false
+})
+const isShow = ref(false)
 
 </script>
 
@@ -38,17 +41,20 @@ const {fillData} = userInfoStore()
 		display: flex;
 		flex-direction: column;
 		position: relative;
+		background-color: $bg-color-grey;
 		.head {
 			width: 100%;
 			height: 30%;
 			box-sizing: border-box;
-			padding: 20rpx;
-			background:linear-gradient(to bottom,#003498 50%,#fff 50%);
+			padding: 0 30rpx;
+			background:linear-gradient(to bottom,#003498 50%,#f2f6f9 50%);
 		}
 		
 		.list{
 			width: 100%;
-			height:70%;
+			height:62%;
+			box-sizing: border-box;
+			padding:30rpx;
 		}
 		.tabbar{
 			width: 100%;

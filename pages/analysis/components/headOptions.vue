@@ -144,13 +144,12 @@ const setPickerDate = (rangeValue) => {
 };
 
 const reset = () => {
-  panelinfo.reset(props.panelTitle);
+  panelinfo.$reset()
 };
 
 // 面板信息改变
 const panelChange = (data) => {
   panelinfo.setPanel(props.panelTitle, data);
-  console.log(picker.value);
 };
 </script>
 
@@ -170,7 +169,7 @@ const panelChange = (data) => {
   align-items: center;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding: 25rpx 0;
+	padding: $space;
   .date-pick {
     height: 100%;
     min-width: 35%;
@@ -208,11 +207,10 @@ const panelChange = (data) => {
   .type-picker {
     height: 100%;
     width: 15%;
-    display: flex;
+    @include flex-center;
     background-color: #fff;
     filter: $shadow;
     box-sizing: border-box;
-    padding: 10rpx;
     border-radius: 20rpx;
     margin-left: 20rpx;
     .btn-type {
@@ -223,8 +221,6 @@ const panelChange = (data) => {
   }
   .reset {
     @extend .type-picker;
-    justify-content: center;
-    align-items: center;
     font-size: $text-size-med;
     font-weight: 600;
   }

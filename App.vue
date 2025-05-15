@@ -3,9 +3,11 @@
 	export default {
 		onLaunch: function() {
 			loading() //添加全局Loading
+			
 			console.log('App Launch')
 		},
-		onShow: function() {
+		//静默登录
+		onShow:async function() {
 			uni.hideTabBar()
 			console.log('App Show')
 		},

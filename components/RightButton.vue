@@ -1,7 +1,9 @@
 <!-- 跳转按钮 -->
 <template>
 	<view class="circle">
-		<uni-icons type="right" color="#0039A4"></uni-icons>
+		<view class="sign">
+			
+		</view>
 	</view>
 </template>
 
@@ -14,10 +16,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 45rpx;
+		width: 35rpx;
 		aspect-ratio: 1/1;
 		border-radius: 50%;
-		background-color: #c2d3ea;
-
+		background:$blue-light url('/static/img/mlright.png') center/20rpx no-repeat ;
+		
 	}
 </style>
