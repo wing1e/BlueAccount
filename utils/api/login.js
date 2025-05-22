@@ -1,4 +1,4 @@
-import {userObj} from '../cloudObject.js'
+import {userObj} from './cloudObject.js'
 
 export const login =async (args)=>{
 	try{

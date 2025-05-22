@@ -10,7 +10,7 @@
 		</view>
 		<!-- 首页折线图 -->
 		<view class="chart-shift">
-			<canvas :canvas-id="canvasInfo.id" :class="canvasInfo.className" v-if="!flag"></canvas>
+			<canvas :canvas-id="canvasInfo.id" :class="canvasInfo.className" v-show="!flag"></canvas>
 			<image :src="imgUrl" v-if="imgUrl && flag" style="width: 100%; height: 100%"></image>
 		</view>
 	</view>
@@ -39,7 +39,11 @@ const pupSign = computed(() => tabStore.getPupSign);
 
 // 截取最后七天数据
 const chartData = computed(() => {
-	return store.getDataList.slice(-7).map((item) => ({
+	const diff = 7 //七天数据
+	const nowIndex = store.getDataList.findIndex(item=>item.date === getNowDate().date)
+	
+	
+	return store.getDataList.slice((nowIndex+1)-diff,nowIndex+1).map((item) => ({
 		date: item.date,
 		amount: store.getTotal(item.date).expense
 	}));

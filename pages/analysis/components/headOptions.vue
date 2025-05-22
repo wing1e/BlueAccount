@@ -95,7 +95,7 @@ const reduceDate = () => {
     panelChange({ date: lastDate, range: picker.value.range });
   }else{
     uni.showToast({
-      title: '超出当前时间范围',
+      title: '没有更多数据了',
       icon: 'none',
       duration: 2000
     });
@@ -110,7 +110,7 @@ const addDate = () => {
     panelChange({ date: nextDate, range: picker.value.range });
   }else{
     uni.showToast({
-      title: '超出当前时间范围',
+      title: '没有更多数据了',
       icon: 'none',
       duration: 2000
     });
@@ -213,6 +213,7 @@ const panelChange = (data) => {
     box-sizing: border-box;
     border-radius: 20rpx;
     margin-left: 20rpx;
+		padding: 10rpx;
     .btn-type {
       @include flex-center;
       font-size: $text-size-med;

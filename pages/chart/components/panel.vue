@@ -29,6 +29,7 @@ import RightButtonVue from "../../../components/RightButton.vue";
 import { userInfoStore } from "../../../stores/userinfo";
 import { formatOptionsDate } from "../../../utils/format";
 import { panelinfoStore } from "../../../stores/panelinfo";
+import router from "../../../utils/router";
 const { getTotal } = userInfoStore();
 const panelinfo = panelinfoStore();
 const props = defineProps({
@@ -46,9 +47,7 @@ const panelData = computed(() => {
 });
 
 const toAnalysis = () => {
-  uni.navigateTo({
-    url: `/pages/analysis/index?title=${props.title}`,
-  });
+	router.navigateTo({url:`/pages/analysis/index?title=${props.title}`})
 };
 </script>
 

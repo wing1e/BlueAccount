@@ -1,4 +1,4 @@
-import {DataOperationObj} from '../cloudObject.js'
+import {DataOperationObj} from './cloudObject.js'
 
 export const updata = async (args) =>{
 	try{

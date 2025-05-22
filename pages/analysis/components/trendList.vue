@@ -1,7 +1,7 @@
 <template>
 	<view class="list">
 		<view class="list-item" v-for="(item, index) in data" :key="index">
-			<uni-icons type="smallcircle-filled" size="10" color="#FE5D20"></uni-icons>
+			<uni-icons type="smallcircle-filled" size="10" :color="flag === 'expense' ? '#FE5D20' : '#00B26A'"></uni-icons>
 			<view class="left-word">
 				<text class="date">{{ formatDate(item.date) }}</text>
 				<view class="info">
@@ -9,7 +9,7 @@
 					<text>{{ ' &nbsp; · &nbsp; ' + item.count + '笔' }}</text>
 				</view>
 			</view>
-			<text class="total">
+			<text class="total" :style="{ color: flag === 'expense' ? '#000' : '#00B26A' }">
 				{{ item[flag] }}
 			</text>
 		</view>
@@ -33,7 +33,7 @@ const data = computed(() => {
 		const date = item.date;
 		const others = item.records.reduce(
 			(acc, record) => {
-				record.type === 'expense' ? (acc.expense += record.amount) : (acc.income += record.amount);
+				record.type === 'expense' ? (acc.expense =(acc.expense*10+ record.amount*10)/10) : (acc.income =(acc.income*10+ record.amount*10)/10);
 				acc.count++;
 				return acc;
 			},
@@ -51,18 +51,13 @@ console.log(data.value);
 <style lang="scss" scoped>
 .list {
 	width: 100%;
-	height: 100%;
 	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 0 $space;
+	padding:5rpx $space 0;
 	.list-item {
 		background-color: #fff;
 		filter: $shadow;
 		border-radius: 30rpx;
-		margin-top: $space;
+		margin-bottom: $space;
 		@include row-layout;
 		.left-word {
 			@include row-left;

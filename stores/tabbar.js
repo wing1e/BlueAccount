@@ -6,30 +6,30 @@ export const tabBarStore = defineStore('tabbar', {
 		return {
 			status: 0,
 			pup: false, //弹窗状态
-			pupSign:false //弹窗信号
+			pupSign: false //弹窗信号
 		}
 	},
 	getters: {
 		getPup() {
 			return this.pup
 		},
-		getPupSign(){
+		getPupSign() {
 			return this.pupSign
 		}
 	},
 	actions: {
 		setPup(flag) {
 			this.pupSign = flag
-			if(flag){
-				setTimeout(()=>{
+			if (flag) {
+				setTimeout(() => {
 					this.pup = flag
-				},200)
-			}else{
+				}, 200)
+			} else {
 				this.pup = flag
 			}
-			
-			
 		},
-		
+		setStatus(status){
+			this.status = status
+		}
 	}
 })

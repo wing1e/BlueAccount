@@ -24,7 +24,7 @@ import { computed } from 'vue';
 import { userInfoStore } from '../../../stores/userinfo';
 import RightButtonVue from '../../../components/RightButton.vue';
 import { formatDate } from '../../../utils/format';
-
+import router from '../../../utils/router.js'
 const store = userInfoStore();
 const data = computed(() => {
 	//原始数据
@@ -62,9 +62,7 @@ const amountSign = (type, num) => {
 };
 
 const toDetails = () => {
-	uni.navigateTo({
-		url: '/pages/details/index'
-	});
+	router.navigateTo({url:'/pages/details/index'})
 };
 </script>
 

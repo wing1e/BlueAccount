@@ -5,25 +5,35 @@ import {
 	getNowDate
 } from '../utils/get-date.js'
 import {
+	login
+} from '../utils/api/login.js';
+import {
 	add
 } from "../utils/api/add.js";
 import {
 	query
 } from "../utils/api/query.js";
-
+import {
+	updata
+} from '../utils/api/updata.js'
+import {
+	remove
+} from '../utils/api/remove.js'
 export const userInfoStore = defineStore('userInfo', {
 	state: () => {
 		return {
 			basicInfo: {
 				avatar: '',
-				nickname: '点击登录'
+				nickname: '点击登录',
+				budget: '',
+				categories: []
 			},
 			datalist: []
 		}
 	},
 	getters: {
 		//返回用户数据
-		getDataList:(state)=>state.datalist,
+		getDataList: (state) => state.datalist,
 
 		// 获取指定日期的数据
 		getPartData: (state) => (targetDate) => {
@@ -48,7 +58,6 @@ export const userInfoStore = defineStore('userInfo', {
 			return (targetDate) => {
 				const partDate = this.getPartData(targetDate)
 				if (partDate.length === 0) {
-					// 若未指定日期则返回所有数据
 					return {
 						income: 0,
 						expense: 0,
@@ -94,6 +103,7 @@ export const userInfoStore = defineStore('userInfo', {
 					incomeTotal: 0,
 					expenseTotal: 0
 				})
+				
 				// 计算每个分类的总金额和数量
 				const categoryMap = filteredData.reduce((acc, day) => {
 					day.records.forEach(record => {
@@ -107,7 +117,7 @@ export const userInfoStore = defineStore('userInfo', {
 							}
 						}
 
-						acc[type][category].amount += record.amount
+						acc[type][category].amount =( acc[type][category].amount*10 + record.amount*10)/10
 						acc[type][category].count++
 					})
 					return acc
@@ -115,7 +125,7 @@ export const userInfoStore = defineStore('userInfo', {
 					income: {},
 					expense: {}
 				})
-
+				
 				const typeArr = ['income', 'expense'] // 类型数组
 				// 计算每个分类的百分比
 				typeArr.forEach(type => {
@@ -135,13 +145,58 @@ export const userInfoStore = defineStore('userInfo', {
 		}
 	},
 	actions: {
+		async login() {
+			try {
+				const [loginRes, {userInfo}] = await Promise.all([
+					uni.login({
+						provider: 'weixin'
+					}),
+					uni.getUserInfo({
+						provider: 'weixin'
+					})
+				])
+				if (loginRes.errMsg !== 'login:ok') throw Error('获取code失败');
+
+				//登录
+				const res = await login({
+					code: loginRes.code,
+					userinfo: userInfo
+				});
+				const data = res.result;
+				//请求成功
+				if (res.errCode === 0) {
+					// 修改pinia的状态，储存用户信息
+					this.$patch({
+						basicInfo: {
+							nickname: data.nickName,
+							avatar: data.avatarUrl,
+							budget: data.budget
+						}
+					});
+					// 储存token
+					uni.setStorageSync('userinfo', data);
+					// 重新拉取数据
+					const queryRes = await this.queryData();
+					if (queryRes.errCode === 0) {
+						return {
+							errCode: queryRes.errCode,
+							msg: '登录成功'
+						}
+					}
+				}
+			} catch (error) {
+				throw new Error(error)
+			}
+		},
 		// 获取用户信息
 		async queryData() {
 			try {
 				const res = await query()
-				const data = res.result
+				const data = res.result.dataList
+				const categories = res.result.categories
 				//将数据添加到pinia中
 				this.datalist = data
+				this.basicInfo.categories = categories
 				this.fillData()
 				return {
 					errCode: 0,
@@ -153,7 +208,7 @@ export const userInfoStore = defineStore('userInfo', {
 			}
 		},
 		// 添加新数据
-		async addData(date, records) {
+		async addData(records) {
 			try {
 				const res = await add({
 					records
@@ -172,32 +227,45 @@ export const userInfoStore = defineStore('userInfo', {
 			}
 
 		},
-		// 补全所有日期(原数据起始月期至今)
-		completionDate() {
-			// 将日期字符串转换为本地Date对象（午夜时间）
-			const parseLocalDate = (dateStr) => {
-				const [year, month, day] = dateStr.split('-').map(Number);
-				return new Date(year, month - 1, day); // 月份从0开始
-			};
-
-			// 获取数据起始月第一天
-			const getFirstDayOfMonth = (dateStr) => {
-				const date = new Date(dateStr);
-				const year = date.getFullYear();
-				const month = date.getMonth();
-				const firstDay = new Date(year, month, 1);
-
-				// 格式化为YYYY-MM-DD
-				const y = firstDay.getFullYear();
-				const m = String(firstDay.getMonth() + 1).padStart(2, '0');
-				const d = String(firstDay.getDate()).padStart(2, '0');
-
-				return `${y}-${m}-${d}`;
+		async updata(records) {
+			try {
+				const res = await updata({
+					records
+				})
+				if (res.errCode === 0) {
+					return {
+						errCode: 0,
+						msg: '修改成功'
+					}
+				} else {
+					throw Error('修改新数据失败')
+				}
+			} catch (e) {
+				throw new Error(e.message)
 			}
-
+		},
+		async delete(_id) {
+			try {
+				const res = await remove({
+					_id
+				})
+				if (res.errCode === 0) {
+					return {
+						errCode: 0,
+						msg: '删除成功'
+					}
+				} else {
+					throw Error('删除数据失败')
+				}
+			} catch (e) {
+				throw new Error(e.message)
+			}
+		},
+		// 补全所有日期(原数据起始月第一周的第一天至今天这一周的最后一天)
+		completionDate() {
 			// 数据起始月第一天和现在的日期字符串
-			const startDateStr = getFirstDayOfMonth(this.datalist[0].date);
-			const endDateStr = getNowDate().date;
+			const startDateStr = getFirstDay(this.datalist[0].date);
+			const endDateStr = getEndDay(getNowDate().date);
 			// 转换为Date对象
 			let currentDate = parseLocalDate(startDateStr);
 			const endDate = parseLocalDate(endDateStr);
@@ -245,6 +313,54 @@ export const userInfoStore = defineStore('userInfo', {
 		}
 	}
 })
+
+// 将日期字符串转换为本地Date对象（午夜时间）
+const parseLocalDate = (dateStr) => {
+	const [year, month, day] = dateStr.split('-').map(Number);
+	return new Date(year, month - 1, day); // 月份从0开始
+};
+
+// 计算数据的第一天
+const getFirstDay = (dateStr) => {
+	const date = new Date(dateStr);
+	const year = date.getFullYear();
+	const month = date.getMonth();
+	// 月份的第一天
+	const firstDay = new Date(year, month, 1);
+	// 该天是星期几
+	const day0fWeek = firstDay.getDay()
+
+	const targetDay = new Date(firstDay)
+	targetDay.setDate(firstDay.getDate() - day0fWeek)
+
+	// 格式化为YYYY-MM-DD
+	const y = targetDay.getFullYear();
+	const m = String(targetDay.getMonth() + 1).padStart(2, '0');
+	const d = String(targetDay.getDate()).padStart(2, '0');
+
+	return `${y}-${m}-${d}`;
+}
+
+//计算数据的最后一天
+const getEndDay = (dateStr) => {
+	const date = new Date(dateStr);
+	const year = date.getFullYear();
+	const month = date.getMonth();
+	// 月份的最后一天
+	const endDay = new Date(year, month + 1, 0);
+	// 该天是星期几
+	const day0fWeek = endDay.getDay()
+
+	const targetDay = new Date(endDay)
+	targetDay.setDate(endDay.getDate() + 6 - day0fWeek)
+
+	// 格式化为YYYY-MM-DD
+	const y = targetDay.getFullYear();
+	const m = String(targetDay.getMonth() + 1).padStart(2, '0');
+	const d = String(targetDay.getDate()).padStart(2, '0');
+
+	return `${y}-${m}-${d}`;
+}
 
 const getWeekDay = (date) => {
 	const day = new Date(date).getDay()

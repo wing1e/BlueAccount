@@ -37,7 +37,6 @@ const listData = computed(() => {
 	}
 	return [];
 });
-
 const getColor = (val) => {
 	if (typeVal.value === 0) {
 		const item = EXPENSE_TYPE.find((item) => item.category === val);
@@ -52,18 +51,13 @@ const getColor = (val) => {
 <style lang="scss" scoped>
 .list {
 	width: 100%;
-	height: 100%;
 	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 0 $space;
+	padding: 5rpx $space 0;
 	.list-item {
 		background-color: #fff;
 		filter: $shadow;
 		border-radius: 30rpx;
-		margin-top: $space;
+		margin-bottom: $space;
 		@include row-layout;
 		.left-word {
 			@include row-left;

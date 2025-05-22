@@ -12,8 +12,9 @@ export const getNowDate = () =>{
 	let hours = date.getHours().toString().padStart(2, '0');
 	
 	let minutes = date.getMinutes().toString().padStart(2, '0');
+	let seconds = date.getSeconds().toString().padStart(2, '0');
 	
-	const time = [hours,minutes].join(':')
+	const time = [hours,minutes,seconds].join(':')
 
 	return {year:year,month:month,day:day,date:ymdDate,time:time}
 }

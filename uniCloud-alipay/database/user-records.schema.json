@@ -1,6 +1,6 @@
 {
 	"bsonType": "object",
-	"required": ["openid", "type", "category", "amount", "date"],
+	"required": ["openid", "type", "category", "amount", "date", "time"],
 	"permission": {
 		"read": true,
 		"create": true,
@@ -21,6 +21,10 @@
 		},
 		"date": {
 			"description": "记录的日期",
+			"bsonType": "string"
+		},
+		"time": {
+			"description": "记录的时间",
 			"bsonType": "string"
 		},
 		"timestamp": {

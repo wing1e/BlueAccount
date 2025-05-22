@@ -28,7 +28,7 @@ module.exports = {
 
 		const APP_ID = commonConfig.config('APP_ID')
 		const APP_SECRET = commonConfig.config('APP_SECRET')
-		
+
 		const code2Session =
 			`https://api.weixin.qq.com/sns/jscode2session?appid=${APP_ID}&secret=${APP_SECRET}&js_code=${code}&grant_type=authorization_code`
 
@@ -70,13 +70,17 @@ module.exports = {
 				}
 
 				// 需要返回的用户信息
-				const queryRes =await user.where({
+				const queryRes = await user.where({
 					openid: wx_openid
 				}).field({
 					avatarUrl: true,
-					nickName: true
+					nickName: true,
+					budget: true
 				}).get()
-				return {...queryRes.data[0],token:token}
+				return {
+					...queryRes.data[0],
+					token: token
+				}
 			} else {
 				throw new Error('微信服务请求失败')
 			}

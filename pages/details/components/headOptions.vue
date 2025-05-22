@@ -33,6 +33,7 @@ import { ref } from 'vue';
 import { timeChain } from '../../../utils/time-chain';
 import { getNowDate, getWeek } from '../../../utils/get-date.js';
 import { formatOptionsDate } from '../../../utils/format.js';
+import { OptionsActionExaminer } from '../../../utils/examiner';
 
 const props = defineProps(['filterData']);
 
@@ -60,16 +61,33 @@ const rangeChange = (e) => {
 const reduceDate = () => {
 	const rangeVal = range[pickerRange.value];
 	const lastDate = timeChain(pickerDate.value, rangeVal, 'last');
-	pickerDate.value = lastDate;
-	emitFilterData();
+	if(OptionsActionExaminer(lastDate)){
+		pickerDate.value = lastDate;
+		emitFilterData();
+	}else{
+		uni.showToast({
+		  title: '没有更多数据了',
+		  icon: 'none',
+		  duration: 2000
+		});
+	}
+	
 };
 
 //增加时间
 const addDate = () => {
 	const rangeVal = range[pickerRange.value];
 	const nextDate = timeChain(pickerDate.value, rangeVal, 'next');
-	pickerDate.value = nextDate;
-	emitFilterData();
+	if(OptionsActionExaminer(nextDate)){
+		pickerDate.value = nextDate;
+		emitFilterData();
+	}else{
+		uni.showToast({
+		  title: '没有更多数据了',
+		  icon: 'none',
+		  duration: 2000
+		});
+	}
 };
 
 const RANGE_YEAR = 0;

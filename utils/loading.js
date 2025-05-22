@@ -24,9 +24,8 @@ export default function() {
 		invoke(args) {
 			// const baseUrl = "https://env-00jxtfjq2ym4.dev-hz.cloudbasefunction.cn"
 			// args.url = baseUrl+args.url
-			showLoading(); // 请求前显示
 			console.log(args.url);
-			console.log(loadingCount);
+			showLoading(); // 请求前显示
 		},
 		success(args) {
 			hideLoading(); // 成功时隐藏
@@ -35,7 +34,6 @@ export default function() {
 			hideLoading(); // 失败时隐藏
 		},
 		complete(res) {
-			console.log(loadingCount);
 			hideLoading(); //完成时隐藏
 		}
 	});

@@ -5,8 +5,8 @@
 			<view class="date-item" v-for="(item, index) in listData" :key="index">
 				<text class="date-title" v-if="item.records[0]">{{ formatDate(item.date) + ' &nbsp; ' + item.weekday }}</text>
 				<view class="item" v-if="item.records[0]">
-					<view class="records" v-for="(record, i) in item.records" :key="i">
-						<uni-icons type="smallcircle-filled" size="10" color="#FE5D20"></uni-icons>
+					<view class="records" v-for="(record, i) in item.records" :key="i"  @click="openPop({date:item.date,...record})" @longpress="del">
+						<uni-icons type="smallcircle-filled" size="10" :color="record.type === 'income' ? '#00B26A' : '#FE5D20'"></uni-icons>
 						<view class="left-word">
 							<text class="category">{{ record.category }}</text>
 							<view class="info">
@@ -41,9 +41,10 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { formatDate } from '../../../utils/format.js';
 import { userInfoStore } from '../../../stores/userinfo.js';
+import { editStore } from '../../../stores/edit.js';
 
 const props = defineProps(['filterData']);
 
@@ -54,7 +55,7 @@ const store = userInfoStore();
 const listData = computed(() => {
 	const { date, order } = props.filterData;
 	const { key, order: sortOrder } = handleSort(order);
-	const origin = JSON.parse(JSON.stringify(store.getPartData(date))).filter((item) => item?.records && Array.isArray(item.records) && item?.records.length > 0);//深拷贝防止修改state
+	const origin = JSON.parse(JSON.stringify(store.getPartData(date))).filter((item) => item?.records && Array.isArray(item.records) && item?.records.length > 0); //深拷贝防止修改state
 	// 按时间排序
 	if (key === 'date') {
 		// 先按日期排序
@@ -101,6 +102,13 @@ const handleSort = (orderIndex) => {
 
 	return sortType[orderIndex];
 };
+const edit = editStore()
+const openPop =(data) => {
+	console.log(data);
+	edit.setData(data)
+	edit.setPop(true);
+};
+
 </script>
 
 <style lang="scss" scoped>

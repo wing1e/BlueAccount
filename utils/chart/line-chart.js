@@ -39,12 +39,14 @@ export const lineChartInit = async (
 		// 绘制网格系统
 		drawGridLines(ctx, ctxW, drawArea, chartData);
 
-		// 绘制底部标签
-		drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData);
+		
 
-		// 绘制数据折线
-		if (chartData.find((item) => item.amount > 0)) {
+		
+		if (chartData.find((item) => item.amount >= 0)) {
+			// 绘制数据折线
 			drawChartLine(ctx, chartData, ctxW, drawArea);
+			// 绘制底部标签
+			drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData);
 		}
 		ctx.draw(false);
 		return await getPath(canvasId,instance)
@@ -93,7 +95,7 @@ const drawChartLine = (ctx, chartData, canvasWidth, area) => {
 	// 生成坐标点
 	const points = chartData.map((item, index) => ({
 		x: index * pointSpace + AXIS_MARGIN.left,
-		y: calculateY(item.amount, maxValue, area),
+		y:maxValue>0? calculateY(item.amount, maxValue, area):area.bottom,
 		value: item.amount,
 	}));
 

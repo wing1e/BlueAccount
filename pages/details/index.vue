@@ -21,36 +21,41 @@
 				<listVue :filterData="filterData"></listVue>
 			</view>
 		</view>
+		<editVue :flag="popFlag"></editVue>
 	</view>
 </template>
 
 <script setup>
-import { computed, onMounted, reactive, ref, watch } from 'vue';
+import { computed, onMounted, provide, reactive, ref, watch } from 'vue';
 import headerVue from './components/headOptions.vue';
 import listVue from './components/list.vue';
+import editVue from './components/editPop.vue' 
 import { getNowDate } from '../../utils/get-date.js';
 import { userInfoStore } from '../../stores/userinfo';
 import { formatAmount } from '../../utils/format.js';
 import { timeChain } from '../../utils/time-chain.js';
 import { calcQOQ, calcPercentage } from '../../utils/calc.js';
+import { PICKER_INFO } from '../../utils/constants';
 
 onMounted(() => fillBrand());
-// 获取数据
 const { getTotal } = userInfoStore();
 // 获取当前日期
 const { year, month } = getNowDate();
-
+const rangeArr = ['年范围', '月范围', '周范围', '日范围'];
 // 定义筛选数据条件
 const filterData = reactive({
 	range: 1, // 选择的日期范围
-	date: [year,month].join('-'),//指定的日期
+	date: [year, month].join('-'), //指定的日期
 	order: 0 //排序方式
 });
+
+
+
 // 定义统计面板
 const brandData = reactive([
-	{ title: '支出', num: '-12345.00', qoq: '12345.00', percentage: '100%' },
-	{ title: '收入', num: '12345.00', qoq: '12345.00', percentage: '100%' },
-	{ title: '结余', num: '12345.00', qoq: '12345.00', percentage: '100%' }
+	{ title: '支出', num: '000.00', qoq: '000.00', percentage: '0' },
+	{ title: '收入', num: '000.00', qoq: '000.00', percentage: '0' },
+	{ title: '结余', num: '000.00', qoq: '000.00', percentage: '0' }
 ]);
 
 
@@ -70,7 +75,8 @@ const fillBrand = () => {
 	const currentBalance = currentIncome - currentExpense;
 
 	// 获取环比数据
-	const lastMonth = getTotal(timeChain(filterData.date, filterData.range, 'last'));
+	const rangStr = rangeArr[filterData.range];
+	const lastMonth = getTotal(timeChain(filterData.date, rangStr, 'last'));
 	const lastExpense = lastMonth.expense || 0;
 	const lastIncome = lastMonth.income || 0;
 	const lastBalance = lastIncome - lastExpense;
@@ -90,6 +96,7 @@ const fillBrand = () => {
 	brandData[1].percentage = calcPercentage(currentIncome, lastIncome);
 	brandData[2].percentage = calcPercentage(currentBalance, lastBalance);
 };
+
 </script>
 
 <style lang="scss" scoped>
@@ -100,7 +107,7 @@ const fillBrand = () => {
 }
 @mixin padding30 {
 	box-sizing: border-box;
-	padding:0 30rpx;
+	padding: 0 30rpx;
 }
 .detail {
 	width: 100%;
@@ -118,7 +125,7 @@ const fillBrand = () => {
 		width: 100%;
 		height: 95%;
 		overflow: auto;
-		
+
 		.num {
 			width: 100%;
 			height: 5%;

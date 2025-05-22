@@ -27,6 +27,11 @@
 		"session_key": {
 			"description": "微信用户会话密匙",
 			"bsonType": "string"
+		},
+		"budget":{
+			"description": "用户预算",
+			"bsonType": "string",
+			"defaultValue":"0.00"
 		}
 
 	}

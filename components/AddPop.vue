@@ -20,7 +20,7 @@
 				<!-- 金额输入框 -->
 				<view class="input">
 					<text v-if="flagType === 'expense'" style="font-size: 26rpx; margin-right: 10rpx">一</text>
-					<input type="number" style="width: 100%; height: 100%" v-model.number="form.amount" />
+					<input style="width: 100%; height: 100%" v-model.number="form.amount" />
 				</view>
 				<!-- 种类选择 -->
 				<view class="category">
@@ -52,6 +52,7 @@ import { tabBarStore } from '../stores/tabbar';
 import { EXPENSE_TYPE, INCOME_TYPE } from '../utils/constants.js';
 import { getNowDate } from '../utils/get-date.js';
 import { userInfoStore } from '../stores/userinfo';
+import { formValidate } from '../utils/form-validate';
 const pupStore = tabBarStore();
 const popup = ref(null);
 
@@ -67,12 +68,11 @@ watch(
 
 // 打开弹窗
 const open = () => {
-	pupStore.setPup(true);
 	popup.value?.open();
 };
 // 关闭弹窗
 const close = () => {
-	pupStore.setPup(false);
+	reset()
 	popup.value?.close();
 };
 
@@ -85,6 +85,7 @@ const popChange = (e) => {
 const form = reactive({
 	type: flagType.value,
 	date: '',
+	time:'',
 	category: '',
 	amount: '',
 	note: ''
@@ -111,9 +112,10 @@ const store = userInfoStore();
 // 提交
 const submit = async () => {
 	try {
-		if (formValidate()) {
+		if (formValidate(form)) {
 			form.date = getNowDate().date;
-			const addRes = await store.addData(form.date, form);
+			form.time = getNowDate().time;
+			const addRes = await store.addData(form);
 			const queryRes = await store.queryData();
 			if (addRes.errCode === 0 && queryRes.errCode === 0) {
 				uni.showToast({
@@ -131,31 +133,6 @@ const submit = async () => {
 		throw new Error(e);
 	}
 };
-
-// 表单验证
-const formValidate = () => {
-	if (form.amount === '') {
-		uni.showToast({
-			title: '请选择金额',
-			icon: 'error'
-		});
-		return false;
-	} else if (!/^\d+$/.test(form.amount)) {
-		uni.showToast({
-			title: '请输入正确金额',
-			icon: 'error'
-		});
-		return false;
-	} else if (form.category === '') {
-		uni.showToast({
-			title: '请选择种类',
-			icon: 'error'
-		});
-		return false;
-	}
-
-	return true;
-};
 // 重置
 const reset = () => {
 	const originForm = {
@@ -163,7 +140,8 @@ const reset = () => {
 		date: '',
 		category: '',
 		amount: '',
-		note: ''
+		note: '',
+		time:''
 	};
 	Object.assign(form, originForm);
 };
@@ -178,7 +156,6 @@ const reset = () => {
 .popup {
 	width: 100%;
 	height: 100%;
-	z-index: 1;
 	.container {
 		width: 100%;
 		height: 60vh;

@@ -31,20 +31,16 @@ export const timeChain = (targetDate, dateType, chainType) => {
 	} = PICKER_INFO.picker_range
 
 	// 根据日期类型和链类型计算新日期
+	const offset = chainType === 'last' ? -1 : 1;
 	if (dateType === range_day) { // 日类型：调整日期到上一日或下一日
-		const offset = chainType === 'last' ? -1 : 1;
 		date.setDate(date.getDate() + offset);
 	} else if (dateType === range_week) { // 周类型：调整日期到上一周或下一周
 		const firstDay = new Date(getWeek(date).start).getDate() //当前周的第一天
 		date.setDate(firstDay); // 设置日期为当前周的第一天
-		const offset = chainType === 'last' ? -1 : 1;
 		date.setDate(date.getDate() + offset * 7);
-
 	} else if (dateType === range_month) { // 月类型：调整日期到上一月或下一月
-		const offset = chainType === 'last' ? -1 : 1;
 		date.setMonth(date.getMonth() + offset);
 	} else if (dateType === range_year) { // 年类型：调整日期到上一年或下一年
-		const offset = chainType === 'last' ? -1 : 1;
 		date.setFullYear(date.getFullYear() + offset);
 	}
 

@@ -11,7 +11,7 @@ async function checkLogin(event) {
 		}
 		
 		// 验证token
-		const tokenInfo = verifyToken(token)
+		const tokenInfo =await verifyToken(token)
 		if (!tokenInfo) {
 			throw new Error('登录已过期')
 		}

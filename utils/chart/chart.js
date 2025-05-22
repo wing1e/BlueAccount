@@ -42,7 +42,7 @@ export const drawGridLines = (ctx, canvasWidth, area, chartData) => {
 	const aveValue = (chartData.reduce((pre, cur) => pre + cur.amount, 0) / chartData.length).toFixed(1) //平均值
 	ctx.save() // 保存当前上下文状态
 
-	if (maxValue >= 0) {
+	if (maxValue > 0) {
 		ctx.beginPath()
 		//绘制数据刻度
 		drawText(ctx, medValue, AXIS_MARGIN.left / 2, area.center)

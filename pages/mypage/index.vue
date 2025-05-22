@@ -15,15 +15,15 @@
 			<!-- 数据概览卡片 -->
 			<view class="overview-card">
 				<view class="overview-item">
-					<text class="number">{{ store.totalExpense || '0.00' }}</text>
+					<text class="number">{{ total.expense || '0.00' }}</text>
 					<text class="label">总支出</text>
 				</view>
 				<view class="overview-item">
-					<text class="number">{{ store.totalIncome || '0.00' }}</text>
+					<text class="number">{{ total.income || '0.00' }}</text>
 					<text class="label">总收入</text>
 				</view>
 				<view class="overview-item">
-					<text class="number">{{ store.totalBudget || '0.00' }}</text>
+					<text class="number">{{ store.basicInfo.budget || '0.00' }}</text>
 					<text class="label">预算</text>
 				</view>
 			</view>
@@ -63,22 +63,29 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import { userInfoStore } from '../../stores/userinfo';
 import tabbarVue from '../../components/Tabbar.vue';
 import AddPopVue from '../../components/AddPop.vue';
-import { login } from '../../utils/api/login.js';
 import { query } from '../../utils/api/query';
+import { getNowDate } from '../../utils/get-date';
+import router from '../../utils/router';
 
 const store = userInfoStore();
+
+const total = computed(() => {
+	const { year, month } = getNowDate();
+	const date = [year, month].join('-');
+	return store.getTotal(date);
+});
 
 // 账户管理功能列表
 const accountFunctions = reactive([
 	{
 		title: '预算设置',
 		icon: 'icon-budget',
-		action: () => uni.navigateTo({ url: '/pages/budget/index' })
+		action: () => router.navigateTo({ url: '/pages/budget/index' })
 	},
 	{
 		title: '标签管理',
@@ -117,6 +124,10 @@ const systemFunctions = reactive([
 ]);
 
 // 各功能的处理方法
+
+const handleLabel = () => {
+	uni.showToast({ title: '标签管理开发中', icon: 'none' });
+};
 const handleExport = () => {
 	uni.showToast({ title: '导出功能开发中', icon: 'none' });
 };
@@ -137,35 +148,18 @@ const handleAbout = () => {
 	uni.showToast({ title: '关于页面开发中', icon: 'none' });
 };
 
-onMounted(async () => {});
-
 // 登录
-const getUserInfo = async () => {
+const getUserInfo = () => {
 	try {
-		//获取code
-		const loginRes = await uni.login({ provider: 'weixin' });
-
-		if (loginRes.errMsg !== 'login:ok') throw Error('获取code失败');
-
-		//获取用户信息
-		const { userInfo } = await uni.getUserInfo({ provider: 'weixin' });
-		//登录
-		const res = await login({ code: loginRes.code, userinfo: userInfo });
-		const data = res.result;
-		//请求成功
-		if (res.errCode === 0) {
-			// 修改pinia的状态，储存用户信息
-			store.$patch({
-				basicInfo: {
-					nickname: data.nickName,
-					avatar: data.avatarUrl
+		uni.showModal({
+			title:'授权登录',
+			content:'允许通过code获取openid和用户匿名信息登录',
+			success: async(res) => {
+				if(res.confirm){
+					await store.login()
 				}
-			});
-			// 储存token
-			uni.setStorageSync('userinfo', data);
-			// 重新拉取数据
-			await store.queryData();
-		}
+			}
+		})
 	} catch (err) {
 		throw new Error(err);
 	}
