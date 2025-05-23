@@ -20,7 +20,7 @@
 				<!-- 金额输入框 -->
 				<view class="input">
 					<text v-if="flagType === 'expense'" style="font-size: 26rpx; margin-right: 10rpx">一</text>
-					<input style="width: 100%; height: 100%" v-model.number="form.amount" />
+					<input style="width: 100%; height: 100%" type="digit" v-model.number="form.amount" />
 				</view>
 				<!-- 种类选择 -->
 				<view class="category">

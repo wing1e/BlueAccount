@@ -2,7 +2,7 @@
 	"bsonType": "object",
 	"required": ["openid", "nickname", "avatarUrl", "session_key"],
 	"permission": {
-		"read":true,
+		"read": true,
 		"create": true,
 		"update": true,
 		"delete": false
@@ -28,11 +28,10 @@
 			"description": "微信用户会话密匙",
 			"bsonType": "string"
 		},
-		"budget":{
-			"description": "用户预算",
+		"budget_total":{
+			"description": "总预算",
 			"bsonType": "string",
 			"defaultValue":"0.00"
 		}
-
 	}
 }

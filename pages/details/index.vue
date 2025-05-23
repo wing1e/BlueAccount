@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, provide, reactive, ref, watch } from 'vue';
+import {  onMounted, reactive } from 'vue';
 import headerVue from './components/headOptions.vue';
 import listVue from './components/list.vue';
 import editVue from './components/editPop.vue' 

@@ -45,7 +45,6 @@ const data = computed(() => {
 
 	return originData.filter((item) => item.count > 0);
 });
-console.log(data.value);
 </script>
 
 <style lang="scss" scoped>

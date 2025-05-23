@@ -14,18 +14,22 @@ import {
 	query
 } from "../utils/api/query.js";
 import {
-	updata
-} from '../utils/api/updata.js'
+	updataBill
+} from '../utils/api/updataBill.js'
 import {
 	remove
 } from '../utils/api/remove.js'
+import {
+	updataBudget
+} from "../utils/api/updataBudget.js";
 export const userInfoStore = defineStore('userInfo', {
 	state: () => {
 		return {
 			basicInfo: {
 				avatar: '',
 				nickname: '点击登录',
-				budget: '',
+				budget_total: '',
+				budget_categories: [],
 				categories: []
 			},
 			datalist: []
@@ -69,8 +73,8 @@ export const userInfoStore = defineStore('userInfo', {
 						day.records.forEach(record => {
 							acc.num += 1
 							record.type === 'income' ?
-								acc.income += record.amount :
-								acc.expense += record.amount;
+								acc.income = (acc.income * 10 + record.amount * 10) / 10 :
+								acc.expense = (acc.expense * 10 + record.amount * 10) / 10;
 						});
 						return acc;
 					}, {
@@ -103,7 +107,7 @@ export const userInfoStore = defineStore('userInfo', {
 					incomeTotal: 0,
 					expenseTotal: 0
 				})
-				
+
 				// 计算每个分类的总金额和数量
 				const categoryMap = filteredData.reduce((acc, day) => {
 					day.records.forEach(record => {
@@ -117,7 +121,7 @@ export const userInfoStore = defineStore('userInfo', {
 							}
 						}
 
-						acc[type][category].amount =( acc[type][category].amount*10 + record.amount*10)/10
+						acc[type][category].amount = (acc[type][category].amount * 10 + record.amount * 10) / 10
 						acc[type][category].count++
 					})
 					return acc
@@ -125,7 +129,7 @@ export const userInfoStore = defineStore('userInfo', {
 					income: {},
 					expense: {}
 				})
-				
+
 				const typeArr = ['income', 'expense'] // 类型数组
 				// 计算每个分类的百分比
 				typeArr.forEach(type => {
@@ -147,7 +151,9 @@ export const userInfoStore = defineStore('userInfo', {
 	actions: {
 		async login() {
 			try {
-				const [loginRes, {userInfo}] = await Promise.all([
+				const [loginRes, {
+					userInfo
+				}] = await Promise.all([
 					uni.login({
 						provider: 'weixin'
 					}),
@@ -169,8 +175,7 @@ export const userInfoStore = defineStore('userInfo', {
 					this.$patch({
 						basicInfo: {
 							nickname: data.nickName,
-							avatar: data.avatarUrl,
-							budget: data.budget
+							avatar: data.avatarUrl
 						}
 					});
 					// 储存token
@@ -192,11 +197,16 @@ export const userInfoStore = defineStore('userInfo', {
 		async queryData() {
 			try {
 				const res = await query()
-				const data = res.result.dataList
-				const categories = res.result.categories
+				const {categories,budget_categories,dataList,budget_total} = res.result
 				//将数据添加到pinia中
-				this.datalist = data
-				this.basicInfo.categories = categories
+				this.$patch({
+					datalist:dataList,
+					basicInfo:{
+						categories:categories,
+						budget_categories:budget_categories,
+						budget_total:budget_total
+					}
+				})
 				this.fillData()
 				return {
 					errCode: 0,
@@ -227,9 +237,9 @@ export const userInfoStore = defineStore('userInfo', {
 			}
 
 		},
-		async updata(records) {
+		async updataBill(records) {
 			try {
-				const res = await updata({
+				const res = await updataBill({
 					records
 				})
 				if (res.errCode === 0) {
@@ -238,10 +248,27 @@ export const userInfoStore = defineStore('userInfo', {
 						msg: '修改成功'
 					}
 				} else {
-					throw Error('修改新数据失败')
+					throw Error('修改数据失败')
 				}
 			} catch (e) {
 				throw new Error(e.message)
+			}
+		},
+		async updataBudget(data) {
+			try {
+				const res = await updataBudget({
+					data
+				})
+				if (res.errCode === 0) {
+					return {
+						errCode: 0,
+						msg: '修改成功'
+					}
+				} else {
+					throw Error('修改数据失败')
+				}
+			} catch (error) {
+				//TODO handle the exception
 			}
 		},
 		async delete(_id) {

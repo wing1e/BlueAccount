@@ -143,7 +143,7 @@ const handleConfirm = async () => {
 		return;
 	}
 	try {
-		const updataRes = await userstore.updata({ ...editInfo.value, type: editInfo.value.type === '支出' ? 'expense' : 'income' });
+		const updataRes = await userstore.updataBill({ ...editInfo.value, type: editInfo.value.type === '支出' ? 'expense' : 'income' });
 		const queryRes = await userstore.queryData();
 		if (updataRes.errCode === 0 && queryRes.errCode === 0) {
 			uni.showToast({

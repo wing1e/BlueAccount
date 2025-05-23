@@ -2,10 +2,15 @@
 	<view class="container">
 		<!-- 头部总预算设置 -->
 		<view class="header">
-			<view class="title">总预算设置</view>
+			<view class="title">预算设置</view>
 			<view class="budget-input">
+				<view class="picker">
+					<picker mode="selector" :key="pickerVal" :range="pickerRange" @change="pickerChange">
+						<view>{{ pickerRange[pickerVal] }}</view>
+					</picker>
+				</view>
 				<text class="currency">¥</text>
-				<input type="digit" v-model="totalBudget" placeholder="设置每月总预算" />
+				<input type="digit" :value="inputBudget[pickerVal]" @input="budgetInput" />
 			</view>
 			<view class="budget-info">
 				<view class="info-item">
@@ -29,7 +34,6 @@
 				<view class="category-item" v-for="(item, index) in categoryBudgets" :key="index">
 					<view class="category-info">
 						<view class="left">
-							<text class="iconfont" :class="item.icon"></text>
 							<text class="name">{{ item.name }}</text>
 						</view>
 						<view class="right">
@@ -39,81 +43,126 @@
 					</view>
 					<view class="category-progress">
 						<view class="progress-bg">
-							<view 
-								class="progress-bar" 
-								:style="{ width: (item.spent / item.budget * 100) + '%' }"
-							></view>
+							<view class="progress-bar" :style="{ width: (item.spent / item.budget) * 100 + '%' }"></view>
 						</view>
 						<text class="progress-text">{{ item.spent }}/{{ item.budget }}</text>
 					</view>
 				</view>
 			</view>
 		</view>
-
+		
+		<view class="tutorial">
+			<text v-for="(item,index) in tutorialInfo" :key="index">{{item}}</text>
+		</view>
 		<!-- 底部保存按钮 -->
 		<view class="footer">
 			<button class="save-btn" @click="saveBudget">保存设置</button>
 		</view>
 	</view>
-	
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, toRef, reactive } from 'vue';
 import { userInfoStore } from '../../stores/userinfo';
+import { getNowDate } from '../../utils/get-date';
+import { updataBill } from '../../utils/api/updataBill';
 
 const store = userInfoStore();
 
-// 总预算
-const totalBudget = ref('');
-const currentExpense = ref(0);
+// 选择器选中的index
+const pickerVal = ref(0);
+// 选择器的选项
+const pickerRange = computed(() => {
+	const result = ['总预算'];
+	const budget_categories = store.basicInfo.budget_categories || [];
+	budget_categories.forEach((item) => {
+		result.push(item.name);
+	});
+	return result;
+});
+
+// 输入的预算
+const inputBudget = ref([]);
+
+// 当前预算
+const totalBudget = computed(() => {
+	const budget_categories = store.basicInfo.budget_categories || [];
+	const budget_total = store.basicInfo.budget_total;
+	return (
+		Number(budget_total) +
+		budget_categories.reduce((prev, cur) => {
+			return (prev += Number(cur.budget));
+		}, 0)
+	);
+});
+// 当前支出
+const currentExpense = computed(() => {
+	const { year, month } = getNowDate();
+	return store.getTotal([year, month].join('-')).expense;
+});
 
 // 计算剩余预算
 const remainingBudget = computed(() => {
-	return Number(totalBudget.value || 0) - currentExpense.value;
+	return totalBudget.value - currentExpense.value;
 });
 
 // 计算进度条宽度
 const progressWidth = computed(() => {
-	if (!totalBudget.value) return 0;
 	return Math.min((currentExpense.value / Number(totalBudget.value)) * 100, 100);
 });
 
 // 分类预算数据
-const categoryBudgets = ref([
-	{
-		name: '餐饮',
-		icon: 'icon-food',
-		budget: 2000,
-		spent: 800
-	},
-	{
-		name: '交通',
-		icon: 'icon-transport',
-		budget: 1000,
-		spent: 300
-	},
-	{
-		name: '购物',
-		icon: 'icon-shopping',
-		budget: 1500,
-		spent: 1200
-	},
-	{
-		name: '娱乐',
-		icon: 'icon-entertainment',
-		budget: 800,
-		spent: 400
+const categoryBudgets = computed(() => {
+	const budgetCategories = store.basicInfo.budget_categories;
+	const { year, month } = getNowDate();
+	const categoriesExpense = store.getCategoryInfo([year, month].join('-')).expense;
+	return budgetCategories.map((item) => {
+		return { ...item, spent: categoriesExpense.find((Categories) => Categories.category === item.name)?.total || 0 };
+	});
+});
+let timer = null;
+// 预算输入
+const budgetInput = (e) => {
+	if (timer !== null) {
+		clearTimeout(timer);
 	}
-]);
+	timer = setTimeout(() => {
+		inputBudget.value[pickerVal.value] = e.detail.value;
+		console.log(inputBudget.value);
+	}, 200);
+};
+
+const pickerChange = (e) => {
+	pickerVal.value = e.detail.value;
+};
 
 // 保存预算设置
-const saveBudget = () => {
-	uni.showToast({
-		title: '保存成功',
-		icon: 'success'
-	});
+const saveBudget = async () => {
+	try {
+		const data = [];
+		data.push({ name: '总预算', budget: store.basicInfo.budget_total || inputBudget.value[0] });
+		store.basicInfo.budget_categories.forEach((item, index) => {
+			data.push({ name: item.name, budget: inputBudget.value[index + 1] || item.budget });
+		});
+		const updataBudgetRes = await store.updataBudget(data);
+		const queryRes = await store.queryData();
+		if (updataBudgetRes.errCode === 0 && queryRes.errCode === 0) {
+			uni.showToast({
+				title: updataBudgetRes.msg,
+				icon: 'success',
+				duration: 1000
+			});
+		}
+	} catch (error) {
+		throw new Error(error);
+	}
 };
+
+const tutorialInfo = [
+	'1.只设置总预算即不按分类预算;',
+	'2.如果设置了总预算和其他分类预算，总预算为设置的总预算与其他的分类预算之和;',
+	'3.若没有设置总预算，总预算为其他分类预算之和;'
+]
 </script>
 
 <style lang="scss" scoped>
@@ -121,39 +170,44 @@ const saveBudget = () => {
 	width: 100%;
 	min-height: 100vh;
 	background-color: $bg-color-grey;
-	padding-bottom: 120rpx;
+	padding-bottom: 150rpx;
 	box-sizing: border-box;
 
 	.header {
 		background-color: $bg-color-white;
-		padding: 40rpx $space;
+		padding: $space;
 		margin-bottom: $space;
 		border-radius: 0 0 30rpx 30rpx;
 		box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
 
 		.title {
-			font-size: 36rpx;
+			font-size: $text-size-title;
 			font-weight: 600;
 			color: $text-color-dark-grey;
-			margin-bottom: 40rpx;
+			margin-bottom: $space;
 		}
 
 		.budget-input {
 			display: flex;
 			align-items: center;
-			margin-bottom: 40rpx;
+			margin-bottom: $space;
 			padding: 20rpx 0;
 			border-bottom: 2rpx solid #f5f5f5;
-
-			.currency {
-				font-size: 56rpx;
+			.picker {
+				font-size: $text-size-title;
 				font-weight: 600;
 				color: $text-color-dark-grey;
 				margin-right: 20rpx;
 			}
+			.currency {
+				font-size: $text-size-title;
+				color: $text-color-dark-grey;
+				font-weight: 600;
+				margin-right: 20rpx;
+			}
 
 			input {
-				font-size: 56rpx;
+				font-size: $text-size-big;
 				font-weight: 600;
 				color: $text-color-dark-grey;
 				flex: 1;
@@ -177,7 +231,7 @@ const saveBudget = () => {
 				}
 
 				.value {
-					font-size: 40rpx;
+					font-size: $text-size-title;
 					font-weight: 600;
 					color: $text-color-dark-grey;
 				}
@@ -206,7 +260,7 @@ const saveBudget = () => {
 		margin: 0 $space;
 
 		.section-title {
-			font-size: 36rpx;
+			font-size: $text-size-title;
 			font-weight: 600;
 			color: $text-color-dark-grey;
 			margin-bottom: 40rpx;
@@ -233,14 +287,8 @@ const saveBudget = () => {
 						display: flex;
 						align-items: center;
 
-						.iconfont {
-							font-size: 44rpx;
-							margin-right: 24rpx;
-							color: $blue-dark;
-						}
-
 						.name {
-							font-size: 32rpx;
+							font-size: $text-size-title;
 							font-weight: 500;
 							color: $text-color-dark-grey;
 						}
@@ -248,7 +296,7 @@ const saveBudget = () => {
 
 					.right {
 						.amount {
-							font-size: 36rpx;
+							font-size: $text-size-title;
 							font-weight: 600;
 							color: $text-color-dark-grey;
 						}
@@ -285,9 +333,25 @@ const saveBudget = () => {
 						color: $text-color-light-grey;
 						width: 140rpx;
 						text-align: right;
+						
 					}
 				}
 			}
+		}
+	}
+	.tutorial{
+		font-size: 18rpx;
+		color: $text-color-light-grey;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: space-between;
+		padding: 50rpx;
+		box-sizing: border-box;
+		margin-top: 30rpx;
+		text{
+			margin: 5rpx 0;
+			letter-spacing: 1rpx;
 		}
 	}
 
@@ -297,9 +361,9 @@ const saveBudget = () => {
 		left: 0;
 		width: 100%;
 		padding: 20rpx $space 40rpx;
+		box-sizing: border-box;
 		background-color: $bg-color-white;
 		box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.08);
-
 		.save-btn {
 			width: 100%;
 			height: 88rpx;

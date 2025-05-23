@@ -23,7 +23,7 @@
 					<text class="label">总收入</text>
 				</view>
 				<view class="overview-item">
-					<text class="number">{{ store.basicInfo.budget || '0.00' }}</text>
+					<text class="number">{{ budget || '0.00' }}</text>
 					<text class="label">预算</text>
 				</view>
 			</view>
@@ -34,10 +34,14 @@
 					<view class="group-title">账户管理</view>
 					<view class="function-item" v-for="(item, index) in accountFunctions" :key="index" @click="item.action">
 						<view class="left">
-							<text class="iconfont" :class="item.icon"></text>
+							<view class="iconfont" :class="item.icon">
+								<uni-icons :type="item.icon"></uni-icons>
+							</view>
 							<text class="title">{{ item.title }}</text>
 						</view>
-						<text class="iconfont icon-arrow-right"></text>
+						<view class="iconfont icon-arrow-right">
+							<RightButtonVue></RightButtonVue>
+						</view>
 					</view>
 				</view>
 
@@ -45,10 +49,14 @@
 					<view class="group-title">系统设置</view>
 					<view class="function-item" v-for="(item, index) in systemFunctions" :key="index" @click="item.action">
 						<view class="left">
-							<text class="iconfont" :class="item.icon"></text>
+							<view class="iconfont" :class="item.icon">
+								<uni-icons :type="item.icon"></uni-icons>
+							</view>
 							<text class="title">{{ item.title }}</text>
 						</view>
-						<text class="iconfont icon-arrow-right"></text>
+						<view class="iconfont icon-arrow-right">
+							<RightButtonVue></RightButtonVue>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -63,12 +71,11 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
+import { computed, reactive } from 'vue';
 import { userInfoStore } from '../../stores/userinfo';
 import tabbarVue from '../../components/Tabbar.vue';
 import AddPopVue from '../../components/AddPop.vue';
-import { query } from '../../utils/api/query';
+import RightButtonVue from '../../components/RightButton.vue';
 import { getNowDate } from '../../utils/get-date';
 import router from '../../utils/router';
 
@@ -79,28 +86,31 @@ const total = computed(() => {
 	const date = [year, month].join('-');
 	return store.getTotal(date);
 });
+const budget = computed(()=>{
+	const budget_categories = store.basicInfo.budget_categories||[]
+	const budget_total = store.basicInfo.budget_total
+	return Number(budget_total)+ budget_categories.reduce((prev,cur)=>{
+		return prev+=Number(cur.budget)
+	},0)
+})
+
 
 // 账户管理功能列表
 const accountFunctions = reactive([
 	{
-		title: '预算设置',
-		icon: 'icon-budget',
+		title: '预算管理',
+		icon: 'wallet',
 		action: () => router.navigateTo({ url: '/pages/budget/index' })
 	},
 	{
 		title: '标签管理',
-		icon: 'icon-export',
+		icon: 'list',
 		action: () => handleLabel()
 	},
 	{
 		title: '账单导出',
-		icon: 'icon-export',
+		icon: 'cloud-upload',
 		action: () => handleExport()
-	},
-	{
-		title: '数据备份',
-		icon: 'icon-backup',
-		action: () => handleBackup()
 	}
 ]);
 
@@ -108,17 +118,17 @@ const accountFunctions = reactive([
 const systemFunctions = reactive([
 	{
 		title: '主题设置',
-		icon: 'icon-theme',
+		icon: 'color',
 		action: () => handleTheme()
 	},
 	{
 		title: '消息通知',
-		icon: 'icon-notification',
+		icon: 'notification',
 		action: () => handleNotification()
 	},
 	{
 		title: '关于我们',
-		icon: 'icon-about',
+		icon: 'fire',
 		action: () => handleAbout()
 	}
 ]);
@@ -272,9 +282,7 @@ const getUserInfo = () => {
 						align-items: center;
 
 						.iconfont {
-							font-size: 40rpx;
 							margin-right: 20rpx;
-							color: #003498;
 						}
 
 						.title {

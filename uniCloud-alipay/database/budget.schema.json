@@ -1,0 +1,38 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"required": ["openid","categories_id"],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"openid": {
+			"description": "微信用户唯一标识",
+			"bsonType": "string",
+			"foreignKey": "user.openid",
+			"errorMessage": {
+				"required": "{openid}不能为空"
+			}
+		},
+		"categories_id":{
+			"description": "类型的id",
+			"bsonType": "string",
+			"foreignKey": "categories._id",
+			"errorMessage": {
+				"required": "{categories_id}不能为空"
+			}
+		},
+		"budget":{
+			"description": "预算",
+			"bsonType": "string",
+			"defaultValue":"0.00"
+		}
+		
+	}
+}

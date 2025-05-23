@@ -5,8 +5,8 @@
 			<text style="font-size: 46rpx; letter-spacing: 1rpx; color: #de6ea6; margin-left: 20rpx">{{ '-' + total }}</text>
 			<text style="font-size: 20rpx; color: #00b6e6">{{ '平均值：' + (total / 7).toFixed(2) }}</text>
 		</view>
-		<view style="position: absolute; right: 20rpx; top: 20rpx">
-			<RightButton></RightButton>
+		<view style="position: absolute; right: 20rpx; top: 20rpx" @click="toAnalysis">
+			<RightButton ></RightButton>
 		</view>
 		<!-- 首页折线图 -->
 		<view class="chart-shift">
@@ -18,12 +18,13 @@
 
 <script setup>
 import { computed, getCurrentInstance, nextTick, onMounted, ref, watch } from 'vue';
-import { onShow, onHide } from '@dcloudio/uni-app';
 import RightButton from '../../../components/RightButton.vue';
 import { lineChartInit } from '../../../utils/chart/line-chart.js';
 import { userInfoStore } from '../../../stores/userinfo.js';
 import { getNowDate } from '../../../utils/get-date.js';
 import { tabBarStore } from '../../../stores/tabbar';
+import router from '../../../utils/router';
+
 onMounted(() => {
 	createWatch();
 	drawCanvas(chartData.value);
@@ -82,6 +83,9 @@ const drawCanvas = async (data) => {
 		console.log(err);
 	}
 };
+const toAnalysis = ()=>{
+	router.navigateTo({url:'/pages/analysis/index?title=日趋势'})
+}
 </script>
 
 <style lang="scss" scoped>

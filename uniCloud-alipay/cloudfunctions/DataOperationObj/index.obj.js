@@ -9,7 +9,11 @@ const {
 } = require('middleware')
 // jsdoc语法提示教程：https://ask.dcloud.net.cn/docs/#//ask.dcloud.net.cn/article/129
 const db = uniCloud.databaseForJQL()
+const dbCmd = db.command
+const user = db.collection('user')
 const userRecords = db.collection('user-records')
+const budget = db.collection('budget')
+const categories = db.collection('categories')
 
 module.exports = {
 	_before: async function() { // 通用预处理器
@@ -44,7 +48,6 @@ module.exports = {
 			_id,
 			token
 		} = event
-		console.log(event);
 		try {
 			const tokenRes = await verifyToken(token)
 			const delRes = await userRecords.where({
@@ -58,8 +61,8 @@ module.exports = {
 		}
 
 	},
-	//修改数据
-	async updata(event) {
+	//修改账单数据
+	async updataBill(event) {
 		try {
 			const {
 				token,
@@ -80,6 +83,62 @@ module.exports = {
 		}
 	},
 
+	// 修改预算
+	async updataBudget(event) {
+		try {
+			const {
+				token,
+				data
+			} = event
+
+			const tokenRes = await verifyToken(token)
+			// 用户的分类预算表
+			const budgetRes = await budget.where({
+				openid: tokenRes.openid
+			}).getTemp()
+			// 用户的支出分类表
+			const categoriesRes = await categories.where(dbCmd.or({
+				openid: tokenRes.openid
+			}, {
+				openid: '0'
+			}).and({
+				type: 'expense'
+			})).field('_id,name').getTemp()
+			// 连表查询
+			const budget_categories = await db.collection(budgetRes, categoriesRes).where({
+				openid: tokenRes.openid
+			}).field('categories_id').get()
+			const result = budget_categories.data.map(item => {
+				return {
+					name: item.categories_id[0].name,
+					categories_id: item.categories_id[0]._id
+				}
+			})
+			// 循环更新
+			data.forEach(async dataItem => {
+				if(dataItem.name==='总预算'){
+					await user.where({openid: tokenRes.openid}).update({budget_total:dataItem.budget})
+				}
+				result.forEach(async resultItem => {
+					if (resultItem.name === dataItem.name) {
+						await budget.where({
+							openid: tokenRes.openid,
+							categories_id: resultItem.categories_id
+						}).update({
+							budget: dataItem.budget
+						})
+					}
+				})
+			})
+			// 
+			return {
+				openid: tokenRes.openid
+			}
+		} catch (error) {
+
+		}
+	},
+
 	//查找数据
 	async query(event) {
 		const {
@@ -91,10 +150,14 @@ module.exports = {
 			//验证token
 			const tokenRes = await verifyToken(token)
 			if (!tokenRes) throw Error('登录已过期')
+			// 用户总预算
+			const budgetTotal = await user.where({openid:tokenRes.openid}).field({budget_total:true}).get()
+			console.log(budgetTotal);
 			//查找用户账单数据
 			const recordsRes = await userRecords.where({
 				openid: tokenRes.openid
 			}).get()
+			const formatData = formatRecrods(recordsRes)
 			//用户的自定义分类
 			const categoriesRes = await categories.where({
 				openid: tokenRes.openid
@@ -103,10 +166,22 @@ module.exports = {
 				type: true,
 				color: true
 			}).get()
-			const formatData = formatRecrods(recordsRes)
+			
+			// 用户的分类预算表
+			const budgetRes = await budget.where({openid:tokenRes.openid}).getTemp()
+			// 用户的支出分类表
+			const categoriesResTemp = await categories.where(dbCmd.or({openid:tokenRes.openid},{openid:'0'}).and({type:'expense'})).field('_id,name') .getTemp()
+			// 连表查询
+			const budget_categories = await db.collection(budgetRes,categoriesResTemp).where({openid:tokenRes.openid}).field('budget,categories_id').get()
+			const result = budget_categories.data.map(item => {
+				return {name:item.categories_id[0].name,budget:item.budget}
+			})
+			
 			return {
 				categories: categoriesRes.data,
+				budget_categories:result,
 				dataList: formatData,
+				budget_total:budgetTotal.data[0].budget_total,
 				openid: tokenRes.openid
 			}
 
@@ -114,6 +189,7 @@ module.exports = {
 			throw new Error(e.message)
 		}
 	},
+	
 
 	_after: function(error, result) {
 		if (error) {

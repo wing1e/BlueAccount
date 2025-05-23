@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { getCurrentInstance, computed, watch, ref, nextTick, onMounted, onUnmounted } from 'vue';
+import { getCurrentInstance, computed, watch, ref, nextTick, onMounted } from 'vue';
 import { pieCharInit } from '../utils/chart/pie-chart';
 import { userInfoStore } from '../stores/userinfo';
 import { panelinfoStore } from '../stores/panelinfo';

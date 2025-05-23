@@ -12,7 +12,10 @@ const commonConfig = createConfig({
 
 // 连接数据库
 const db = uniCloud.databaseForJQL()
+const dbCmd = db.command
 const user = db.collection('user')
+const categories = db.collection('categories')
+const budget = db.collection('budget')
 
 module.exports = {
 	_before: function() { // 通用预处理器
@@ -53,14 +56,28 @@ module.exports = {
 				//未注册用户
 				if (res_user.data.length === 0 && res_user.data) {
 					// 注册
-					user.add({
+					// 添加用户基本信息
+					await user.add({
 						openid: wx_openid,
 						nickName: userinfo.nickName,
 						avatarUrl: userinfo.avatarUrl,
 						session_key: wx_session,
 					})
-					// 已经注册
-				} else {
+					// 添加默认的预算表
+					const categoriesRes = await categories.where({
+						openid: '0',
+						type: 'expense'
+					}).field({
+						name: true
+					}).get()
+					categoriesRes.data.forEach(async item => {
+						await budget.add({
+							openid: wx_openid,
+							categories_id: item._id,
+						})
+					})
+
+				} else { // 已经注册
 					// 更新token和session_key
 					await user.where({
 						openid: wx_openid
@@ -70,15 +87,14 @@ module.exports = {
 				}
 
 				// 需要返回的用户信息
-				const queryRes = await user.where({
+				const userinfoRes = await user.where({
 					openid: wx_openid
 				}).field({
 					avatarUrl: true,
-					nickName: true,
-					budget: true
+					nickName: true
 				}).get()
 				return {
-					...queryRes.data[0],
+					...userinfoRes.data[0],
 					token: token
 				}
 			} else {
