@@ -1,6 +1,7 @@
 import {
 	defineStore
 } from "pinia";
+let timer = null
 export const tabBarStore = defineStore('tabbar', {
 	state: () => {
 		return {
@@ -10,20 +11,16 @@ export const tabBarStore = defineStore('tabbar', {
 		}
 	},
 	getters: {
-		getPup() {
-			return this.pup
-		},
-		getPupSign() {
-			return this.pupSign
-		}
+
 	},
 	actions: {
 		setPup(flag) {
+			if(timer!==null) clearTimeout(timer)
 			this.pupSign = flag
 			if (flag) {
-				setTimeout(() => {
+				timer =  setTimeout(() => {
 					this.pup = flag
-				}, 200)
+				}, 250)
 			} else {
 				this.pup = flag
 			}

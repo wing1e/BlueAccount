@@ -40,7 +40,8 @@
 			"path" : "pages/bill/index",
 			"style" : 
 			{
-				"navigationBarTitleText" : "账单"
+				"navigationBarTitleText" : "账单",
+				"navigationStyle": "custom"
 			}
 		}
 	],

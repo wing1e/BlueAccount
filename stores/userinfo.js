@@ -22,6 +22,7 @@ import {
 import {
 	updataBudget
 } from "../utils/api/updataBudget.js";
+import { updataUser } from "../utils/api/updataUser.js";
 export const userInfoStore = defineStore('userInfo', {
 	state: () => {
 		return {
@@ -236,6 +237,28 @@ export const userInfoStore = defineStore('userInfo', {
 				throw new Error(e.message)
 			}
 
+		},
+		// 修改用户信息
+		async updataUser(userinfo){
+			try {
+				const updataRes = await updataUser({userinfo})
+				const {nickName,avatarUrl} = updataRes.result.info
+				if (updataRes.errCode === 0) {
+					this.$patch({basicInfo:{
+						nickname:nickName,
+						avatar:avatarUrl
+					}})
+					return {
+						errCode: 0,
+						msg: '修改成功'
+					}
+				} else {
+					throw Error('修改新数据失败')
+				}
+				
+			} catch (error) {
+				//TODO handle the exception
+			}
 		},
 		async updataBill(records) {
 			try {

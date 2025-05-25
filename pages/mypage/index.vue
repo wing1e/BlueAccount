@@ -3,9 +3,13 @@
 		<!-- 头部用户信息区域 -->
 		<view class="header">
 			<view class="user-info">
-				<image :src="store.basicInfo.avatar" mode="aspectFit" class="avatar"></image>
+				<view>
+					<button open-type="chooseAvatar" class="avatar-btn" @chooseavatar="updataAvatar"><image class="avatar" :src="store.basicInfo.avatar" mode="aspectFit"></image></button>
+				</view>
+
 				<view class="user-detail">
-					<text class="nickname" @click="getUserInfo">{{ store.basicInfo.nickname }}</text>
+					<text class="nickname" v-if="store.datalist.length === 0" @click="getUserInfo">{{ store.basicInfo.nickname }}</text>
+					<input type="nickname" v-if="store.datalist.length > 0" class="nickname" :value="store.basicInfo.nickname" @confirm="updataNickName" />
 				</view>
 			</view>
 		</view>
@@ -71,13 +75,16 @@
 </template>
 
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import { userInfoStore } from '../../stores/userinfo';
 import tabbarVue from '../../components/Tabbar.vue';
 import AddPopVue from '../../components/AddPop.vue';
 import RightButtonVue from '../../components/RightButton.vue';
 import { getNowDate } from '../../utils/get-date';
 import router from '../../utils/router';
+onMounted(() => {
+	console.log(store.datalist);
+});
 
 const store = userInfoStore();
 
@@ -86,14 +93,16 @@ const total = computed(() => {
 	const date = [year, month].join('-');
 	return store.getTotal(date);
 });
-const budget = computed(()=>{
-	const budget_categories = store.basicInfo.budget_categories||[]
-	const budget_total = store.basicInfo.budget_total
-	return Number(budget_total)+ budget_categories.reduce((prev,cur)=>{
-		return prev+=Number(cur.budget)
-	},0)
-})
-
+const budget = computed(() => {
+	const budget_categories = store.basicInfo.budget_categories || [];
+	const budget_total = store.basicInfo.budget_total;
+	return (
+		Number(budget_total) +
+		budget_categories.reduce((prev, cur) => {
+			return (prev += Number(cur.budget));
+		}, 0)
+	);
+});
 
 // 账户管理功能列表
 const accountFunctions = reactive([
@@ -162,16 +171,68 @@ const handleAbout = () => {
 const getUserInfo = () => {
 	try {
 		uni.showModal({
-			title:'授权登录',
-			content:'允许通过code获取openid和用户匿名信息登录',
-			success: async(res) => {
-				if(res.confirm){
-					await store.login()
+			title: '授权登录',
+			content: '允许通过code获取openid和用户匿名信息登录',
+			success: async (res) => {
+				if (res.confirm) {
+					await store.login();
 				}
 			}
-		})
+		});
 	} catch (err) {
+		uni.showToast({
+			icon: 'none',
+			title: '登录失败'
+		});
 		throw new Error(err);
+	}
+};
+
+const updataNickName = async (e) => {
+	try {
+		const newNmae = e.detail.value;
+		const res = await store.updataUser({ nickName: newNmae });
+		if (res.errCode === 0) {
+			uni.showToast({
+				icon: 'none',
+				title: res.msg
+			});
+		}
+	} catch (error) {
+		uni.showToast({
+			icon: 'none',
+			title: '修改失败'
+		});
+		throw new Error(error);
+	}
+};
+const updataAvatar = async (e) => {
+	try {
+		const avatar = e.detail.avatarUrl;
+		const baseUrl = 'https://env-00jxtfjq2ym4.normal.cloudstatic.cn/'
+		const { _id } = uni.getStorageSync('userinfo');
+		const path = `avatarImage/${_id}/avatar.jpg`
+		const loadFilRes = await uniCloud.uploadFile({
+			filePath: avatar,
+			cloudPath: path,
+			cloudPathAsRealPath: true
+		});
+		
+		const avatarUrl = baseUrl+path
+		
+		const res = await store.updataUser({ avatarUrl: avatarUrl });
+		if (res.errCode === 0) {
+			uni.showToast({
+				icon: 'none',
+				title: res.msg
+			});
+		}
+	} catch (error) {
+		uni.showToast({
+			icon: 'none',
+			title: '修改失败'
+		});
+		throw new Error(error);
 	}
 };
 </script>
@@ -196,13 +257,21 @@ const getUserInfo = () => {
 		.user-info {
 			display: flex;
 			align-items: center;
-
-			.avatar {
+			.avatar-btn {
 				width: 120rpx;
 				height: 120rpx;
 				border-radius: 60rpx;
 				border: 4rpx solid rgba(255, 255, 255, 0.8);
 				background-color: $blue-med;
+				position: relative;
+				overflow: hidden;
+				.avatar {
+					width: 120rpx;
+					height: 120rpx;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
 			}
 
 			.user-detail {
@@ -302,7 +371,6 @@ const getUserInfo = () => {
 
 	.tabbar {
 		width: 100%;
-		height: 8%;
 		position: fixed;
 		bottom: 0;
 	}

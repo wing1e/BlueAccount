@@ -1,3 +1,7 @@
+import {
+	tabBarStore
+} from '../stores/tabbar.js'
+
 // 路由配置
 const routerConfig = {
 	'/pages/index/index': {
@@ -19,7 +23,7 @@ const routerConfig = {
 		requiresAuth: true
 	}, //预算页
 	'/pages/bill/index': {
-		requiresAuth: false
+		requiresAuth: true
 	} //账单页
 }
 
@@ -61,25 +65,37 @@ const navigateBack = (options) => {
 // 自定义路由守卫函数
 const beforeEach = (url) => {
 	const path = url.split('?')[0];
+	let timer = null
+	if (timer !== null) clearTimeout(timer)
 	// 如果不需要验证
 	if (!routerConfig[path].requiresAuth) {
 		return true
 	}
 	// 检查登录状态
-	if(checkLoginState()){
+	if (checkLoginState()) {
 		return true
-	}else{
+	} else {
 		uni.showToast({
-			icon:"error",
-			title:'请先登录'
+			icon: "error",
+			title: '请先登录',
+			duration: 1000
 		})
+		const tabbarStore = tabBarStore()
+		if (tabbarStore.status !== 3) {
+			timer = setTimeout(() => {
+				tabbarStore.setStatus(3)
+				switchTab({
+					url: '/pages/mypage/index'
+				})
+			}, 1000)
+		}
 		return false
 	}
-	
+
 }
 
 // 检查用户是否登录
-const checkLoginState =() => {
+const checkLoginState = () => {
 	const userinfo = uni.getStorageSync('userinfo')
 	if (userinfo) {
 		return true

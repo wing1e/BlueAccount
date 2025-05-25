@@ -50,9 +50,9 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="tutorial">
-			<text v-for="(item,index) in tutorialInfo" :key="index">{{item}}</text>
+			<text v-for="(item, index) in tutorialInfo" :key="index">{{ item }}</text>
 		</view>
 		<!-- 底部保存按钮 -->
 		<view class="footer">
@@ -73,7 +73,7 @@ const store = userInfoStore();
 const pickerVal = ref(0);
 // 选择器的选项
 const pickerRange = computed(() => {
-	const result = ['总预算'];
+	const result = ['不分类预算'];
 	const budget_categories = store.basicInfo.budget_categories || [];
 	budget_categories.forEach((item) => {
 		result.push(item.name);
@@ -113,10 +113,10 @@ const progressWidth = computed(() => {
 
 // 分类预算数据
 const categoryBudgets = computed(() => {
-	const budgetCategories = store.basicInfo.budget_categories;
+	const budgetCategories = store.basicInfo.budget_categories||[];
 	const { year, month } = getNowDate();
 	const categoriesExpense = store.getCategoryInfo([year, month].join('-')).expense;
-	return budgetCategories.map((item) => {
+	return budgetCategories.map(item => {
 		return { ...item, spent: categoriesExpense.find((Categories) => Categories.category === item.name)?.total || 0 };
 	});
 });
@@ -138,31 +138,55 @@ const pickerChange = (e) => {
 
 // 保存预算设置
 const saveBudget = async () => {
+	if(inputBudget.value.length===0){
+		uni.showToast({
+			icon:'none',
+			title:'请先输入预算'
+		})
+		return
+	}
 	try {
 		const data = [];
-		data.push({ name: '总预算', budget: store.basicInfo.budget_total || inputBudget.value[0] });
+		data.push({ name: '不分类预算', budget: inputBudget.value[0] || store.basicInfo.budget_total });
 		store.basicInfo.budget_categories.forEach((item, index) => {
 			data.push({ name: item.name, budget: inputBudget.value[index + 1] || item.budget });
 		});
+		
+		// 等待预算更新完成
 		const updataBudgetRes = await store.updataBudget(data);
-		const queryRes = await store.queryData();
-		if (updataBudgetRes.errCode === 0 && queryRes.errCode === 0) {
-			uni.showToast({
-				title: updataBudgetRes.msg,
-				icon: 'success',
-				duration: 1000
-			});
+		if (updataBudgetRes.errCode !== 0) {
+			throw new Error(updataBudgetRes.msg || '更新预算失败');
 		}
+		// 等待数据查询完成
+		const queryRes = await store.queryData();
+		if (queryRes.errCode !== 0) {
+			throw new Error(queryRes.msg || '查询数据失败');
+		}
+		
+		// 所有操作都成功后才显示提示
+		uni.showToast({
+			title: '保存成功',
+			icon: 'success',
+			duration: 1000
+		});
+		//清空输入
+		inputBudget.value = []
+		
 	} catch (error) {
-		throw new Error(error);
+		uni.showToast({
+			title: error.message || '保存失败',
+			icon: 'error',
+			duration: 2000
+		});
+		console.error('保存预算设置失败:', error);
 	}
 };
 
 const tutorialInfo = [
-	'1.只设置总预算即不按分类预算;',
-	'2.如果设置了总预算和其他分类预算，总预算为设置的总预算与其他的分类预算之和;',
-	'3.若没有设置总预算，总预算为其他分类预算之和;'
-]
+	'1.只设置不分类预算即总预算;',
+	'2.如果设置了不分类预算和其他分类预算，总预算为设置的不分类预算与其他的分类预算之和;',
+	'3.若没有设置不分类预算，总预算为其他分类预算之和;'
+];
 </script>
 
 <style lang="scss" scoped>
@@ -333,13 +357,12 @@ const tutorialInfo = [
 						color: $text-color-light-grey;
 						width: 140rpx;
 						text-align: right;
-						
 					}
 				}
 			}
 		}
 	}
-	.tutorial{
+	.tutorial {
 		font-size: 18rpx;
 		color: $text-color-light-grey;
 		display: flex;
@@ -349,7 +372,7 @@ const tutorialInfo = [
 		padding: 50rpx;
 		box-sizing: border-box;
 		margin-top: 30rpx;
-		text{
+		text {
 			margin: 5rpx 0;
 			letter-spacing: 1rpx;
 		}

@@ -3,7 +3,7 @@
 		<view class="tabbar">
 			<view class="btns">
 				<view class="bottomBtn" v-for="(item, index) in btnInfo" :key="index" @click="navigation(item.status)">
-					<u-icon :name="changeIcon(item).icon" size="30" :color="changeIcon(item).color"></u-icon>
+					<u-icon class="icon" :name="changeIcon(item).icon" size="30" :color="changeIcon(item).color"></u-icon>
 				</view>
 			</view>
 			<!-- 添加按钮的半圆形边框 -->
@@ -48,6 +48,7 @@ const navigationMap = new Map([
 // 路由
 const navigation = (status) => {
 	if (status === tabstore.status) return;
+	tabstore.setPup(false)
 	tabstore.setStatus(status)
 	router.switchTab({url:navigationMap.get(status)})
 };
@@ -65,7 +66,7 @@ const open = () => {
 }
 .container {
 	width: 100%;
-	height: 100%;
+	height: 120rpx;
 	display: flex;
 	align-items: start;
 	justify-content: center;

@@ -46,10 +46,6 @@ export const EXPENSE_TYPE = [{
 		"color": "#FFD700"
 	},
 	{
-		"category": "工资",
-		"color": "#4CAF50"
-	},
-	{
 		"category": "旅行",
 		"color": "#E91E63"
 	},

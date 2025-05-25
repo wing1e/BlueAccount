@@ -39,9 +39,6 @@ export const lineChartInit = async (
 		// 绘制网格系统
 		drawGridLines(ctx, ctxW, drawArea, chartData);
 
-		
-
-		
 		if (chartData.find((item) => item.amount >= 0)) {
 			// 绘制数据折线
 			drawChartLine(ctx, chartData, ctxW, drawArea);
@@ -106,7 +103,7 @@ const drawChartLine = (ctx, chartData, canvasWidth, area) => {
 		// ------绘制填充区域------
 		// 移动到起始点
 		ctx.moveTo(points[0].x, points[0].y);
-		// 绘制曲线
+		// 绘制绘制填充区域边界
 		for (let i = 1; i < points.length; i++) {
 			const curr = points[i];
 			const prev = points[i - 1];

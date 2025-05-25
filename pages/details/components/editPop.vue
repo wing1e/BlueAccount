@@ -49,8 +49,8 @@
 					</view>
 				</view>
 				<view class="footer">
-					<button class="btn confirm" @click="delEvent">删除</button>
-					<button class="btn confirm" @click="handleConfirm">确定</button>
+					<button class="btn,del" @click="delEvent">删除</button>
+					<button class="btn,comfirm" @click="handleConfirm" :style="{backgroundColor:confirmColor()}">确定</button>
 				</view>
 			</view>
 		</uni-popup>
@@ -64,6 +64,7 @@ import { EXPENSE_TYPE, INCOME_TYPE } from '../../../utils/constants';
 import { userInfoStore } from '../../../stores/userinfo';
 
 let timer = null;
+const editState = ref(false)
 const pop = ref();
 const edit = editStore();
 const editInfo = ref({
@@ -97,6 +98,7 @@ const popOpen = () => {
 	pop.value.open();
 };
 const popClose = () => {
+	editState.value = false
 	pop.value.close();
 };
 // 表单修改
@@ -104,6 +106,7 @@ const bindChange = (e) => {
 	if (timer !== null) {
 		clearTimeout(timer);
 	}
+	editState.value = true
 	timer = setTimeout(() => {
 		const { value } = e.detail;
 		const { type } = e.target.dataset;
@@ -142,6 +145,7 @@ const handleConfirm = async () => {
 		});
 		return;
 	}
+	if(!editState.value) return
 	try {
 		const updataRes = await userstore.updataBill({ ...editInfo.value, type: editInfo.value.type === '支出' ? 'expense' : 'income' });
 		const queryRes = await userstore.queryData();
@@ -201,6 +205,14 @@ const switchCategory = (type) => {
 	}
 	return [];
 };
+
+const confirmColor = ()=>{
+	if(editState.value){
+		return '#003498'
+	}else{
+		return '#00B6E6'
+	}
+}
 </script>
 
 <style lang="scss" scoped>
@@ -268,18 +280,25 @@ const switchCategory = (type) => {
 
 		.footer {
 			display: flex;
-			justify-content: center;
+			justify-content: space-around;
+			align-items: center;
 
 			.btn {
-				width: 90%;
+				width: 45%;
 				height: 88rpx;
 				border-radius: 44rpx;
 				font-size: 32rpx;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				background: #007aff;
 				color: #fff;
+				transition:all 0.3s ease;
+				&:active{
+					transform: scale(0.98);
+				}
+			}
+			.del{
+				background-color: $blue-dark;
 			}
 		}
 	}

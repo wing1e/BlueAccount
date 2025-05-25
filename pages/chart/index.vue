@@ -4,9 +4,9 @@
 			<view v-for="(item, index) in chartList" :key="index" :style="{ height: item.height }">
 				<panelVue :title="item.title">
 					<template slot="chart">
-						<pieChartVue v-if="index === 0&&isShow"></pieChartVue>
-						<lineChartVue v-else-if="index === 1&&isShow"></lineChartVue>
-						<barChartVue v-else-if="index === 2&&isShow"></barChartVue>
+						<pieChartVue v-if="index === 0" :isShow="isShow"></pieChartVue>
+						<lineChartVue v-else-if="index === 1" :isShow="isShow"></lineChartVue>
+						<barChartVue v-else-if="index === 2" :isShow="isShow"></barChartVue>
 					</template>
 				</panelVue>
 			</view>
@@ -29,16 +29,16 @@ import AddPopVue from '../../components/AddPop.vue';
 import { panelinfoStore } from '../../stores/panelinfo';
 import { reactive, ref } from 'vue';
 import { onShow, onHide } from '@dcloudio/uni-app';
-onShow(()=>{
-	isShow.value = true
-})
-onHide(()=>{
-	isShow.value = false
-})
+onShow(() => {
+	isShow.value = true;
+});
+onHide(() => {
+	isShow.value = false;
+});
 
 const { panelList } = panelinfoStore();
 
-const isShow = ref(false)
+const isShow = ref(false);
 
 const chartList = reactive([
 	{
@@ -77,7 +77,7 @@ const chartList = reactive([
 		flex-direction: column;
 		align-items: center;
 		justify-content: start;
-		padding:0  $space 10%;
+		padding: 0 $space 10%;
 		view {
 			width: 100%;
 			margin-top: $space;
@@ -85,7 +85,6 @@ const chartList = reactive([
 	}
 	.tabbar {
 		width: 100%;
-		height: 8%;
 		position: fixed;
 		bottom: 0;
 	}

@@ -6,12 +6,12 @@
 			<text style="font-size: 20rpx; color: #00b6e6">{{ '平均值：' + (total / 7).toFixed(2) }}</text>
 		</view>
 		<view style="position: absolute; right: 20rpx; top: 20rpx" @click="toAnalysis">
-			<RightButton ></RightButton>
+			<RightButton></RightButton>
 		</view>
 		<!-- 首页折线图 -->
 		<view class="chart-shift">
-			<canvas :canvas-id="canvasInfo.id" :class="canvasInfo.className" v-show="!flag"></canvas>
-			<image :src="imgUrl" v-if="imgUrl && flag" style="width: 100%; height: 100%"></image>
+			<canvas :canvas-id="canvasInfo.id" :class="canvasInfo.className" :style="{ left: flag ? '120%' : '0' }"></canvas>
+			<image :src="imgUrl" :style="{ opacity: imgOpt }" class="content"></image>
 		</view>
 	</view>
 </template>
@@ -25,10 +25,20 @@ import { getNowDate } from '../../../utils/get-date.js';
 import { tabBarStore } from '../../../stores/tabbar';
 import router from '../../../utils/router';
 
-onMounted(() => {
-	createWatch();
-	drawCanvas(chartData.value);
-});
+const props = defineProps(['isShow']);
+watch(
+	() => props.isShow,
+	(n) => {
+		if (n) {
+			//页面展示时添加监听
+			createWatch();
+		} else {
+			//页面隐藏时取消监听
+			watcher();
+			clearTimeout(timer)
+		}
+	}
+);
 const instance = getCurrentInstance();
 const store = userInfoStore();
 const tabStore = tabBarStore();
@@ -36,15 +46,15 @@ const tabStore = tabBarStore();
 const canvasInfo = { className: '.indexChart', id: 'indexChart' };
 const imgUrl = ref();
 const flag = ref(false);
-const pupSign = computed(() => tabStore.getPupSign);
+const pupSign = computed(() => tabStore.pupSign);
+const imgOpt = ref(0);
 
 // 截取最后七天数据
 const chartData = computed(() => {
-	const diff = 7 //七天数据
-	const nowIndex = store.getDataList.findIndex(item=>item.date === getNowDate().date)
-	
-	
-	return store.getDataList.slice((nowIndex+1)-diff,nowIndex+1).map((item) => ({
+	const diff = 7; //七天数据
+	const nowIndex = store.getDataList.findIndex((item) => item.date === getNowDate().date);
+
+	return store.getDataList.slice(nowIndex + 1 - diff, nowIndex + 1).map((item) => ({
 		date: item.date,
 		amount: store.getTotal(item.date).expense
 	}));
@@ -54,38 +64,45 @@ const total = computed(() => chartData.value.reduce((acc, { amount }) => acc + a
 
 let watcher = null;
 const createWatch = () => {
+	if(watcher){
+		watcher()
+	}
 	// 监听 chartData 的变化
 	watcher = watch(
-		[chartData, () => tabStore.pupSign],
+		[chartData, pupSign],
 		([newData, newPup], [data, pup]) => {
 			drawCanvas(newData);
 		},
-		{ deep: true }
+		{ deep: true, immediate: true }
 	);
 };
 //将canvas替换为image
+let timer = null;
 const drawCanvas = async (data) => {
+	if(timer!==null){
+		 clearTimeout(timer);
+	}
 	try {
 		const res = await lineChartInit(instance, data, canvasInfo.className, canvasInfo.id);
 		if (res && pupSign.value) {
-			imgUrl.value = ''; // 先清空旧值
-			await nextTick();
-			imgUrl.value = res; // 再设置新值
-			flag.value = true; // 显示图片
+			imgUrl.value = res; // 设置新值
+			imgOpt.value = 1;
+			timer = setTimeout(() => {
+				flag.value = true;
+			}, 50);
 		} else {
 			//其他情况，正常更新并显示canvas
-			flag.value = false; // 隐藏图片
-			imgUrl.value = ''; // 清空图片地址
-			await nextTick();
 			await lineChartInit(instance, data, canvasInfo.className, canvasInfo.id);
+			flag.value = false;
+			imgOpt.value = 0;
 		}
 	} catch (err) {
 		console.log(err);
 	}
 };
-const toAnalysis = ()=>{
-	router.navigateTo({url:'/pages/analysis/index?title=日趋势'})
-}
+const toAnalysis = () => {
+	router.navigateTo({ url: '/pages/analysis/index?title=日趋势' });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -112,10 +129,19 @@ const toAnalysis = ()=>{
 		width: 100%;
 		height: 100%;
 		position: relative;
-		.indexChart {
+		.content {
+			position: absolute;
+			top: 0;
+			left: 0;
 			width: 100%;
 			height: 100%;
+			transition: all 0.1s linear;
+		}
+		.indexChart {
 			position: absolute;
+			top: 0;
+			width: 100%;
+			height: 100%;
 		}
 	}
 }

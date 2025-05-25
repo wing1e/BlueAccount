@@ -1,7 +1,8 @@
 // 云对象教程: https://uniapp.dcloud.net.cn/uniCloud/cloud-obj
 // jsdoc语法提示教程：https://ask.dcloud.net.cn/docs/#//ask.dcloud.net.cn/article/129
 const {
-	getToken
+	getToken,
+	verifyToken
 } = require('wx-token')
 
 // 获取配置
@@ -104,12 +105,36 @@ module.exports = {
 			throw new Error(e.message)
 		}
 	},
+	async updataUser(event) {
+		try {
+			const {
+				userinfo,
+				token
+			} = event
+			const tokenRes = await verifyToken(token)
+			const updataRes = await user.where({
+				openid: tokenRes.openid
+			}).update({
+				...userinfo
+			})
+			
+			const info = await user.where({
+				openid: tokenRes.openid
+			}).field({nickName:true,avatarUrl:true}).get()
+			if (updataRes.errCode === 0) {
+				return {info:info.data[0],token:getToken(tokenRes.openid)}
+			}
+		} catch (error) {
+			throw new Error(error.message)
+		}
+
+	},
 
 	_after: function(error, result) {
 		if (error) {
 			return {
-				errCode: '登录失败',
-				errMsg: error.message
+				errCode: error.message,
+				errMsg: '请求失败'
 			}
 		}
 		return {

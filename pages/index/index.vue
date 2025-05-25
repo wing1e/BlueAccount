@@ -1,7 +1,7 @@
 <template>
 	<view class="index">
 		<view class="head">
-			<indexChartVue v-if="isShow"></indexChartVue>
+			<indexChartVue :isShow="isShow"></indexChartVue>
 		</view>
 		
 		<view class="list" >
@@ -57,7 +57,6 @@ const isShow = ref(false)
 		}
 		.tabbar{
 			width: 100%;
-			height: 8%;
 			position: absolute;
 			bottom: 0;
 		}

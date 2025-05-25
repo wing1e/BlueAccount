@@ -7,15 +7,15 @@
 					<!-- 支出选项 -->
 					<view class="expense" @click="(flagType = 'expense'), reset()">
 						<text :style="{ color: titleStyle('expense').color }">支出</text>
-						<view class="line" v-if="titleStyle('expense').line"></view>
+						<view class="line" v-show="titleStyle('expense').line"></view>
 					</view>
 					<!-- 收入选项 -->
 					<view class="income" @click="(flagType = 'income'), reset()">
 						<text :style="{ color: titleStyle('income').color }">收入</text>
-						<view class="line" v-if="titleStyle('income').line"></view>
+						<view class="line" v-show="titleStyle('income').line"></view>
 					</view>
 					<!-- 取消按钮 -->
-					<text style="position: absolute; right: 0; top: 0; color: black" @click="reset(), close()">取消</text>
+					<text class="cancel-btn" @click="reset(), close()">取消</text>
 				</view>
 				<!-- 金额输入框 -->
 				<view class="input">
@@ -23,10 +23,21 @@
 					<input style="width: 100%; height: 100%" type="digit" v-model.number="form.amount" />
 				</view>
 				<!-- 种类选择 -->
-				<view class="category">
+				<view class="category" v-if="flagType === 'expense'">
 					<view
 						class="category_btn"
-						v-for="(item, index) in flagType === 'expense' ? EXPENSE_TYPE : INCOME_TYPE"
+						v-for="(item, index) in EXPENSE_TYPE"
+						:key="index"
+						@click="form.category = item.category"
+						:style="{ border: categoryStyle(item.category)?.bs, color: categoryStyle(item.category)?.fs }"
+					>
+						<text>{{ item.category }}</text>
+					</view>
+				</view>
+				<view class="category" v-if="flagType === 'income'">
+					<view
+						class="category_btn"
+						v-for="(item, index) in INCOME_TYPE"
 						:key="index"
 						@click="form.category = item.category"
 						:style="{ border: categoryStyle(item.category)?.bs, color: categoryStyle(item.category)?.fs }"
@@ -40,7 +51,7 @@
 					<input type="text" placeholder="点击填写备注" v-model="form.note" />
 				</view>
 				<!-- 保存按钮 -->
-				<button @click="submit" size="default" style="width: 80%; background-color: #00b6e6; color: #fff">保存</button>
+				<button @click="submit" class="btn-submit" size="default">保存</button>
 			</view>
 		</uni-popup>
 	</view>
@@ -72,7 +83,7 @@ const open = () => {
 };
 // 关闭弹窗
 const close = () => {
-	reset()
+	reset();
 	popup.value?.close();
 };
 
@@ -85,7 +96,7 @@ const popChange = (e) => {
 const form = reactive({
 	type: flagType.value,
 	date: '',
-	time:'',
+	time: '',
 	category: '',
 	amount: '',
 	note: ''
@@ -103,7 +114,7 @@ const titleStyle = (type) => {
 // 动态修改种类样式
 const categoryStyle = (category) => {
 	if (category === form.category) {
-		return { bs: '#00B6E6 1rpx solid;', fs: '#00B6E6' };
+		return { bs: '#003498 2rpx solid;', fs: '#003498' };
 	}
 };
 
@@ -141,7 +152,7 @@ const reset = () => {
 		category: '',
 		amount: '',
 		note: '',
-		time:''
+		time: ''
 	};
 	Object.assign(form, originForm);
 };
@@ -176,16 +187,32 @@ const reset = () => {
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
+
 				.line {
 					width: 20%;
 					background-color: #00b6e6;
 					height: 5rpx;
+					animation: showline 0.3s;
+				}
+				@keyframes showline {
+					0% {
+						width: 1%;
+					}
+					100% {
+						width: 20%;
+					}
 				}
 				text {
 					height: 100%;
 					@include flex-center;
 					font-size: $text-size-title;
+					transition: all 0.3s ease;
 				}
+			}
+			.cancel-btn {
+				position: absolute;
+				right: 0;
+				top: 0;
 			}
 		}
 		.input {
@@ -199,24 +226,44 @@ const reset = () => {
 		}
 		.category {
 			width: 100%;
-			display: flex;
-			flex-wrap: wrap;
-			align-items: center;
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: 60rpx;
+			grid-gap: 20rpx;
 			margin-bottom: auto;
+			opacity: 1;
+			animation: change 1s;
+			@keyframes change {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
 			.category_btn {
-				width: 20%;
-				height: 60rpx;
-				@include flex-center;
-				margin-right: auto;
+				height: 100%;
+				width: 100%;
 				margin-top: 20rpx;
+				@include flex-center;
 				border-radius: 20rpx;
 				border: #e5e9ea 1rpx solid;
+				transition: all 0.3s ease;
 			}
 		}
 		.notes {
 			width: 100%;
 			margin-bottom: 50rpx;
 			border-bottom: 2rpx solid #8b97a9;
+		}
+		.btn-submit {
+			width: 80%;
+			background-color: #003498;
+			color: #fff;
+			transition: all 0.3s ease;
+			&:active {
+				transform: scale(0.98);
+			}
 		}
 	}
 }
