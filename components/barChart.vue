@@ -33,7 +33,7 @@ const instance = getCurrentInstance();
 
 const canvasInfo = { className: '.barChart', id: 'barChart' };
 const imgUrl = ref();
-const pupSign = computed(() => tabStore.getPupSign);
+const pupSign = computed(() => tabStore.pupSign);
 const flag = ref(false);
 const imgOpt = ref(0);
 
@@ -68,7 +68,6 @@ const drawChart = async (data) => {
 			}, 50);
 		} else {
 			//其他情况，正常更新并显示canvas
-			const res = await barChartInit(instance, data, canvasInfo.className, canvasInfo.id);
 			flag.value = false;
 			imgOpt.value = 0;
 		}

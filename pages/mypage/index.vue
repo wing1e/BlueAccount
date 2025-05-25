@@ -9,7 +9,7 @@
 
 				<view class="user-detail">
 					<text class="nickname" v-if="store.datalist.length === 0" @click="getUserInfo">{{ store.basicInfo.nickname }}</text>
-					<input type="nickname" v-if="store.datalist.length > 0" class="nickname" :value="store.basicInfo.nickname" @confirm="updataNickName" />
+					<input type="nickname" v-if="store.datalist.length > 0" class="nickname" :value="store.basicInfo.nickname" @blur="updataNickName" />
 				</view>
 			</view>
 		</view>
@@ -82,10 +82,6 @@ import AddPopVue from '../../components/AddPop.vue';
 import RightButtonVue from '../../components/RightButton.vue';
 import { getNowDate } from '../../utils/get-date';
 import router from '../../utils/router';
-onMounted(() => {
-	console.log(store.datalist);
-});
-
 const store = userInfoStore();
 
 const total = computed(() => {
@@ -211,15 +207,13 @@ const updataAvatar = async (e) => {
 		const avatar = e.detail.avatarUrl;
 		const baseUrl = 'https://env-00jxtfjq2ym4.normal.cloudstatic.cn/'
 		const { _id } = uni.getStorageSync('userinfo');
-		const path = `avatarImage/${_id}/avatar.jpg`
-		const loadFilRes = await uniCloud.uploadFile({
+		const path = `avatarImage/${_id}/avatar${getNowDate().timeStamp}.jpg`
+		await uniCloud.uploadFile({
 			filePath: avatar,
 			cloudPath: path,
 			cloudPathAsRealPath: true
 		});
-		
 		const avatarUrl = baseUrl+path
-		
 		const res = await store.updataUser({ avatarUrl: avatarUrl });
 		if (res.errCode === 0) {
 			uni.showToast({

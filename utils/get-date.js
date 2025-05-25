@@ -1,5 +1,7 @@
 export const getNowDate = () =>{
 	let date = new Date(); 
+
+	let timeStamp = date.getTime()
 	
 	let year = date.getFullYear(); // 获取年份
 	
@@ -16,7 +18,7 @@ export const getNowDate = () =>{
 	
 	const time = [hours,minutes,seconds].join(':')
 
-	return {year:year,month:month,day:day,date:ymdDate,time:time}
+	return {year:year,month:month,day:day,date:ymdDate,time:time,timeStamp}
 }
 
 export const getWeek = (targetDate) =>{

@@ -35,7 +35,7 @@ const canvasInfo = { className: '.pieChart', id: 'pieChart' };
 const imgUrl = ref();
 const imgOpt = ref(0);
 
-const pupSign = computed(() => tabStore.getPupSign);
+const pupSign = computed(() => tabStore.pupSign);
 
 const flag = ref(false); //是否显示图片/隐藏canvas
 const chartData = computed(() => {
@@ -59,7 +59,6 @@ const drawChart = async (data) => {
 			}, 50);
 		} else {
 			//其他情况，正常更新并显示canvas
-			await pieCharInit(instance, data, canvasInfo.className, canvasInfo.id);
 			flag.value = false;
 			imgOpt.value = 0;
 		}
