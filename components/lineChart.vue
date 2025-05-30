@@ -42,10 +42,11 @@ const imgOpt = ref(0);
 const chartData = computed(() => {
 	const typeVal = panelstore.panelList[1].type === 0 ? 'expense' : 'income';
 	const partData = userstore.getPartData(panelstore.panelList[1].date);
-	return partData.map((item) => ({
+	const result = partData.map((item) => ({
 		date: item.date,
 		amount: userstore.getTotal(item.date)[typeVal]
 	}));
+	return result
 });
 let timer = null;
 const drawChart = async (data) => {

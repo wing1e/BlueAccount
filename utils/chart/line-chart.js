@@ -19,13 +19,15 @@ export const lineChartInit = async (
 	try {
 		// 获取画布尺寸
 		const canvasNode = await getNodeInfo(instance, className);
-		const {
+		let {
 			width: ctxW,
 			height: ctxH
 		} = canvasNode[0];
+		ctxH = Math.round(ctxH)
+		ctxW = Math.round(ctxW)
 		// 创建绘图上下文
 		const ctx = uni.createCanvasContext(canvasId, instance);
-		
+		const dpr = uni.getSystemInfoSync().pixelRatio
 		// 计算绘图区域
 		const drawArea = {
 			top: AXIS_MARGIN.top,

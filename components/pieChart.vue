@@ -41,7 +41,8 @@ const flag = ref(false); //是否显示图片/隐藏canvas
 const chartData = computed(() => {
 	const typeVal = panelinfo.panelList[0].type === 0 ? 'expense' : 'income';
 	const pickDate = panelinfo.panelList[0].date;
-	return userstore.getCategoryInfo(pickDate)[typeVal];
+	const result = userstore.getCategoryInfo(pickDate)[typeVal];
+	return result
 });
 let timer = null;
 const drawChart = async (data) => {
@@ -78,9 +79,6 @@ const initWatchers = () => {
 		},
 		{ deep: true, immediate: true }
 	);
-};
-const cancelWatch = () => {
-	watcher();
 };
 </script>
 

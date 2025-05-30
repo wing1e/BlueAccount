@@ -36,9 +36,10 @@ import { userInfoStore } from '../../stores/userinfo';
 import { panelinfoStore } from '../../stores/panelinfo';
 import { calcPercentage } from '../../utils/calc.js';
 import { timeChain } from '../../utils/time-chain';
+import { storeToRefs } from 'pinia';
 
 const title = ref();
-const type = ref('expense');
+
 
 onLoad((options) => {
 	title.value = options.title;
@@ -57,6 +58,7 @@ onHide(() => {
 const { getTotal } = userInfoStore();
 const panelinfo = panelinfoStore();
 const isShow = ref(false);
+const type = computed(()=>panelinfo.getPanelInfo(title.value).type===0?'expense':'income')
 const data = computed(() => {
 	if (title.value) {
 		const { date, range, allowRange } = panelinfo.getPanelInfo(title.value);

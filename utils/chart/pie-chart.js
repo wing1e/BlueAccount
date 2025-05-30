@@ -12,7 +12,9 @@ const LABEL_CONFIG = {
 export const pieCharInit = async (instance, chartData, className, canvasId) => {
   try {
     const canvasNode = await getNodeInfo(instance, className);
-    const { height: ctxH, width: ctxW } = canvasNode[0];
+    let { height: ctxH, width: ctxW } = canvasNode[0];
+		ctxH = Math.round(ctxH)
+		ctxW = Math.round(ctxW)
     const ctx = uni.createCanvasContext(canvasId, instance);
 
     const centerX = ctxW / 2; //圆心X坐标

@@ -6,11 +6,11 @@
 				<text class="date">{{ formatDate(item.date) }}</text>
 				<view class="info">
 					<text>{{ item.percent[flag] + '%' }}</text>
-					<text>{{ ' &nbsp; · &nbsp; ' + item.count + '笔' }}</text>
+					<text>{{ ' &nbsp; · &nbsp; ' + item[flag].count + '笔' }}</text>
 				</view>
 			</view>
 			<text class="total" :style="{ color: flag === 'expense' ? '#000' : '#00B26A' }">
-				{{ item[flag] }}
+				{{ item[flag].amount }}
 			</text>
 		</view>
 	</view>
@@ -33,25 +33,35 @@ const data = computed(() => {
 		const date = item.date;
 		const others = item.records.reduce(
 			(acc, record) => {
-				record.type === 'expense' ? (acc.expense =(acc.expense*10+ record.amount*10)/10) : (acc.income =(acc.income*10+ record.amount*10)/10);
-				acc.count++;
+				acc[record.type].amount = (acc[record.type].amount * 10 + record.amount * 10) / 10;
+				acc[record.type].count++;
 				return acc;
 			},
-			{ expense: 0, income: 0, count: 0 }
+			{ expense: { amount: 0, count: 0 }, income: { amount: 0, count: 0 } }
 		);
 		const total = userinfo.getTotal(listDate);
-		return { date: date, ...others, percent: { expense: ((others.expense / total.expense) * 100).toFixed(2), income: ((others.income / total.income) * 100).toFixed(2) } };
+		return {
+			date: date,
+			...others,
+			percent: { expense: getPercent(total.expense, others.expense.amount), income: getPercent(total.expense, others.income.amount) }
+		};
 	});
-
-	return originData.filter((item) => item.count > 0);
+	return originData;
 });
+
+const getPercent = (total, cur) => {
+	if (total === 0) {
+		return 0;
+	}
+	return ((cur / total) * 100).toFixed(2);
+};
 </script>
 
 <style lang="scss" scoped>
 .list {
 	width: 100%;
 	box-sizing: border-box;
-	padding:5rpx $space 0;
+	padding: 5rpx $space 0;
 	.list-item {
 		background-color: #fff;
 		filter: $shadow;

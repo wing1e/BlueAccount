@@ -14,11 +14,12 @@ export const barChartInit = async (instance, chartData, className, canvasId) => 
 		// 获取画布尺寸
 		const canvasNode = await getNodeInfo(instance, className)
 
-		const {
+		let {
 			width: ctxW,
 			height: ctxH
 		} = canvasNode[0]
-
+		ctxH = Math.round(ctxH)
+		ctxW = Math.round(ctxW)
 		// 创建绘图上下文
 		const ctx = uni.createCanvasContext(canvasId, instance)
 
@@ -34,8 +35,8 @@ export const barChartInit = async (instance, chartData, className, canvasId) => 
 		// 绘制底部标签
 		drawBottomLabels(ctx, ctxW, drawArea.bottom, chartData)
 		ctx.save()
-		ctx.moveTo(AXIS_MARGIN.left,ctxH-AXIS_MARGIN.bottom)
-		ctx.lineTo(ctxW,ctxH-AXIS_MARGIN.bottom)
+		ctx.moveTo(AXIS_MARGIN.left, ctxH - AXIS_MARGIN.bottom)
+		ctx.lineTo(ctxW, ctxH - AXIS_MARGIN.bottom)
 		ctx.strokeStyle = CHART_STYLES.line.color;
 		ctx.lineWidth = CHART_STYLES.line.lineWidth;
 		ctx.stroke()
@@ -45,7 +46,6 @@ export const barChartInit = async (instance, chartData, className, canvasId) => 
 			drawBar(ctx, ctxW, chartData, drawArea)
 			// 绘制网格系统
 			drawGridLines(ctx, ctxW, drawArea, chartData)
-			
 
 		}
 
@@ -60,7 +60,7 @@ export const barChartInit = async (instance, chartData, className, canvasId) => 
 
 /* 绘制底部日期标签 */
 const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
-	const labelSpace = (canvasWidth-AXIS_MARGIN.left) / 25 // 间距
+	const labelSpace = (canvasWidth - AXIS_MARGIN.left) / 25 // 间距
 
 	ctx.save()
 	ctx.setFontSize(CHART_STYLES.label.fontSize)
@@ -76,7 +76,7 @@ const drawBottomLabels = (ctx, canvasWidth, bottomY, data) => {
 }
 // 绘制柱状图
 const drawBar = (ctx, ctxW, chartData, drawArea) => {
-	const BarSpace = (ctxW-AXIS_MARGIN.left) / 25;
+	const BarSpace = (ctxW - AXIS_MARGIN.left) / 25;
 
 	const MaxValue = Math.max(...chartData.map(item => item.amount))
 

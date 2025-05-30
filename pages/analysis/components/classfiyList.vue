@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { EXPENSE_TYPE, INCOME_TYPE } from '../../../utils/constants.js';
 import { userInfoStore } from '../../../stores/userinfo.js';
 import { panelinfoStore } from '../../../stores/panelinfo.js';
@@ -53,6 +53,7 @@ const getColor = (val) => {
 	width: 100%;
 	box-sizing: border-box;
 	padding: 5rpx $space 0;
+	transition: all 1s ease; 
 	.list-item {
 		background-color: #fff;
 		filter: $shadow;
