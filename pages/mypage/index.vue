@@ -8,8 +8,8 @@
 				</view>
 
 				<view class="user-detail">
-					<text class="nickname" v-if="store.datalist.length === 0" @click="getUserInfo">{{ store.basicInfo.nickname }}</text>
-					<input type="nickname" v-if="store.datalist.length > 0" class="nickname" :value="store.basicInfo.nickname" @blur="updataNickName" />
+					<text class="nickname" v-if="store.basicInfo.avatar === ''" @click="getUserInfo">点击登录</text>
+					<input type="nickname" v-else class="nickname" v-model="tempNickName" @blur="updataNickName" />
 				</view>
 			</view>
 		</view>
@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive } from 'vue';
+import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue';
 import { userInfoStore } from '../../stores/userinfo';
 import tabbarVue from '../../components/Tabbar.vue';
 import AddPopVue from '../../components/AddPop.vue';
@@ -83,12 +83,13 @@ import RightButtonVue from '../../components/RightButton.vue';
 import { getNowDate } from '../../utils/get-date';
 import router from '../../utils/router';
 const store = userInfoStore();
-
+const tempNickName = ref('');
 const total = computed(() => {
 	const { year, month } = getNowDate();
 	const date = [year, month].join('-');
 	return store.getTotal(date);
 });
+console.log(total.value);
 const budget = computed(() => {
 	const budget_categories = store.basicInfo.budget_categories || [];
 	const budget_total = store.basicInfo.budget_total;
@@ -178,15 +179,35 @@ const getUserInfo = () => {
 	} catch (err) {
 		uni.showToast({
 			icon: 'none',
-			title: '登录失败'
+			title: '登录失败',
+			duration: 1000
 		});
 		throw new Error(err);
 	}
 };
-
+watch(
+	() => store.basicInfo.nickname,
+	(newVal) => {
+		tempNickName.value = newVal;
+	},
+	{ immediate: true }
+);
+// 更新昵称
 const updataNickName = async (e) => {
+	const newNmae = e.detail.value;
+	// 输入昵称未空
+	if (newNmae === '') {
+		tempNickName.value = store.basicInfo.nickname;
+		uni.showToast({
+			title: '请输入您的昵称',
+			duration: 1000
+		});
+		return;
+	}
+	// 昵称未修改
+	if (newNmae === store.basicInfo.nickname) return;
+
 	try {
-		const newNmae = e.detail.value;
 		const res = await store.updataUser({ nickName: newNmae });
 		if (res.errCode === 0) {
 			uni.showToast({
@@ -195,25 +216,23 @@ const updataNickName = async (e) => {
 			});
 		}
 	} catch (error) {
-		uni.showToast({
-			icon: 'none',
-			title: '修改失败'
-		});
 		throw new Error(error);
 	}
 };
+
+// 更新头像
 const updataAvatar = async (e) => {
 	try {
 		const avatar = e.detail.avatarUrl;
-		const baseUrl = 'https://env-00jxtfjq2ym4.normal.cloudstatic.cn/'
+		const baseUrl = 'https://env-00jxtfjq2ym4.normal.cloudstatic.cn/';
 		const { _id } = uni.getStorageSync('userinfo');
-		const path = `avatarImage/${_id}/avatar${getNowDate().timeStamp}.jpg`
+		const path = `avatarImage/${_id}/avatar${getNowDate().timeStamp}.jpg`;
 		await uniCloud.uploadFile({
 			filePath: avatar,
 			cloudPath: path,
 			cloudPathAsRealPath: true
 		});
-		const avatarUrl = baseUrl+path
+		const avatarUrl = baseUrl + path;
 		const res = await store.updataUser({ avatarUrl: avatarUrl });
 		if (res.errCode === 0) {
 			uni.showToast({

@@ -41,7 +41,7 @@
 					</view>
 					<view class="form-item">
 						<text class="label">金额</text>
-						<view class="item-input"><input type="number" :value="editInfo.amount" placeholder="请输入金额" @input="bindChange" data-type="amount" /></view>
+						<view class="item-input"><input type="digit" :value="editInfo.amount" placeholder="请输入金额" @input="bindChange" data-type="amount" /></view>
 					</view>
 					<view class="form-item">
 						<text class="label">备注</text>

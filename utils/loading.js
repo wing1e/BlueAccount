@@ -24,7 +24,6 @@ export default function() {
 		invoke(args) {
 			// const baseUrl = "https://env-00jxtfjq2ym4.dev-hz.cloudbasefunction.cn"
 			// args.url = baseUrl+args.url
-			console.log(args.url);
 			showLoading(); // 请求前显示
 		},
 		success(args) {

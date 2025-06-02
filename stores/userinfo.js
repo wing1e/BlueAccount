@@ -28,7 +28,7 @@ export const userInfoStore = defineStore('userInfo', {
 		return {
 			basicInfo: {
 				avatar: '',
-				nickname: '点击登录',
+				nickname: '',
 				budget_total: '',
 				budget_categories: [],
 				categories: []
@@ -74,8 +74,8 @@ export const userInfoStore = defineStore('userInfo', {
 						day.records.forEach(record => {
 							acc.num += 1
 							record.type === 'income' ?
-								acc.income = (acc.income * 10 + record.amount * 10) / 10 :
-								acc.expense = (acc.expense * 10 + record.amount * 10) / 10;
+								acc.income = ((acc.income * 10 + record.amount * 10) / 10).toFixed(2) :
+								acc.expense = ((acc.expense * 10 + record.amount * 10) / 10).toFixed(2);
 						});
 						return acc;
 					}, {
@@ -150,6 +150,10 @@ export const userInfoStore = defineStore('userInfo', {
 		}
 	},
 	actions: {
+		setNickName (value){
+			this.basicInfo.nickname = value
+		},
+		// 登录
 		async login() {
 			try {
 				const [loginRes, {
